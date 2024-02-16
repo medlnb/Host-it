@@ -12,7 +12,7 @@ function PlaceInfo({ info, HandleChangeInputs }: props) {
   return (
     <div style={{ margin: "5rem 0" }}>
       <h1 className="createpost--title">
-        Now, let's give your dome a title Short titles work best.
+        Now, let{"'"}s give your dome a title Short titles work best.
       </h1>
       <div className="placeinfo--container">
         <input

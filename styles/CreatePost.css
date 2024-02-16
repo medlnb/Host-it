@@ -1,0 +1,129 @@
+.Hline {
+  width: 30rem;
+  height: 1px;
+  margin: 0 auto;
+  background: rgb(197, 197, 197);
+}
+.createpost--button {
+  display: block;
+  margin: 1rem auto;
+  background: none;
+  padding: 0.5rem;
+  border: solid black 1px;
+  width: 10rem;
+  border-radius: 0.5rem;
+}
+.createpost--button:hover {
+  background: rgb(218, 218, 218);
+  cursor: pointer;
+}
+
+/* ------------------------------- */
+
+#btn {
+  position: relative;
+  display: block;
+  margin: 1rem auto;
+  width: 250px;
+  height: 75px;
+  border: solid gray 1px;
+  outline: none;
+  /* background: #2b2d42; */
+  background: none;
+  color: black;
+  font-size: 22px;
+  border-radius: 0.5rem;
+  text-align: center;
+  box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  cursor: pointer;
+}
+.checked {
+  width: 75px;
+  height: 75px;
+  border-radius: 40px;
+  box-shadow: 0 0 12px -2px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 0;
+  right: -40px;
+  opacity: 0;
+  background: rgb(35, 35, 255);
+}
+.checked svg {
+  width: 40px;
+  margin: 20px;
+}
+.checked path {
+  stroke-width: 3;
+  stroke: #fff;
+  stroke-dasharray: 34;
+  stroke-dashoffset: 34;
+  stroke-linecap: round;
+}
+.active {
+  background: blue;
+  transition: 1s;
+}
+.active p {
+  transition: 1s;
+  margin-right: 100px;
+}
+.active .checked {
+  opacity: 1;
+  transition: 1s;
+  right: 0;
+}
+.active .checked path {
+  transition: 1s;
+  transition-delay: 1s;
+  stroke-dashoffset: 0;
+}
+.createpost--maps {
+  height: 25rem;
+  width: 30rem;
+  margin: 1rem auto 2rem auto;
+  border-radius: 0.7rem;
+  overflow: hidden;
+  position: relative;
+}
+.combox--input {
+  display: block;
+  width: 30rem;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  border: solid black 1px;
+  border-radius: 0.5rem;
+}
+
+.map-navig {
+  position: absolute;
+  font-size: 2rem;
+}
+.map-navig:hover {
+  color: blue;
+  cursor: pointer;
+}
+#top {
+  top: 0.5rem;
+  right: 50%;
+  transform: translate(50%, 0);
+}
+#bottom {
+  bottom: 0.5rem;
+  right: 50%;
+  transform: translate(50%, 0);
+}
+#left {
+  top: 50%;
+  left: 0.5rem;
+  transform: translate(0, -50%);
+}
+#right {
+  top: 50%;
+  right: 0.5rem;
+  transform: translate(0, -50%);
+}
+.select-wilaya {
+  margin: 1rem auto;
+  width: 30rem;
+}

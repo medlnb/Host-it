@@ -1,0 +1,78 @@
+.topbar--container {
+  width: 100%;
+  background: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 4rem;
+}
+
+.topbar--container nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+.usernav {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  gap: 0.4rem;
+  border: solid 1px black;
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+.DroppedNav {
+  position: absolute;
+  box-shadow: 0px 0px 5px rgb(84, 84, 84);
+  border-radius: 0.5rem;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 0.4rem 0;
+  z-index: 1;
+}
+.DroppedNav * {
+  padding: 0.4rem 0.8rem;
+}
+.DroppedNav *:hover {
+  background: rgb(246, 246, 246);
+}
+.Hline {
+  width: 100%;
+  height: 1px;
+  padding: 0;
+  margin: 0.2rem 0;
+  background: rgb(144, 144, 144);
+}
+.underline-expand {
+  position: relative;
+}
+.underline-expand::after {
+  content: "";
+  height: 1px;
+  width: 0;
+  background: black;
+  position: absolute;
+  bottom: -0.2rem;
+  left: 0;
+  transition: width 0.2s ease;
+}
+.underline-expand:hover::after {
+  width: 100%;
+}
+.user--pic {
+  width: 2rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}

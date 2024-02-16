@@ -1,0 +1,27 @@
+.types--container {
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  width: 35rem;
+  max-width: 95%;
+}
+.createpost--title {
+  text-align: center;
+  font-weight: 500;
+}
+.type--container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 1.5rem;
+  border: solid 1px rgb(164, 164, 164);
+  border-radius: 0.5rem;
+}
+.type--container:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+.selectedtype {
+  border: solid 1px black;
+}

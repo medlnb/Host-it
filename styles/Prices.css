@@ -1,0 +1,31 @@
+.price--inputs--container {
+  display: flex;
+  align-items: center;
+  width: 15rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: solid black 1px;
+}
+.price--inputs--container input {
+  width: 100%;
+  border: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.price--inputs--container p {
+  white-space: nowrap;
+}
+.price--inputs--container input:focus {
+  outline: none;
+}
+
+.prices--container {
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -1,0 +1,26 @@
+.searchbar--container {
+  margin: 0 auto;
+  max-width: 80%;
+  width: 40rem;
+  border: 1px solid black;
+  border-radius: 1.5rem;
+  padding: 0.8rem 1.3rem;
+  position: relative;
+}
+.searchbar--container input {
+  background: none;
+  border: none;
+}
+.searchbar--container input:focus {
+  outline: none;
+}
+.search--icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.search--icon:hover {
+  transform: translateY(-50%) scale(1.2);
+}

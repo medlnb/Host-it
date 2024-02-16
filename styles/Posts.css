@@ -1,0 +1,123 @@
+.hp--container {
+  padding: 1rem 2rem;
+}
+.Posts--container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.post--container {
+  position: relative;
+}
+.fav--icon {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+.jumping--icon {
+  animation: jump 0.3s infinite alternate;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateX(0);
+  }
+  33% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(5px);
+  }
+}
+.post--picture {
+  height: 15rem;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+.post--location {
+  white-space: nowrap;
+  overflow-x: hidden;
+  color: gray;
+  padding: 0 1rem 0 0;
+}
+
+/* --------------------------------------------------------------- */
+
+.top--bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  margin-top: 2rem;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+.filter-bar {
+  display: flex;
+  overflow-x: auto;
+  align-items: center;
+  gap: 8px;
+  padding: 0.4rem 0;
+  border-radius: 0.5rem;
+}
+
+.filter-bar::-webkit-scrollbar {
+  height: 5px;
+}
+
+.filter-bar::-webkit-scrollbar-track {
+  background: rgb(214, 214, 214);
+  border-radius: 20px;
+}
+
+.filter-bar::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 20px;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 1.1rem;
+  color: gray;
+  cursor: pointer;
+  position: relative;
+}
+.filter-item:hover {
+  color: black;
+}
+
+.filter-active {
+  color: black;
+}
+
+.filter-item::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: black;
+  margin-top: -0.3rem;
+  transition: 0.3s;
+}
+.filter-active::after {
+  width: 20%;
+}
+.filter-button {
+  background: none;
+  border: 1px solid black;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.filter-button:hover {
+  background-color: #f0f0f0;
+}
+@media (max-width: 970px) {
+  .Posts--container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

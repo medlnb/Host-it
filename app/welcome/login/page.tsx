@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import "@styles/Login.css";
 import Link from "next/link";
 
-function page() {
+function Page() {
   const [providers, setProviders] = useState<any>(null);
   const [inputs, setInputs] = useState({
     email: "",
@@ -72,4 +72,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

@@ -6,10 +6,10 @@ import {
   Pin,
 } from "@vis.gl/react-google-maps";
 import "@styles/CreatePost.css";
-import { useLoadScript } from "@react-google-maps/api";
+// import { useLoadScript } from "@react-google-maps/api";
 import AlgerianCities from "@public/AlgerianCities.json";
 import Select from "react-select";
-import { useState } from "react";
+// import { useState } from "react";
 
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
@@ -18,17 +18,17 @@ import { FaArrowAltCircleUp } from "react-icons/fa";
 
 import { BsFillHouseDownFill } from "react-icons/bs";
 
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
+// import usePlacesAutocomplete, {
+//   getGeocode,
+//   getLatLng,
+// } from "use-places-autocomplete";
+// import {
+//   Combobox,
+//   ComboboxInput,
+//   ComboboxPopover,
+//   ComboboxList,
+//   ComboboxOption,
+// } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
 interface City {

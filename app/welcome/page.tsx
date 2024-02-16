@@ -5,7 +5,7 @@ import "@styles/Login.css";
 import Link from "next/link";
 import { getProviders, signIn } from "next-auth/react";
 
-function page() {
+function Page() {
   const [providers, setProviders] = useState<any>(null);
   const [inputs, setInputs] = useState({
     email: "",
@@ -76,4 +76,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

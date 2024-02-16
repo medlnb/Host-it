@@ -1,6 +1,6 @@
 "use client";
 import "@styles/Posts.css";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import SearchBar from "./SearchBar";
 import Table from "./Table";
 import { BsFillBriefcaseFill } from "react-icons/bs";
@@ -86,7 +86,9 @@ function Posts({
 
   return (
     <>
-      <SearchBar />
+      <Suspense>
+        <SearchBar />
+      </Suspense>
       <div
         className="Hline"
         style={{ marginTop: "1rem", background: "#e0e0e0" }}

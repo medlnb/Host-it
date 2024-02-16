@@ -1,5 +1,5 @@
 import Provider from "@/components/Provider";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import "@styles/index.css";
 import Nav from "@components/Nav";
 
@@ -15,7 +15,7 @@ function Rootlayout({ children }: { children: ReactNode }) {
         <Provider>
           <main className="app">
             <Nav />
-            {children}
+            <Suspense>{children}</Suspense>
           </main>
         </Provider>
       </body>

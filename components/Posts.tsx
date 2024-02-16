@@ -1,6 +1,7 @@
 "use client";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import "@styles/Posts.css";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import SearchBar from "./SearchBar";
 import Table from "./Table";
 import { BsFillBriefcaseFill } from "react-icons/bs";
@@ -20,13 +21,7 @@ import {
 } from "react-icons/md";
 import { PiGarageFill } from "react-icons/pi";
 
-const Filter = ({
-  selectedFilters,
-  setSelectedFilters,
-}: {
-  selectedFilters: string[];
-  setSelectedFilters: any;
-}) => {
+const Filter = () => {
   const types = [
     { title: "Villa", icon: <MdVilla size={20} /> },
     { title: "Apartment", icon: <MdApartment size={20} /> },
@@ -41,15 +36,21 @@ const Filter = ({
     { title: "Hotel", icon: <FaHotel size={20} /> },
     { title: "Motel", icon: <FaBed size={20} /> },
   ];
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  const defaultValue = searchParams.get("filter")?.toString();
 
   const toggleFilter = (title: string) => {
-    if (selectedFilters.includes(title)) {
-      setSelectedFilters((prev: string[]) =>
-        prev.filter((filter: string) => filter !== title)
-      );
+    // setSelectedFilters(title);
+    const params = new URLSearchParams(searchParams);
+    if (title) {
+      params.set("filter", title);
     } else {
-      setSelectedFilters((prev: string[]) => [...prev, title]);
+      params.delete("filter");
     }
+    replace(`${pathname}?${params.toString()}`);
   };
   return (
     <div className="top--bar">
@@ -58,7 +59,7 @@ const Filter = ({
           <div
             key={type.title}
             className={`filter-item ${
-              selectedFilters.includes(type.title) ? "filter-active" : ""
+              defaultValue === type.title ? "filter-active" : ""
             }`}
             onClick={() => toggleFilter(type.title)}
           >
@@ -75,15 +76,15 @@ function Posts({
   searchParams,
 }: {
   searchParams?: {
+    filter?: string;
     query?: string;
     page?: string;
   };
 }) {
+  const filter = searchParams?.filter || "";
   const query = searchParams?.query || "";
+  // const query = selectedFilters.join("&") || "";
   const currentPage = Number(searchParams?.page) || 1;
-
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
-
   return (
     <>
       <Suspense>
@@ -94,11 +95,10 @@ function Posts({
         style={{ marginTop: "1rem", background: "#e0e0e0" }}
       />
       <div className="hp--container">
-        <Filter
-          selectedFilters={selectedFilters}
-          setSelectedFilters={setSelectedFilters}
-        />
-        <Table query={query} currentPage={currentPage} />
+        <Suspense>
+          <Filter />
+        </Suspense>
+        <Table query={query} filter={filter} currentPage={currentPage} />
       </div>
     </>
   );

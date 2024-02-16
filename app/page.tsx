@@ -6,9 +6,17 @@ import { useSearchParams } from "next/navigation";
 function App() {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
+
   return (
     <div className="homepage--container">
-      {<Posts searchParams={{ query: params.get("query") ?? undefined }} />}
+      {
+        <Posts
+          searchParams={{
+            filter: params.get("filter") ?? undefined,
+            query: params.get("query") ?? undefined,
+          }}
+        />
+      }
     </div>
   );
 }

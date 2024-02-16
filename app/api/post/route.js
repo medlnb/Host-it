@@ -5,12 +5,12 @@ export const POST = async (req) => {
   try {
     await connectToDatabase();
 
-    const { type } = await req.json();
+    const { filter, query } = await req.json();
     let Posts = null;
-    if (type === "") Posts = await Post.find();
+    if (filter === "") Posts = await Post.find();
     else
       Posts = await Post.find({
-        $text: { $search: type, $caseSensitive: false },
+        $text: { $search: filter, $caseSensitive: false },
       });
 
     // dsanldnsd asd sad sa da

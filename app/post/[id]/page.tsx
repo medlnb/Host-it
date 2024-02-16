@@ -11,7 +11,12 @@ interface Post {
   title: string;
   type: string;
   price: { perday: number; permonth: number };
-  location: string;
+  location: {
+    city: String;
+    state: String;
+    lat: String;
+    lng: String;
+  };
   resevedDates: { date: string; Duration: number; reservedBy: string }[];
   reseveRequests: { date: string; Duration: number; reservedBy: string }[];
   description?: string;
@@ -33,7 +38,7 @@ function Page() {
     poster: { name: string; email: string; createdAt: Date; image?: string };
   } | null>(null);
   useEffect(() => {
-    fetch(`http://localhost:3000/api/post/${id}`) //change the URL later !important
+    fetch(`/api/post/${id}`)
       .then((res) => res.json())
       .then(setData);
   }, [id]);
@@ -61,7 +66,7 @@ function Page() {
           </div>
           <div className="postpage--info">
             <div className="left--info">
-              <h2 style={{ marginTop: "1rem" }}>{data.post.location}</h2>
+              <h2 style={{ marginTop: "1rem" }}>{data.post.location.city}</h2>
               <p className="postpage--status">
                 {Object.entries(data.post.basics).map(([key, value]) => {
                   if (key === "_id") return;

@@ -88,8 +88,10 @@ const Post = ({ data }: { data: Post }) => {
 export default function Table({
   query,
   currentPage,
+  filter,
 }: {
   query: string;
+  filter: string;
   currentPage: number;
 }) {
   const [invoices, setInvoices] = useState<any[] | null>(null);
@@ -100,7 +102,7 @@ export default function Table({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ type: query }),
+        body: JSON.stringify({ query, filter }),
       });
       if (response.ok) {
         const data = await response.json();

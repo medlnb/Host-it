@@ -13,9 +13,6 @@ export const metadata = {
 function Rootlayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvdAJhlVyx2nd1imxk6m5BCza6N_l3T0Y&libraries=places"></script>
-      </head>
       <body>
         <Provider>
           <FloatingWinContextProvider>

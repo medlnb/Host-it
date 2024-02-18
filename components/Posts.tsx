@@ -1,7 +1,7 @@
 "use client";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import "@styles/Posts.css";
-import { Suspense } from "react";
+import { Suspense, useContext, useState } from "react";
 import SearchBar from "./SearchBar";
 import Table from "./Table";
 import { BsFillBriefcaseFill } from "react-icons/bs";
@@ -20,6 +20,8 @@ import {
   MdVilla,
 } from "react-icons/md";
 import { PiGarageFill } from "react-icons/pi";
+import { floatingConext } from "@Context/FloatingWinContext";
+import FilterWindow from "./FilterWindow";
 
 const Filter = () => {
   const types = [
@@ -36,22 +38,64 @@ const Filter = () => {
     { title: "Hotel", icon: <FaHotel size={20} /> },
     { title: "Motel", icon: <FaBed size={20} /> },
   ];
+  const { HandleChangeChildren } = useContext(floatingConext);
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
   const defaultValue = searchParams.get("filter")?.toString();
+  interface props {
+    type?: string;
+    LowPrice?: string;
+    HighPrice?: string;
+    amenties?: string;
+    wilaya?: string;
+    baladia?: string;
+    bedrooms?: string;
+    bathrooms?: string;
+    beds?: string;
+  }
+  const HandleFilterChange = (qurries: props) => {
+    const inputs: (
+      | "type"
+      | "LowPrice"
+      | "HighPrice"
+      | "amenties"
+      | "wilaya"
+      | "baladia"
+      | "bedrooms"
+      | "bathrooms"
+      | "beds"
+    )[] = [
+      "type",
+      "LowPrice",
+      "HighPrice",
+      "amenties",
+      "wilaya",
+      "baladia",
+      "bedrooms",
+      "bathrooms",
+      "beds",
+    ];
 
-  const toggleFilter = (title: string) => {
-    // setSelectedFilters(title);
     const params = new URLSearchParams(searchParams);
-    if (title) {
-      params.set("filter", title);
-    } else {
-      params.delete("filter");
+    for (var index = 0; index < inputs.length; index++) {
+      // if (type) {
+      //   params.set("type", type);
+      // } else {
+      //   params.delete("type");
+      // }
+      // replace(`${pathname}?${params.toString()}`);
+      const type = qurries[inputs[index]];
+
+      if (type) params.set(inputs[index], type);
+      // } else {
+      //   params.delete(inputs[index]);
+      // }
+      replace(`${pathname}?${params.toString()}`);
     }
-    replace(`${pathname}?${params.toString()}`);
   };
+  const filterwindow = <FilterWindow HandleFilterChange={HandleFilterChange} />;
   return (
     <div className="top--bar">
       <div className="filter-bar">
@@ -61,13 +105,18 @@ const Filter = () => {
             className={`filter-item ${
               defaultValue === type.title ? "filter-active" : ""
             }`}
-            onClick={() => toggleFilter(type.title)}
+            onClick={() => HandleFilterChange({ type: type.title })}
           >
             {type.icon} {type.title}
           </div>
         ))}
       </div>
-      <button className="filter-button">Filter</button>
+      <button
+        className="filter-button"
+        onClick={() => HandleChangeChildren(filterwindow)}
+      >
+        Filter
+      </button>
     </div>
   );
 };
@@ -76,14 +125,29 @@ function Posts({
   searchParams,
 }: {
   searchParams?: {
-    filter?: string;
+    wilaya?: string;
+    baladia?: string;
+    bedrooms?: string;
+    bathrooms?: string;
+    beds?: string;
+    amenties?: string;
+    HighPrice?: string;
+    LowPrice?: string;
+    type?: string;
     query?: string;
     page?: string;
   };
 }) {
-  const filter = searchParams?.filter || "";
+  const wilaya = searchParams?.wilaya || "";
+  const baladia = searchParams?.baladia || "";
+  const bedrooms = searchParams?.bedrooms || "";
+  const bathrooms = searchParams?.bathrooms || "";
+  const beds = searchParams?.beds || "";
+  const amenties = searchParams?.amenties || "";
+  const HighPrice = searchParams?.HighPrice || "";
+  const LowPrice = searchParams?.LowPrice || "";
+  const type = searchParams?.type || "";
   const query = searchParams?.query || "";
-  // const query = selectedFilters.join("&") || "";
   const currentPage = Number(searchParams?.page) || 1;
   return (
     <>
@@ -98,7 +162,19 @@ function Posts({
         <Suspense>
           <Filter />
         </Suspense>
-        <Table query={query} filter={filter} currentPage={currentPage} />
+        <Table
+          query={query}
+          type={type}
+          wilaya={wilaya}
+          baladia={baladia}
+          bathrooms={bathrooms}
+          bedrooms={bedrooms}
+          beds={beds}
+          amenties={amenties}
+          LowPrice={LowPrice}
+          HighPrice={HighPrice}
+          currentPage={currentPage}
+        />
       </div>
     </>
   );

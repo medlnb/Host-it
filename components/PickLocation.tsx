@@ -18,17 +18,17 @@ import { FaArrowAltCircleUp } from "react-icons/fa";
 
 import { BsFillHouseDownFill } from "react-icons/bs";
 
-// import usePlacesAutocomplete, {
-//   getGeocode,
-//   getLatLng,
-// } from "use-places-autocomplete";
-// import {
-//   Combobox,
-//   ComboboxInput,
-//   ComboboxPopover,
-//   ComboboxList,
-//   ComboboxOption,
-// } from "@reach/combobox";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
 interface City {
@@ -173,7 +173,7 @@ function PickLocation({ address, HandleChangeInputs }: any) {
             <Map
               defaultZoom={8}
               center={address.position}
-              mapId="e3e3e3e3e3e3e3e3"
+              mapId="17c2e4987b812891"
               onZoomChanged={(e) => {
                 HandleChangeInputs((prev: any) => ({
                   ...prev,

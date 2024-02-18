@@ -5,15 +5,53 @@ export const POST = async (req) => {
   try {
     await connectToDatabase();
 
-    const { filter, query } = await req.json();
-    let Posts = null;
-    if (filter === "") Posts = await Post.find();
-    else
-      Posts = await Post.find({
-        $text: { $search: filter, $caseSensitive: false },
-      });
+    const types = [
+      "Villa",
+      "Apartment",
+      "House",
+      "Campervan",
+      "Land",
+      "Office",
+      "Shop",
+      "Garage",
+      "Warehouse",
+      "Studio",
+      "Hotel",
+      "Motel",
+    ];
+    const amentiesdta = [
+      "Wifi",
+      "TV",
+      "Kitchen",
+      "Washer",
+      "Parking",
+      "Air conditioning",
+      "Heater",
+      "Pool",
+      "Elevator",
+    ];
+    const {
+      query,
+      type,
+      wilaya,
+      baladia,
+      bedrooms,
+      bathrooms,
+      beds,
+      amenties,
+      HighPrice,
+      LowPrice,
+    } = await req.json();
+    const serchamenties = amenties.split(",") || amentiesdta;
+    const searchquerry = query || "";
+    const searchfilter = type || types;
 
-    // dsanldnsd asd sad sa da
+    const Posts = await Post.find({
+      title: { $regex: searchquerry, $options: "i" },
+    })
+      .where("type")
+      .equals(searchfilter);
+
     return new Response(JSON.stringify(Posts), {
       status: 200,
     });

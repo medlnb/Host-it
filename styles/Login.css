@@ -9,10 +9,9 @@
   gap: 2rem;
   width: 40rem;
   max-width: 95%;
-  border: solid black 2px;
   border-radius: 0.5rem;
-  box-shadow: 0px 0px 5px black;
   padding: 1rem;
+  margin: 0 auto;
 }
 .login--input {
   width: 100%;
@@ -53,7 +52,4 @@
   margin: 0 auto;
   background: rgb(197, 197, 197);
 }
-.Link {
-  color: black;
-  text-decoration: none;
-}
+

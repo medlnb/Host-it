@@ -42,7 +42,6 @@ function Page() {
       .then((res) => res.json())
       .then(setData);
   }, [id]);
-  // console.log(post.reseveRequests);
   let posterDate = null;
   if (data) posterDate = new Date(data.poster.createdAt);
 

@@ -76,6 +76,21 @@
   border-radius: 20px;
 }
 
+.filter--cati {
+  border: solid rgb(144, 144, 144) 1px;
+  margin: 2rem 0;
+  padding: 2rem 1rem;
+  position: relative;
+  border-radius: 0.5rem;
+}
+.filter--cati h1 {
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 1rem;
+  background: white;
+}
 .filter-item {
   display: flex;
   flex-direction: column;
@@ -94,6 +109,20 @@
   color: black;
 }
 
+.price--filter--inputs {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.price--filter--inputs input {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: solid black 1px;
+}
+.price--filter--inputs input:focus {
+  outline: none;
+}
 .filter-item::after {
   content: "";
   position: absolute;
@@ -116,6 +145,68 @@
 .filter-button:hover {
   background-color: #f0f0f0;
 }
+
+.Filter--container {
+  padding: 2rem;
+  max-height: 90lvh;
+  overflow-y: scroll;
+}
+.Filter--container::-webkit-scrollbar {
+  width: 0;
+}
+.amenties--filter {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.amenity--item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  border: solid rgb(190, 190, 190) 1px;
+  cursor: pointer;
+}
+.amenity-active {
+  border: solid black 1px;
+}
+.info--filter {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+}
+.info--item {
+  padding: 0.3rem 1rem;
+  border: solid gray 1px;
+  border-radius: 1rem;
+}
+.info--item:hover {
+  border: solid black 1px;
+  cursor: pointer;
+}
+.info-active {
+  background: black;
+  color: white;
+}
+.filter--submits {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.filter--submits button {
+  border: solid gray 1px;
+  background: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.filter--submits button:hover {
+  border: solid black 1px;
+}
+
 @media (max-width: 970px) {
   .Posts--container {
     grid-template-columns: repeat(2, 1fr);

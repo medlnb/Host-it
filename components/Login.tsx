@@ -1,15 +1,16 @@
 "use client";
 import { FaGoogle } from "react-icons/fa";
-import { useEffect, useState } from "react";
-import "@styles/Login.css";
-import Link from "next/link";
 import { getProviders, signIn } from "next-auth/react";
+import { useContext, useEffect, useState } from "react";
+import "@styles/Login.css";
+import SignUp from "@components/Signup";
+import { floatingConext } from "@Context/FloatingWinContext";
 
 function Page() {
   const [providers, setProviders] = useState<any>(null);
+  const { HandleChangeChildren } = useContext(floatingConext);
   const [inputs, setInputs] = useState({
     email: "",
-    username: "",
     password: "",
   });
   useEffect(() => {
@@ -18,20 +19,18 @@ function Page() {
       setProviders(response);
     })();
   }, []);
+
   const HandleSubmit = async (e: any) => {
     e.preventDefault();
+    const res = await signIn("credentials", {
+      callbackUrl: "/",
+      email: inputs.email,
+      password: inputs.password,
+    });
   };
   return (
     <form className="login--form" onSubmit={HandleSubmit}>
-      <h1 style={{ textAlign: "center" }}>Sign up</h1>
-      <input
-        value={inputs.username}
-        className="login--input"
-        placeholder="Username..."
-        onChange={(e) =>
-          setInputs((prev) => ({ ...prev, username: e.target.value }))
-        }
-      />
+      <h1 style={{ textAlign: "center" }}>Sign in</h1>
       <input
         value={inputs.email}
         className="login--input"
@@ -44,7 +43,6 @@ function Page() {
         value={inputs.password}
         className="login--input"
         placeholder="Password..."
-        type="password"
         onChange={(e) =>
           setInputs((prev) => ({ ...prev, password: e.target.value }))
         }
@@ -53,13 +51,17 @@ function Page() {
         <button style={{ width: "100%" }} className="login--submit">
           Sign in
         </button>
-        <p style={{ padding: ".5rem" }}>
-          Already have an account?{" "}
-          <Link href="/welcome/login" className="Link">
-            {" "}
-            <b>Sign up</b>
-          </Link>
-        </p>
+        <div style={{ padding: ".5rem" }}>
+          doesnt have an account?
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              HandleChangeChildren(<SignUp />);
+            }}
+          >
+            <b> Sign in</b>
+          </span>
+        </div>
       </div>
 
       <div className="Hline" />
@@ -70,7 +72,7 @@ function Page() {
         }`}
       >
         <FaGoogle />
-        <p>Sign up with Google</p>
+        <p>Login In with Google</p>
       </div>
     </form>
   );

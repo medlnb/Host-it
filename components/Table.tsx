@@ -88,10 +88,26 @@ const Post = ({ data }: { data: Post }) => {
 export default function Table({
   query,
   currentPage,
-  filter,
+  type,
+  wilaya,
+  baladia,
+  bedrooms,
+  bathrooms,
+  beds,
+  amenties,
+  HighPrice,
+  LowPrice,
 }: {
+  wilaya?: string;
+  baladia?: string;
+  bedrooms?: string;
+  bathrooms?: string;
+  beds?: string;
+  amenties?: string;
+  HighPrice?: string;
+  LowPrice?: string;
   query: string;
-  filter: string;
+  type: string;
   currentPage: number;
 }) {
   const [invoices, setInvoices] = useState<any[] | null>(null);
@@ -102,7 +118,18 @@ export default function Table({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ query, filter }),
+        body: JSON.stringify({
+          query,
+          type,
+          wilaya,
+          baladia,
+          bedrooms,
+          bathrooms,
+          beds,
+          amenties,
+          HighPrice,
+          LowPrice,
+        }),
       });
       if (response.ok) {
         const data = await response.json();
@@ -110,7 +137,7 @@ export default function Table({
       }
     };
     fetchPosts();
-  }, [query]);
+  }, [query, type]);
   return (
     <div className="Posts--container">
       {invoices ? (

@@ -1,13 +1,15 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import "@styles/nav.css";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { FaRegUser } from "react-icons/fa";
+import { floatingConext } from "@Context/FloatingWinContext";
+import Login from "@components/Login";
 
 function Nav() {
   const { data: session } = useSession();
-  // const [providers, setProviders] = useState<any>(null);
+  const { HandleChangeChildren } = useContext(floatingConext);
   const [ToggleNavbar, setToggleNavbar] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -49,7 +51,13 @@ function Nav() {
             </div>
           </>
         ) : (
-          <p onClick={() => signIn("credentials")} className="usernav">
+          // <p onClick={() => signIn("credentials")} className="usernav">
+          //   Sign up
+          // </p>
+          <p
+            onClick={() => HandleChangeChildren(<Login />)}
+            className="usernav"
+          >
             Sign up
           </p>
         )}

@@ -166,7 +166,7 @@
 
 .Filter--container {
   padding: 2rem;
-  max-height: 90lvh;
+  max-height: 95%;
   overflow-y: scroll;
 }
 .Filter--container::-webkit-scrollbar {

@@ -32,6 +32,6 @@
 }
 @media (max-width: 970px) {
   .floatingwindow--container {
-    height: 90lvh;
+    height: 85lvh;
   }
 }

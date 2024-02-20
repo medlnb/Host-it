@@ -189,7 +189,7 @@ function Posts({
         <SearchBar />
       </Suspense>
       <div
-        className="Hline"
+        className="Hline hideonsmallscreen"
         style={{ marginTop: "1rem", background: "#e0e0e0" }}
       />
       <div className="hp--container">

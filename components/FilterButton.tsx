@@ -45,7 +45,7 @@ function FilterButton() {
       onClick={() => HandleChangeChildren(filterwindow)}
     >
       <MdOutlineSettingsInputComposite />
-      Filter
+      <p>Filter</p>
       {queryParams.length !== 0 && (
         <p className="querries--index">{queryParams.length}</p>
       )}

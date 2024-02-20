@@ -79,6 +79,7 @@ a {
 @media (max-width: 970px) {
   .topbar--container {
     padding: 1rem;
+    font-size: 0.8rem;
   }
 
   .topbar--container nav {

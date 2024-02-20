@@ -26,18 +26,18 @@ import FilterWindow from "./FilterWindow";
 
 const Filter = () => {
   const types = [
-    { title: "Villa", icon: <MdVilla size={20} /> },
-    { title: "Apartment", icon: <MdApartment size={20} /> },
-    { title: "House", icon: <FaHouseChimney size={20} /> },
-    { title: "Campervan", icon: <FaCaravan size={20} /> },
-    { title: "Land", icon: <MdTerrain size={20} /> },
-    { title: "Office", icon: <BsFillBriefcaseFill size={20} /> },
-    { title: "Shop", icon: <FaShop size={20} /> },
-    { title: "Garage", icon: <PiGarageFill size={20} /> },
-    { title: "Warehouse", icon: <FaWarehouse size={20} /> },
-    { title: "Studio", icon: <MdBedroomChild size={20} /> },
-    { title: "Hotel", icon: <FaHotel size={20} /> },
-    { title: "Motel", icon: <FaBed size={20} /> },
+    { title: "Villa", icon: <MdVilla  /> },
+    { title: "Apartment", icon: <MdApartment  /> },
+    { title: "House", icon: <FaHouseChimney  /> },
+    { title: "Campervan", icon: <FaCaravan  /> },
+    { title: "Land", icon: <MdTerrain  /> },
+    { title: "Office", icon: <BsFillBriefcaseFill  /> },
+    { title: "Shop", icon: <FaShop  /> },
+    { title: "Garage", icon: <PiGarageFill  /> },
+    { title: "Warehouse", icon: <FaWarehouse  /> },
+    { title: "Studio", icon: <MdBedroomChild  /> },
+    { title: "Hotel", icon: <FaHotel  /> },
+    { title: "Motel", icon: <FaBed  /> },
   ];
   const { HandleChangeChildren, setToggle } = useContext(floatingConext);
   const searchParams = useSearchParams();
@@ -155,7 +155,7 @@ const Filter = () => {
               else HandleFilterChange({ type: type.title });
             }}
           >
-            {type.icon} {type.title}
+            <div className="ff">{type.icon}</div> {type.title}
           </div>
         ))}
       </div>

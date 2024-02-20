@@ -22,12 +22,10 @@ interface Post {
   description?: string;
   amenities: string[];
   image: string[];
-  basics: {
-    Bedrooms: Number;
-    Bathrooms: Number;
-    Guests: Number;
-    Beds: Number;
-  };
+  Bedrooms: Number;
+  Bathrooms: Number;
+  Guests: Number;
+  Beds: Number;
 }
 
 function Page() {
@@ -67,10 +65,10 @@ function Page() {
             <div className="left--info">
               <h2 style={{ marginTop: "1rem" }}>{data.post.location.city}</h2>
               <p className="postpage--status">
-                {Object.entries(data.post.basics).map(([key, value]) => {
-                  if (key === "_id") return;
-                  return <p key={key}>{`${value} ${key} `}</p>;
-                })}
+                <p>{`${data.post.Bedrooms} Bedrooms `}</p>
+                <p>{`${data.post.Bathrooms} Bathrooms `}</p>
+                <p>{`${data.post.Beds} Beds `}</p>
+                <p>{`${data.post.Guests} Guests `}</p>
               </p>
               <div className="postpage--poster">
                 <img src={data.poster.image} />

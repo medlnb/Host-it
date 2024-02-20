@@ -1,27 +1,32 @@
 "use client";
 import AlgerianCities from "@public/AlgerianCities.json";
-import { useSearchParams } from "next/navigation";
 import Slider from "@mui/material/Slider";
 import Select from "react-select";
 import { useState } from "react";
 
-const FilterWindow = ({ HandleFilterChange }: any) => {
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
-  // amenties: params.get("amenties") ?? undefined,
-  // wilaya: params.get("wilaya") ?? undefined,
-  // baladia: params.get("baladia") ?? undefined,
-  // bedrooms: params.get("bedrooms") ?? undefined,
-  // bathrooms: params.get("bathrooms") ?? undefined,
-  // beds: params.get("beds") ?? undefined,
+interface props {
+  HandleFilterChange: any;
+  LowPrice: string;
+  HighPrice: string;
+  wilaya: string;
+  baladia: string;
+  bedrooms: string;
+  bathrooms: string;
+  beds: string;
+}
+const FilterWindow = ({
+  HandleFilterChange,
+  wilaya,
+  baladia,
+  LowPrice,
+  HighPrice,
+  beds,
+  bedrooms,
+  bathrooms,
+}: any) => {
   function valuetext(value: number) {
     return `${value}DZ`;
   }
-
-  const LowPrice = params.get("LowPrice") ?? 100;
-  const HighPrice = params.get("HighPrice") ?? 10000;
-  // const amenties = params.get("amenties") ?? "";
-  const beds = params.get("beds") ?? "any";
 
   const [value, setValue] = useState<number[]>([
     Number(LowPrice),
@@ -33,11 +38,11 @@ const FilterWindow = ({ HandleFilterChange }: any) => {
   };
 
   const [address, setAddress] = useState({
-    selectedWilaya: { label: "Wilaya", value: "none" },
-    selectedBaladiya: { label: "Baladia", value: "none" },
+    selectedWilaya: wilaya,
+    selectedBaladiya: baladia,
   });
   const wilayaoptions = AlgerianCities.map((city: any) => ({
-    value: `${city[0].name}`,
+    value: `${city[0].wilaya_id}\\ ${city[0].name}`,
     label: `${city[0].wilaya_id}\\ ${city[0].name}`,
   }));
   let Baladiyaoptions: { value: string; label: string }[] = [];
@@ -46,7 +51,7 @@ const FilterWindow = ({ HandleFilterChange }: any) => {
     Baladiyaoptions = AlgerianCities[
       Number(address.selectedWilaya.label.split("\\")[0]) - 1
     ].map((city: any) => ({
-      value: `${city.name}`,
+      value: `${city.wilaya_id}\\ ${city.name}`,
       label: `${city.wilaya_id}\\ ${city.name}`,
     }));
 
@@ -64,9 +69,9 @@ const FilterWindow = ({ HandleFilterChange }: any) => {
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
 
   const [selectedinfo, setSelectedinfo] = useState({
-    beds: "any",
-    bedrooms: "any",
-    bathrooms: "any",
+    beds: beds,
+    bedrooms: bedrooms,
+    bathrooms: bathrooms,
   });
 
   const HandleApply = () => {
@@ -74,8 +79,14 @@ const FilterWindow = ({ HandleFilterChange }: any) => {
       LowPrice: value[0].toString(),
       HighPrice: value[1].toString(),
       amenties: selectedAmenities.join(","),
-      wilaya: address.selectedWilaya.value,
-      baladia: address.selectedBaladiya.value,
+      wilaya:
+        address.selectedWilaya.value === "none"
+          ? null
+          : address.selectedWilaya.value,
+      baladia:
+        address.selectedBaladiya.value === "none"
+          ? null
+          : address.selectedBaladiya.value,
       bedrooms: selectedinfo.bedrooms,
       bathrooms: selectedinfo.bathrooms,
       beds: selectedinfo.beds,
@@ -175,7 +186,7 @@ const FilterWindow = ({ HandleFilterChange }: any) => {
         <div className="info--filters">
           <p>Bedrooms</p>
           <div className="info--filter">
-            {["any", "1", "2", "3", "4", "5", "6", "7+"].map((item) => (
+            {["0", "1", "2", "3", "4", "5", "6", "7"].map((item) => (
               <div
                 key={item}
                 className={`info--item ${
@@ -188,13 +199,13 @@ const FilterWindow = ({ HandleFilterChange }: any) => {
                   }))
                 }
               >
-                {item}
+                {item === "0" ? "any" : item === "7" ? "7+" : item}
               </div>
             ))}
           </div>
           <p>Bathrooms</p>
           <div className="info--filter">
-            {["any", "1", "2", "3", "4", "5", "6", "7+"].map((item) => (
+            {["0", "1", "2", "3", "4", "5", "6", "7"].map((item) => (
               <div
                 key={item}
                 className={`info--item ${
@@ -207,41 +218,30 @@ const FilterWindow = ({ HandleFilterChange }: any) => {
                   }))
                 }
               >
-                {item}
+                {item === "0" ? "any" : item === "7" ? "7+" : item}
               </div>
             ))}
           </div>
           <p>beds</p>
           <div className="info--filter">
-            {[
-              "any",
-              "1",
-              "2",
-              "3",
-              "4",
-              "5",
-              "6",
-              "7",
-              "8",
-              "9",
-              "10",
-              "11+",
-            ].map((item) => (
-              <div
-                key={item}
-                className={`info--item ${
-                  selectedinfo.beds === item ? "info-active" : ""
-                }`}
-                onClick={() =>
-                  setSelectedinfo((prev: any) => ({
-                    ...prev,
-                    beds: item,
-                  }))
-                }
-              >
-                {item}
-              </div>
-            ))}
+            {["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"].map(
+              (item) => (
+                <div
+                  key={item}
+                  className={`info--item ${
+                    selectedinfo.beds === item ? "info-active" : ""
+                  }`}
+                  onClick={() =>
+                    setSelectedinfo((prev: any) => ({
+                      ...prev,
+                      beds: item,
+                    }))
+                  }
+                >
+                  {item === "0" ? "any" : item === "11" ? "11+" : item}
+                </div>
+              )
+            )}
           </div>
         </div>
       </div>

@@ -1,4 +1,3 @@
-import { stat } from "fs";
 import { Schema, model, models } from "mongoose";
 
 const PostSchema = new Schema({
@@ -11,10 +10,10 @@ const PostSchema = new Schema({
     },
     required: true,
   },
+  city: { type: String, required: true },
+  state: { type: String, required: true },
   location: {
     type: {
-      city: String,
-      state: String,
       lat: String,
       lng: String,
     },
@@ -46,17 +45,11 @@ const PostSchema = new Schema({
   description: { type: String },
   amenities: { type: [String] },
   image: { type: [String] },
-  basics: {
-    type: {
-      Bedrooms: Number,
-      Bathrooms: Number,
-      Guests: Number,
-      Beds: Number,
-    },
-  },
+  Bedrooms: { type: Number },
+  Bathrooms: { type: Number },
+  Guests: { type: Number },
+  Beds: { type: Number },
 });
-
-PostSchema.index({ "$**": "text" });
 
 const Post = models.Post || model("Post", PostSchema);
 export default Post;

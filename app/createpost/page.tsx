@@ -34,12 +34,10 @@ function CreatePost() {
       perday: "",
       permonth: "",
     },
-    basics: {
-      Bedrooms: 0,
-      Bathrooms: 0,
-      Guests: 0,
-      Beds: 0,
-    },
+    Bedrooms: 0,
+    Bathrooms: 0,
+    Guests: 0,
+    Beds: 0,
     amenities: [],
     image: [
       "https://media.istockphoto.com/id/1026205392/photo/beautiful-luxury-home-exterior-at-twilight.jpg?s=612x612&w=0&k=20&c=HOCqYY0noIVxnp5uQf1MJJEVpsH_d4WtVQ6-OwVoeDo=",
@@ -48,8 +46,6 @@ function CreatePost() {
 
   const HandlePost = async () => {
     const location = {
-      city: inputs.location.selectedbaladiya.label.split("\\")[1],
-      state: inputs.location.selectedWilaya.label.split("\\")[1],
       lat: inputs.location.position.lat.toString(),
       lng: inputs.location.position.lng.toString(),
     };
@@ -62,6 +58,8 @@ function CreatePost() {
       body: JSON.stringify({
         poster: session?.user.id,
         ...inputs,
+        city: inputs.location.selectedbaladiya.label.split("\\")[1],
+        state: inputs.location.selectedWilaya.label.split("\\")[1],
         location,
         price: {
           perday: Number(inputs.price.perday.replace(" ", "")),
@@ -81,7 +79,13 @@ function CreatePost() {
       <div className="Hline" />
       <PickLocation address={inputs.location} HandleChangeInputs={setInputs} />
       <div className="Hline" />
-      <PlaceDetails basics={inputs.basics} HandleChangeInputs={setInputs} />
+      <PlaceDetails
+        Bedrooms={inputs.Bedrooms}
+        Bathrooms={inputs.Bathrooms}
+        Guests={inputs.Guests}
+        Beds={inputs.Beds}
+        HandleChangeInputs={setInputs}
+      />
       <div className="Hline" />
       <Amenities amenities={inputs.amenities} HandleChangeInputs={setInputs} />
       <div className="Hline" />

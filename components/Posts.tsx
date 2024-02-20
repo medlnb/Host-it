@@ -1,5 +1,6 @@
 "use client";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { MdOutlineSettingsInputComposite } from "react-icons/md";
 import "@styles/Posts.css";
 import { Suspense, useContext, useState } from "react";
 import SearchBar from "./SearchBar";
@@ -38,12 +39,17 @@ const Filter = () => {
     { title: "Hotel", icon: <FaHotel size={20} /> },
     { title: "Motel", icon: <FaBed size={20} /> },
   ];
-  const { HandleChangeChildren } = useContext(floatingConext);
+  const { HandleChangeChildren, setToggle } = useContext(floatingConext);
   const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const defaultValue = searchParams.get("filter")?.toString();
+  const queryParams = Array.from(params.keys()).filter(
+    (key) => key !== "type" && key !== "query" && key !== "baladia"
+  );
+
+  const defaultValue = searchParams.get("type")?.toString();
   interface props {
     type?: string;
     LowPrice?: string;
@@ -77,25 +83,63 @@ const Filter = () => {
       "bathrooms",
       "beds",
     ];
-
-    const params = new URLSearchParams(searchParams);
     for (var index = 0; index < inputs.length; index++) {
-      // if (type) {
-      //   params.set("type", type);
-      // } else {
-      //   params.delete("type");
-      // }
-      // replace(`${pathname}?${params.toString()}`);
       const type = qurries[inputs[index]];
 
       if (type) params.set(inputs[index], type);
-      // } else {
-      //   params.delete(inputs[index]);
-      // }
+      // else params.delete(inputs[index]);
+      if (inputs[index] === "baladia" && !type) params.delete("baladia");
+      if (inputs[index] === "wilaya" && !type) params.delete("wilaya");
+
+      if (inputs[index] === "type" && type === "none") params.delete("type");
+      if (inputs[index] === "beds" && type === "0") params.delete("beds");
+
+      if (inputs[index] === "bedrooms" && type === "0")
+        params.delete("bedrooms");
+
+      if (inputs[index] === "bathrooms" && type === "0")
+        params.delete("bathrooms");
+
+      if (inputs[index] === "HighPrice" && type === "10000")
+        params.delete("HighPrice");
+
+      if (inputs[index] === "LowPrice" && type === "100")
+        params.delete("LowPrice");
+
       replace(`${pathname}?${params.toString()}`);
     }
+
+    setToggle(false);
   };
-  const filterwindow = <FilterWindow HandleFilterChange={HandleFilterChange} />;
+
+  // --------------------------
+  const wilayadata = params.get("wilaya");
+  const wilaya = wilayadata
+    ? { label: wilayadata, value: wilayadata }
+    : { label: "Wilaya", value: "none" };
+  const baladiadata = params.get("baladia");
+  const baladia = baladiadata
+    ? { label: baladiadata, value: baladiadata }
+    : { label: "Baladia", value: "none" };
+
+  const LowPrice = params.get("LowPrice") ?? 100;
+  const HighPrice = params.get("HighPrice") ?? 10000;
+  // const amenties = params.get("amenties") ?? "";
+  const beds = params.get("beds") ?? "0";
+  const bedrooms = params.get("bedrooms") ?? "0";
+  const bathrooms = params.get("bathrooms") ?? "0";
+  const filterwindow = (
+    <FilterWindow
+      HandleFilterChange={HandleFilterChange}
+      wilaya={wilaya}
+      baladia={baladia}
+      LowPrice={LowPrice}
+      HighPrice={HighPrice}
+      beds={beds}
+      bedrooms={bedrooms}
+      bathrooms={bathrooms}
+    />
+  );
   return (
     <div className="top--bar">
       <div className="filter-bar">
@@ -105,7 +149,11 @@ const Filter = () => {
             className={`filter-item ${
               defaultValue === type.title ? "filter-active" : ""
             }`}
-            onClick={() => HandleFilterChange({ type: type.title })}
+            onClick={() => {
+              if (searchParams.get("type")?.toString() === type.title)
+                HandleFilterChange({ type: "none" });
+              else HandleFilterChange({ type: type.title });
+            }}
           >
             {type.icon} {type.title}
           </div>
@@ -115,7 +163,11 @@ const Filter = () => {
         className="filter-button"
         onClick={() => HandleChangeChildren(filterwindow)}
       >
+        <MdOutlineSettingsInputComposite />
         Filter
+        {queryParams.length !== 0 && (
+          <p className="querries--index">{queryParams.length}</p>
+        )}
       </button>
     </div>
   );

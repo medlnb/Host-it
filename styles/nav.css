@@ -76,3 +76,12 @@ a {
   aspect-ratio: 1/1;
   border-radius: 50%;
 }
+@media (max-width: 970px) {
+  .topbar--container {
+    padding: 1.5rem;
+  }
+
+  .topbar--container nav {
+    gap: 0.5rem;
+  }
+}

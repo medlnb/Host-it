@@ -42,15 +42,47 @@ export const POST = async (req) => {
       HighPrice,
       LowPrice,
     } = await req.json();
+    const HighPricedta = HighPrice || 10000;
+    const LowPricedta = LowPrice || 100;
+    const bedroomsdta = bedrooms || 0;
+    const bathroomsdta = bathrooms || 0;
+    const bedsdta = beds || 0;
     const serchamenties = amenties.split(",") || amentiesdta;
     const searchquerry = query || "";
     const searchfilter = type || types;
 
-    const Posts = await Post.find({
+    let querry = Post.find({
       title: { $regex: searchquerry, $options: "i" },
-    })
+    });
+
+    if (wilaya) {
+      console.log(wilaya.split("\\")[1].substring(1));
+      querry = querry.where("state").equals("Biskra");
+    }
+
+    if (baladia) {
+      querry = querry.where("city").equals(baladia.split("\\")[1].substring(1));
+    }
+
+    querry = querry
       .where("type")
-      .equals(searchfilter);
+      .equals(searchfilter)
+      .where("Bedrooms")
+      .gte(bedroomsdta)
+      .where("Bathrooms")
+      .gte(bathroomsdta)
+      .where("Beds")
+      .gte(bedsdta)
+      .where("price.perday")
+      .gte(Number(LowPricedta))
+      .where("price.perday")
+      .lte(Number(HighPricedta));
+
+    if (serchamenties) {
+      querry = querry.where("amenties").in(serchamenties);
+    }
+
+    const Posts = await querry;
 
     return new Response(JSON.stringify(Posts), {
       status: 200,

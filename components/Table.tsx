@@ -11,9 +11,9 @@ interface Post {
   title: string;
   type: string;
   price: { perday: number; permonth: number };
+  city: String;
+  state: String;
   location: {
-    city: String;
-    state: String;
     lat: String;
     lng: String;
   };
@@ -78,7 +78,7 @@ const Post = ({ data }: { data: Post }) => {
 
       <img src={data.image[0]} className="post--picture" />
       <p>{data.title}</p>
-      <p className="post--location">{`${data.location.state} - ${data.location.city}`}</p>
+      <p className="post--location">{`${data.state} - ${data.city}`}</p>
       <p>19 mar - 29mar</p>
       <p>{`${data.price.perday} DZD/per night`}</p>
     </div>
@@ -137,7 +137,19 @@ export default function Table({
       }
     };
     fetchPosts();
-  }, [query, type]);
+  }, [
+    query,
+    currentPage,
+    type,
+    wilaya,
+    baladia,
+    bedrooms,
+    bathrooms,
+    beds,
+    amenties,
+    HighPrice,
+    LowPrice,
+  ]);
   return (
     <div className="Posts--container">
       {invoices ? (

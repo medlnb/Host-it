@@ -30,3 +30,8 @@
   padding: 0.5rem;
   border-bottom: solid rgb(203, 203, 203) 1px;
 }
+@media (max-width: 970px) {
+  .floatingwindow--container {
+    height: 90lvh;
+  }
+}

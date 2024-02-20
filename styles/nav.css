@@ -78,7 +78,7 @@ a {
 }
 @media (max-width: 970px) {
   .topbar--container {
-    padding: 1.5rem;
+    padding: 1rem;
   }
 
   .topbar--container nav {

@@ -10,6 +10,7 @@
 }
 
 .floatingwindow--container {
+  font-size: 0.8rem;
   height: 95lvh;
   max-width: 95%;
   overflow: hidden;

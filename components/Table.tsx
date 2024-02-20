@@ -77,10 +77,12 @@ const Post = ({ data }: { data: Post }) => {
         ))}
 
       <img src={data.image[0]} className="post--picture" />
-      <p>{data.title}</p>
-      <p className="post--location">{`${data.state} - ${data.city}`}</p>
-      <p>19 mar - 29mar</p>
-      <p>{`${data.price.perday} DZD/per night`}</p>
+      <div className="post--info">
+        <p>{data.title}</p>
+        <p className="post--location">{`${data.state} - ${data.city}`}</p>
+        <p>19 mar - 29mar</p>
+        <p>{`${data.price.perday} DZD/per night`}</p>
+      </div>
     </div>
   );
 };

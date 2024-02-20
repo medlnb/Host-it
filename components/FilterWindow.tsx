@@ -2,7 +2,9 @@
 import AlgerianCities from "@public/AlgerianCities.json";
 import Slider from "@mui/material/Slider";
 import Select from "react-select";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { floatingConext } from "@Context/FloatingWinContext";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface props {
   HandleFilterChange: any;
@@ -24,6 +26,11 @@ const FilterWindow = ({
   bedrooms,
   bathrooms,
 }: any) => {
+  const { setToggle } = useContext(floatingConext);
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const pathname = usePathname();
+  const { replace } = useRouter();
   function valuetext(value: number) {
     return `${value}DZ`;
   }
@@ -91,7 +98,7 @@ const FilterWindow = ({
       bathrooms: selectedinfo.bathrooms,
       beds: selectedinfo.beds,
     };
-    HandleFilterChange(qurries);
+    HandleFilterChange(qurries, params, setToggle, pathname, replace);
   };
   return (
     <div className="Filter--container">

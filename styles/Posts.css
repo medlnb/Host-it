@@ -228,6 +228,9 @@
 .ff {
   font-size: 1.3rem;
 }
+.smallscreen--filterbutton {
+  display: none;
+}
 @media (max-width: 970px) {
   .hp--container {
     padding: 0.5rem;
@@ -261,5 +264,11 @@
   }
   .post--picture {
     height: 10rem;
+  }
+  .bigscreen--filterbutton {
+    display: none;
+  }
+  .smallscreen--filterbutton {
+    display: block;
   }
 }

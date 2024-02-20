@@ -1,7 +1,13 @@
-.searchbar--container {
+.searchbar--big {
+  display: flex;
+  align-items: center;
+  width: 40rem;
   margin: 0 auto;
   max-width: 80%;
-  width: 40rem;
+  gap: 1rem;
+}
+.searchbar--container {
+  flex: 1;
   border: 1px solid black;
   border-radius: 1.5rem;
   padding: 0.8rem 1.3rem;
@@ -10,6 +16,7 @@
 .searchbar--container input {
   background: none;
   border: none;
+  width: 100%;
 }
 .searchbar--container input:focus {
   outline: none;
@@ -24,3 +31,4 @@
 .search--icon:hover {
   transform: translateY(-50%) scale(1.2);
 }
+

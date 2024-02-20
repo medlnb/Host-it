@@ -93,6 +93,7 @@ export const HandleFilterChange = (
   setToggle(false);
 };
 
+
 const Filter = () => {
   const types = [
     { title: "Villa", icon: <MdVilla /> },

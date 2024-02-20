@@ -93,7 +93,6 @@ export const HandleFilterChange = (
   setToggle(false);
 };
 
-
 const Filter = () => {
   const types = [
     { title: "Villa", icon: <MdVilla /> },
@@ -140,7 +139,7 @@ const Filter = () => {
                   { type: type.title },
                   params,
                   setToggle,
-                  usePathname(),
+                  pathname,
                   replace
                 );
             }}

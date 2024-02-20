@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { FaHouseCrack } from "react-icons/fa6";
+// import Image from "next/image";
 
 interface Post {
   _id: string;
@@ -17,8 +19,8 @@ interface Post {
     lat: String;
     lng: String;
   };
-  resevedDateFrom?: Date[];
-  resevedDateTo?: Date[];
+  resevedDateFrom?: string[];
+  resevedDateTo?: string[];
   description?: string;
   amenities: string[];
   image: string[];
@@ -57,20 +59,28 @@ const Post = ({ data }: { data: Post }) => {
   const HandleGetPage = () => {
     router.push(`/post/${data._id}`);
   };
+  if (data._id === "loading")
+    return (
+      <>
+        {[...Array(3)].map((_, index) => (
+          <div key={index} className="post--container">
+            <div className="post--picture loading--background" />
+          </div>
+        ))}
+      </>
+    );
   return (
     <div className="post--container" onClick={HandleGetPage}>
       {session &&
         (favs.includes(data._id) ? (
           <FaHeart
             className={`fav--icon ${isloading ? "jumping--icon" : ""}`}
-            size={20}
             fill="white"
             onClick={HandleClick}
           />
         ) : (
           <FaRegHeart
             className={`fav--icon ${isloading ? "jumping--icon" : ""}`}
-            size={20}
             fill="white"
             onClick={HandleClick}
           />
@@ -112,9 +122,11 @@ export default function Table({
   type: string;
   currentPage: number;
 }) {
+  const [isloading, setisloading] = useState(false);
   const [invoices, setInvoices] = useState<any[] | null>(null);
   useEffect(() => {
     const fetchPosts = async () => {
+      setisloading(true);
       const response = await fetch("/api/post", {
         method: "POST",
         headers: {
@@ -137,6 +149,7 @@ export default function Table({
         const data = await response.json();
         setInvoices(data);
       }
+      setisloading(false);
     };
     fetchPosts();
   }, [
@@ -152,13 +165,48 @@ export default function Table({
     HighPrice,
     LowPrice,
   ]);
+  const loadingPost = {
+    _id: "loading",
+    poster: "loading",
+    title: "loading",
+    type: "loading",
+    price: { perday: 0, permonth: 0 },
+    city: "loading",
+    state: "loading",
+    location: {
+      lat: "loading",
+      lng: "loading",
+    },
+    resevedDateFrom: ["loading"],
+    resevedDateTo: ["loading"],
+    description: "loading",
+    amenities: ["loading"],
+    image: ["loading"],
+  };
+  if (!isloading) {
+    if (invoices?.length !== 0)
+      return (
+        <div className="Posts--container">
+          {invoices?.map((apost: Post) => (
+            <Post key={apost._id} data={apost} />
+          ))}
+        </div>
+      );
+    else
+      return (
+        <div className="empty--Feed--container">
+          <div className="empty--Feed--circle">
+            <div className="empty--Feed">
+              <FaHouseCrack className="empty--Feed--icon" />
+              <h1>No Posts Found</h1>
+            </div>
+          </div>
+        </div>
+      );
+  }
   return (
     <div className="Posts--container">
-      {invoices ? (
-        invoices.map((apost: Post) => <Post key={apost._id} data={apost} />)
-      ) : (
-        <p>loading</p>
-      )}
+      <Post data={loadingPost} />
     </div>
   );
 }

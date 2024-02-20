@@ -100,6 +100,20 @@ const FilterWindow = ({
     };
     HandleFilterChange(qurries, params, setToggle, pathname, replace);
   };
+
+  const HandleReset = () => {
+    const qurries = {
+      LowPrice: "100",
+      HighPrice: "10000",
+      amenties: selectedAmenities.join(","),
+      wilaya: null,
+      baladia: null,
+      bedrooms: "0",
+      bathrooms: "0",
+      beds: "0",
+    };
+    HandleFilterChange(qurries, params, setToggle, pathname, replace);
+  };
   return (
     <div className="Filter--container">
       <div className="filter--cati">
@@ -260,7 +274,9 @@ const FilterWindow = ({
         >
           Apply
         </button>
-        <button className="filter--button">Reset</button>
+        <button className="filter--button" onClick={HandleReset}>
+          Reset
+        </button>
       </div>
     </div>
   );

@@ -13,6 +13,7 @@
   position: absolute;
   right: 1rem;
   top: 1rem;
+  font-size: 20px;
 }
 .jumping--icon {
   animation: jump 0.3s infinite alternate;
@@ -35,6 +36,21 @@
   object-fit: cover;
   border-radius: 0.5rem;
 }
+.loading--background {
+  background: linear-gradient(to right, rgb(118, 118, 118), white);
+  background-size: 200% auto;
+  animation: gradientAnimation 2s linear infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
 .post--location {
   white-space: nowrap;
   overflow-x: hidden;
@@ -42,6 +58,35 @@
   padding: 0 1rem 0 0;
 }
 
+.empty--Feed--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25rem;
+  font-size: 1.2rem;
+  color: black;
+  white-space: nowrap;
+}
+.empty--Feed--circle {
+  position: relative;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  background: rgb(244, 244, 244);
+}
+.empty--Feed {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.empty--Feed--icon {
+  font-size: 4rem;
+}
 /* --------------------------------------------------------------- */
 
 .top--bar {
@@ -264,7 +309,7 @@
     border-radius: 1rem;
     border: 1px solid gray;
   }
-  .filter-button p {
+  .filter-button label {
     display: none;
   }
   .post--picture {
@@ -292,5 +337,10 @@
   }
   .post--info {
     padding: 0 0.2rem;
+  }
+  .fav--icon {
+    right: 0.4rem;
+    top: 0.4rem;
+    font-size: 15px;
   }
 }

@@ -1,10 +1,9 @@
 "use client";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { MdOutlineSettingsInputComposite } from "react-icons/md";
 import "@styles/Posts.css";
 import { Suspense, useContext, useState } from "react";
-import SearchBar from "./SearchBar";
-import Table from "./Table";
+import SearchBar from "@components/SearchBar";
+import Table from "@components/Table";
 import { BsFillBriefcaseFill } from "react-icons/bs";
 import {
   FaBed,
@@ -22,7 +21,6 @@ import {
 } from "react-icons/md";
 import { PiGarageFill } from "react-icons/pi";
 import { floatingConext } from "@Context/FloatingWinContext";
-import FilterWindow from "./FilterWindow";
 import FilterButton from "./FilterButton";
 
 interface props {

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { MdOutlineSettingsInputComposite } from "react-icons/md";
-import FilterWindow from "./FilterWindow";
-import { HandleFilterChange } from "./Posts";
+import FilterWindow from "@components/FilterWindow";
+import { HandleFilterChange } from "@components/Posts";
 import { useSearchParams } from "next/navigation";
 import { floatingConext } from "@Context/FloatingWinContext";
 
@@ -45,7 +45,7 @@ function FilterButton() {
       onClick={() => HandleChangeChildren(filterwindow)}
     >
       <MdOutlineSettingsInputComposite />
-      <p>Filter</p>
+      <label>Filter</label>
       {queryParams.length !== 0 && (
         <p className="querries--index">{queryParams.length}</p>
       )}

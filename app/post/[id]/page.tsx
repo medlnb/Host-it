@@ -64,7 +64,6 @@ function Page() {
       ) : (
         <div className="postpage--container">
           <div className="postpage--topbar">
-            <h1>{data.post.title}</h1>
             <div className="postpage--images" ref={Ref}>
               <img className="postpage--mainpic" src={data.post.image[0]} />
               <div className="little--images">
@@ -91,22 +90,34 @@ function Page() {
           </div>
           <div className="postpage--info">
             <div className="left--info">
-              <h2 style={{ marginTop: "1rem" }}>{data.post.city}</h2>
+              <h1 style={{ marginTop: "1rem" }}>{data.post.title}</h1>
+              <h2>{data.post.city}</h2>
               <p className="postpage--status">
-                <p>{`${data.post.Bedrooms} Bedrooms `}</p>•
-                <p>{`${data.post.Bathrooms} Bathrooms `}</p>•
-                <p>{`${data.post.Beds} Beds `}</p>•
-                <p>{`${data.post.Guests} Guests `}</p>
+                <p
+                  style={{ whiteSpace: "nowrap" }}
+                >{`${data.post.Bedrooms} Bedrooms `}</p>
+                •
+                <p
+                  style={{ whiteSpace: "nowrap" }}
+                >{`${data.post.Bathrooms} Bathrooms `}</p>
+                •
+                <p
+                  style={{ whiteSpace: "nowrap" }}
+                >{`${data.post.Beds} Beds `}</p>
+                •
+                <p
+                  style={{ whiteSpace: "nowrap" }}
+                >{`${data.post.Guests} Guests `}</p>
               </p>
               <div className="postpage--poster">
                 <img src={data.poster.image} />
                 <div>
                   <h2>Hosted by {data.poster.name}</h2>
-                  <h2 style={{ color: "gray", fontSize: ".9rem" }}>
+                  <h3 style={{ color: "gray" }}>
                     {`been here since ${posterDate?.getFullYear()}-${
                       1 // posterDate?.getMonth() + 1
                     }-${posterDate?.getDay()}`}
-                  </h2>
+                  </h3>
                 </div>
               </div>
               <p className="postpage--description"> {data.post.description}</p>

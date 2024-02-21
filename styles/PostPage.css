@@ -135,11 +135,9 @@
   margin: 1rem 0;
   font-size: 1.3rem;
 }
-@media (max-width: 1000px) {
-  .postpage--container * {
-    font-size: 1rem;
-  }
+@media (max-width: 1100px) {
   .postpage--container {
+    font-size: 0.7rem;
     padding: 1rem 2rem;
   }
   .postpage--poster img {

@@ -136,9 +136,15 @@
   font-size: 1.3rem;
 }
 @media (max-width: 1000px) {
+  .postpage--container * {
+    font-size: 1rem;
+  }
   .postpage--container {
     padding: 1rem 2rem;
-    font-size: 0.8rem;
+  }
+  .postpage--poster img {
+    height: 2.5rem;
+    width: 2.5rem;
   }
   .postpage--images {
     display: grid;

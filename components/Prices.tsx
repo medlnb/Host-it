@@ -23,7 +23,7 @@ function Prices({ price, HandleChangeInputs }: props) {
   };
 
   return (
-    <div className="placeinfo--container" style={{ margin: "5rem auto" }}>
+    <div className="pricing--container">
       <h1 className="createpost--title">Prices</h1>
       <div className="prices--container">
         <div className="price--inputs--container">

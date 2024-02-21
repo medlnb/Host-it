@@ -3,6 +3,7 @@
 }
 .postpage--topbar {
   width: 100%;
+  position: relative;
 }
 
 .postpage--images {
@@ -11,6 +12,9 @@
   gap: 0.5rem;
   border-radius: 0.5rem;
   overflow: hidden;
+}
+.postpage--button {
+  display: none;
 }
 
 .postpage--mainpic,
@@ -72,7 +76,6 @@
   border-radius: 0.5rem;
   color: #222222;
   font-size: 0.8rem;
-
 }
 .postpage--poster {
   display: inline-flex;
@@ -108,6 +111,7 @@
 }
 .reservation-info {
   margin-top: 1rem;
+  font-size: 0.7rem;
 }
 .reservation-info h2 {
   margin-bottom: 0.3rem;
@@ -130,4 +134,48 @@
   justify-content: space-between;
   margin: 1rem 0;
   font-size: 1.3rem;
+}
+@media (max-width: 1000px) {
+  .postpage--container {
+    padding: 1rem 2rem;
+    font-size: 0.8rem;
+  }
+  .postpage--images {
+    display: grid;
+    grid-template-columns: 100% 100%;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+  }
+  .postpage--images::-webkit-scrollbar {
+    display: none;
+  }
+  .postpage--button {
+    position: absolute;
+    display: block;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .postpage--mainpic,
+  .little--images {
+    scroll-snap-align: center;
+    width: 100%;
+    height: 100%;
+  }
+  .little--images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: calc(50% - 0.25rem);
+    gap: 0.5rem;
+  }
+
+  .postpage--info {
+    display: block;
+  }
+  .pricing--container {
+    margin: 3rem auto;
+    max-width: 100%;
+  }
+  .reservation--price {
+    font-size: 1rem;
+  }
 }

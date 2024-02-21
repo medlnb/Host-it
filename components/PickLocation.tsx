@@ -6,11 +6,8 @@ import {
   Pin,
 } from "@vis.gl/react-google-maps";
 import "@styles/CreatePost.css";
-// import { useLoadScript } from "@react-google-maps/api";
 import AlgerianCities from "@public/AlgerianCities.json";
 import Select from "react-select";
-// import { useState } from "react";
-
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";

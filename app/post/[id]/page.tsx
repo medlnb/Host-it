@@ -1,9 +1,11 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "@styles/PostPage.css";
 import Reserving from "@components/Reserving";
 import { amenitiesData } from "@components/Amenities";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { FaArrowAltCircleRight } from "react-icons/fa";
 
 interface Post {
   _id: string;
@@ -11,9 +13,9 @@ interface Post {
   title: string;
   type: string;
   price: { perday: number; permonth: number };
+  city: String;
+  state: String;
   location: {
-    city: String;
-    state: String;
     lat: String;
     lng: String;
   };
@@ -29,6 +31,8 @@ interface Post {
 }
 
 function Page() {
+  // const [scroolPosition, setScroolPosition] = useState(0);
+  const Ref = useRef<HTMLDivElement>(null);
   const { id } = useParams();
 
   const [data, setData] = useState<{
@@ -43,6 +47,16 @@ function Page() {
   let posterDate = null;
   if (data) posterDate = new Date(data.poster.createdAt);
 
+  const handleScrollRight = () => {
+    if (Ref.current) {
+      Ref.current.scrollLeft += 400;
+    }
+  };
+  const handleScrollLeft = () => {
+    if (Ref.current) {
+      Ref.current.scrollLeft -= 400;
+    }
+  };
   return (
     <>
       {!data ? (
@@ -51,7 +65,7 @@ function Page() {
         <div className="postpage--container">
           <div className="postpage--topbar">
             <h1>{data.post.title}</h1>
-            <div className="postpage--images">
+            <div className="postpage--images" ref={Ref}>
               <img className="postpage--mainpic" src={data.post.image[0]} />
               <div className="little--images">
                 <img className="little-image" src={data.post.image[0]} />
@@ -59,15 +73,29 @@ function Page() {
                 <img className="little-image" src={data.post.image[0]} />
                 <img className="little-image" src={data.post.image[0]} />
               </div>
+              <FaArrowAltCircleRight
+                className="postpage--button"
+                style={{ right: ".5rem" }}
+                onClick={handleScrollRight}
+                fill="gray"
+                size={25}
+              />
+              <FaArrowAltCircleLeft
+                fill="gray"
+                size={25}
+                className="postpage--button"
+                style={{ left: ".5rem" }}
+                onClick={handleScrollLeft}
+              />
             </div>
           </div>
           <div className="postpage--info">
             <div className="left--info">
-              <h2 style={{ marginTop: "1rem" }}>{data.post.location.city}</h2>
+              <h2 style={{ marginTop: "1rem" }}>{data.post.city}</h2>
               <p className="postpage--status">
-                <p>{`${data.post.Bedrooms} Bedrooms `}</p>
-                <p>{`${data.post.Bathrooms} Bathrooms `}</p>
-                <p>{`${data.post.Beds} Beds `}</p>
+                <p>{`${data.post.Bedrooms} Bedrooms `}</p>•
+                <p>{`${data.post.Bathrooms} Bathrooms `}</p>•
+                <p>{`${data.post.Beds} Beds `}</p>•
                 <p>{`${data.post.Guests} Guests `}</p>
               </p>
               <div className="postpage--poster">

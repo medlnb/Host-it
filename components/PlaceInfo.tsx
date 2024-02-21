@@ -10,7 +10,7 @@ interface props {
 
 function PlaceInfo({ info, HandleChangeInputs }: props) {
   return (
-    <div style={{ margin: "5rem 0" }}>
+    <div style={{ margin: "5rem 0", width: "100%" }}>
       <h1 className="createpost--title">
         Now, let{"'"}s give your dome a title Short titles work best.
       </h1>
@@ -42,7 +42,10 @@ function PlaceInfo({ info, HandleChangeInputs }: props) {
           placeholder="Description..."
           value={info.description}
           onChange={(e) =>
-            HandleChangeInputs((prev:any) => ({ ...prev, description: e.target.value }))
+            HandleChangeInputs((prev: any) => ({
+              ...prev,
+              description: e.target.value,
+            }))
           }
         />
       </div>

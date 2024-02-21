@@ -3,8 +3,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
-  width: 35rem;
-  max-width: 95%;
+  width: 100%;
 }
 .createpost--title {
   text-align: center;
@@ -24,4 +23,14 @@
 }
 .selectedtype {
   border: solid 1px black;
+}
+@media (max-width: 768px) {
+  .type--container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 1rem;
+    border: solid 1px rgb(164, 164, 164);
+  }
 }

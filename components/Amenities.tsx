@@ -26,7 +26,7 @@ export const amenitiesData = [
 ];
 function Amenities({ amenities, HandleChangeInputs }: props) {
   return (
-    <div style={{ margin: "5rem 0" }}>
+    <div style={{ margin: "5rem 0",width:"100%" }}>
       <h1 className="createpost--title">
         Tell guests what your place has to offer
       </h1>

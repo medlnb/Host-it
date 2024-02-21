@@ -1,7 +1,6 @@
 .placedetails--container {
   margin: 2rem auto;
-  width: 35rem;
-  max-width: 95%;
+  width: 100%;
 }
 .details--container {
   margin-top: 2rem;

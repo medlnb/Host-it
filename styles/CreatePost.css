@@ -4,6 +4,14 @@
   margin: 0 auto;
   background: rgb(197, 197, 197);
 }
+.createpost--container {
+  width: 35rem;
+  max-width: 100%;
+  overflow-x: scroll;
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
 .createpost--button {
   display: block;
   margin: 1rem auto;
@@ -78,9 +86,10 @@
   transition-delay: 1s;
   stroke-dashoffset: 0;
 }
+/* ------------------------------------- */
 .createpost--maps {
   height: 25rem;
-  width: 30rem;
+  width: 100%;
   margin: 1rem auto 2rem auto;
   border-radius: 0.7rem;
   overflow: hidden;
@@ -125,5 +134,5 @@
 }
 .select-wilaya {
   margin: 1rem auto;
-  width: 30rem;
+  width: 100%;
 }

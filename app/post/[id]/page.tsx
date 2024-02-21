@@ -60,7 +60,9 @@ function Page() {
   return (
     <>
       {!data ? (
-        <p>loading</p>
+        <div style={{ padding: "0 1rem" }}>
+          <div className="post--picture loading--background" />
+        </div>
       ) : (
         <div className="postpage--container">
           <div className="postpage--topbar">

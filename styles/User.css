@@ -1,0 +1,79 @@
+.UserPage--container {
+  width: 45rem;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.UserPage--nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0.5rem;
+  width: 100%;
+  padding: 2rem 0;
+}
+.UserPage--navElement {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.UserPage--navElementIcon {
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+.UserPage--navElementDescription {
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.UserPage--footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: 1px solid #eaeaea;
+}
+.UserPage--contact {
+  display: flex;
+  gap: 1rem;
+  margin-left: 1rem;
+}
+.favorites--feed {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+.fav--container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  position: relative;
+}
+.fav--container:hover {
+  outline: 1px solid rgb(197, 197, 197);
+}
+.fav--container img {
+  border-radius: 0.5rem;
+  width: 15rem;
+  height: 10rem;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+@media (max-width: 768px) {
+  .favorites--feed {
+    font-size: 0.7rem;
+  }
+}

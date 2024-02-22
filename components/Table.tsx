@@ -5,7 +5,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { FaHouseCrack } from "react-icons/fa6";
-// import Image from "next/image";
+
 
 interface Post {
   _id: string;

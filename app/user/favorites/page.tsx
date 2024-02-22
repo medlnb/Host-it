@@ -8,10 +8,10 @@ import { useRouter } from "next/navigation";
 import { IoMdTrash } from "react-icons/io";
 
 function Page() {
-  const [favorites, setFavorites] = useState<any>(null);
   const { data: session, update } = useSession();
+  const [favorites, setFavorites] = useState<any>(null);
+
   useEffect(() => {
-    // const newFavorites: any = [];
     setFavorites([]);
     const fetchFavorites = async (favorite: string) => {
       const response = await fetch(`/api/post/${favorite}`, {
@@ -28,14 +28,9 @@ function Page() {
       if (session?.user.favorites.length === 0) setFavorites([]);
       session?.user.favorites.map((favorite) => {
         fetchFavorites(favorite);
-        // .then((data) => {
-
-        //   if (favorites) setFavorites([...favorites, data]);
-        //   else setFavorites([data]);
-        // });
       });
     }
-  }, [session ,favorites]);
+  }, [session]);
 
   return (
     <>
@@ -53,7 +48,12 @@ function Page() {
         ) : (
           <div className="favorites--feed">
             {favorites.map((post: any) => (
-              <Favorite post={post} update={update} session={session} />
+              <Favorite
+                key={post._id}
+                post={post}
+                update={update}
+                session={session}
+              />
             ))}
           </div>
         )

@@ -1,11 +1,11 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { FaHouseCrack } from "react-icons/fa6";
-
+import { FavoritesContext } from "@Context/FavoritesContext";
 
 interface Post {
   _id: string;
@@ -26,36 +26,22 @@ interface Post {
   image: string[];
 }
 
-const Post = ({ data }: { data: Post }) => {
-  const { data: session, update } = useSession();
+const Post = ({
+  data,
+  HandleAddFav,
+  HandleRemoveFav,
+  isFavorite,
+  userId,
+}: {
+  data: Post;
+  HandleAddFav?: any;
+  HandleRemoveFav?: any;
+  userId: string | undefined;
+  isFavorite: boolean | undefined;
+}) => {
   const router = useRouter();
-  const [favs, setFavs] = useState<string[]>([]);
   const [isloading, setisloading] = useState(false);
-
-  useEffect(() => {
-    if (session?.user.favorites) setFavs(session?.user.favorites);
-  }, [session]);
-
-  const HandleClick = async (e: any) => {
-    e.stopPropagation();
-    setisloading(true);
-    const response = await fetch("/api/auth/favorites", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: session?.user.id,
-        PostId: data._id,
-      }),
-    });
-
-    if (response.ok) {
-      update();
-    }
-    setisloading(false);
-  };
-
+  // console.log(isFavorite);
   const HandleGetPage = () => {
     router.push(`/post/${data._id}`);
   };
@@ -69,20 +55,48 @@ const Post = ({ data }: { data: Post }) => {
         ))}
       </>
     );
+
+  const HandleClick = async (e: any, type: "Add" | "Remove") => {
+    e.stopPropagation();
+    setisloading(true);
+    const response = await fetch("/api/auth/favorites", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+        PostId: data._id,
+      }),
+    });
+    if (response.ok) {
+      if (type === "Add") {
+        HandleAddFav(data);
+      } else {
+        HandleRemoveFav(data._id);
+      }
+    }
+    setisloading(false);
+  };
+
   return (
     <div className="post--container" onClick={HandleGetPage}>
-      {session &&
-        (favs.includes(data._id) ? (
+      {isFavorite !== undefined &&
+        (isFavorite ? (
           <FaHeart
             className={`fav--icon ${isloading ? "jumping--icon" : ""}`}
             fill="white"
-            onClick={HandleClick}
+            onClick={(e) => {
+              HandleClick(e, "Remove");
+            }}
           />
         ) : (
           <FaRegHeart
             className={`fav--icon ${isloading ? "jumping--icon" : ""}`}
             fill="white"
-            onClick={HandleClick}
+            onClick={(e) => {
+              HandleClick(e, "Add");
+            }}
           />
         ))}
 
@@ -122,8 +136,11 @@ export default function Table({
   type: string;
   currentPage: number;
 }) {
+  const { data: session, update } = useSession();
   const [isloading, setisloading] = useState(false);
   const [invoices, setInvoices] = useState<any[] | null>(null);
+  const { favorites, dispatch } = useContext(FavoritesContext);
+
   useEffect(() => {
     const fetchPosts = async () => {
       setisloading(true);
@@ -183,13 +200,43 @@ export default function Table({
     amenities: ["loading"],
     image: ["loading"],
   };
+  interface Favorites {
+    _id: string;
+    title: string;
+    description: string;
+    city: string;
+    state: string;
+    image: string[];
+  }
+  const HandleAddFav = (post: Favorites) => {
+    if (!dispatch) return;
+    dispatch({ type: "ADD_FAVORITE", payload: [post] });
+  };
+
+  const HandleRemoveFav = (postId: string) => {
+    if (!dispatch) return;
+    dispatch({ type: "REMOVE_FAVORITE", payload: postId });
+  };
+
   if (!isloading) {
     if (invoices?.length !== 0)
       return (
         <div className="Posts--container">
-          {invoices?.map((apost: Post) => (
-            <Post key={apost._id} data={apost} />
-          ))}
+          {invoices?.map((apost: Post) => {
+            let isFavorite = undefined;
+            if (favorites)
+              isFavorite = favorites.map((fav) => fav._id).includes(apost._id);
+            return (
+              <Post
+                key={apost._id}
+                data={apost}
+                HandleAddFav={HandleAddFav}
+                HandleRemoveFav={HandleRemoveFav}
+                userId={session?.user.id}
+                isFavorite={isFavorite}
+              />
+            );
+          })}
         </div>
       );
     else
@@ -206,7 +253,7 @@ export default function Table({
   }
   return (
     <div className="Posts--container">
-      <Post data={loadingPost} />
+      <Post data={loadingPost} isFavorite={undefined} userId={undefined} />
     </div>
   );
 }

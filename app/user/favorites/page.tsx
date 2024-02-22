@@ -2,36 +2,15 @@
 import "@styles/User.css";
 import "@styles/Posts.css";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { FaHouseCrack } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { IoMdTrash } from "react-icons/io";
+import { FavoritesContext } from "@Context/FavoritesContext";
 
 function Page() {
-  const { data: session, update } = useSession();
-  const [favorites, setFavorites] = useState<any>(null);
-
-  useEffect(() => {
-    setFavorites([]);
-    const fetchFavorites = async (favorite: string) => {
-      const response = await fetch(`/api/post/${favorite}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const { post } = await response.json();
-      if (favorites) setFavorites((prev: any) => [...prev, post]);
-      else setFavorites([post]);
-    };
-    if (session) {
-      if (session?.user.favorites.length === 0) setFavorites([]);
-      session?.user.favorites.map((favorite) => {
-        fetchFavorites(favorite);
-      });
-    }
-  }, [session]);
-
+  const { data: session } = useSession();
+  const { favorites, dispatch } = useContext(FavoritesContext);
   return (
     <>
       <h1 style={{ textAlign: "center" }}>Favorites</h1>
@@ -51,8 +30,8 @@ function Page() {
               <Favorite
                 key={post._id}
                 post={post}
-                update={update}
-                session={session}
+                userId={session?.user.id}
+                dispatch={dispatch}
               />
             ))}
           </div>
@@ -66,45 +45,47 @@ function Page() {
 
 export default Page;
 
-const Favorite = ({ post, session, update }: any) => {
+const Favorite = ({ post, userId, dispatch }: any) => {
   const [loadingremove, setLoadingremove] = useState(true);
   const router = useRouter();
 
   const HandleRemoveFav = async (PostId: string) => {
+    setLoadingremove(true);
     const response = await fetch("/api/auth/favorites", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: session?.user.id,
+        userId,
         PostId,
       }),
     });
 
-    if (response.ok) update();
+    if (response.ok) {
+      dispatch({ type: "REMOVE_FAVORITE", payload: PostId });
+    }
+    setLoadingremove(false);
   };
   return (
     <div
       className="fav--container"
-      onClick={() => {
-        router.push(`/post/${post._id}`);
-      }}
+      // onClick={() => {
+      //   router.push(`/post/${post._id}`);
+      // }}
     >
-      {session && (
+      {true ? (
         <IoMdTrash
-          // className={`fav--icon ${
-          //   isloading ? "jumping--icon" : ""
-          // }`}
           size={20}
           style={{ top: "1rem" }}
           className={`fav--icon`}
           fill="black"
           onClick={() => HandleRemoveFav(post._id)}
         />
+      ) : (
+        "loading"
       )}
       <img src={post.image[0]} />
-
       <div className="fav--body">
         <h1>{post.title}</h1>
         <h2 style={{ color: "gray" }}>{`${post.state} ~ ${post.city}`}</h2>

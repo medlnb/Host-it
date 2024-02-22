@@ -7,7 +7,7 @@ import { FaHouseCrack } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { IoMdTrash } from "react-icons/io";
 
-function page() {
+function Page() {
   const [favorites, setFavorites] = useState<any>(null);
   const { data: session, update } = useSession();
   useEffect(() => {
@@ -36,8 +36,7 @@ function page() {
       });
     }
   }, [session]);
-  console.log(session?.user.favorites);
-  console.log(favorites);
+
   return (
     <>
       <h1 style={{ textAlign: "center" }}>Favorites</h1>
@@ -65,7 +64,7 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
 
 const Favorite = ({ post, session, update }: any) => {
   const [loadingremove, setLoadingremove] = useState(true);

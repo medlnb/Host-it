@@ -62,8 +62,8 @@ function CreatePost() {
         state: inputs.location.selectedWilaya.label.split("\\")[1],
         location,
         price: {
-          perday: Number(inputs.price.perday.replace(" ", "")),
-          permonth: Number(inputs.price.permonth.replace(" ", "")),
+          perday: inputs.price.perday,
+          permonth: inputs.price.permonth,
         },
       }),
     });

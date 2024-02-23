@@ -13,7 +13,7 @@ function Nav() {
   const { HandleChangeChildren } = useContext(floatingConext);
   const [ToggleNavbar, setToggleNavbar] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  console.log(session);
+  // console.log(session);
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -34,14 +34,11 @@ function Nav() {
       <Link href="/">Akrillloo</Link>
       <nav>
         {session === undefined && (
-          // <p onClick={() => signIn("credentials")} className="usernav">
-          //   Sign up
-          // </p>
           <div
             className="usernav"
             onClick={() => setToggleNavbar((prev) => !prev)}
           >
-            <ClipLoader size={20}/>
+            <ClipLoader size={20} />
           </div>
         )}
         {session && (
@@ -53,9 +50,9 @@ function Nav() {
               className="usernav"
               onClick={() => setToggleNavbar((prev) => !prev)}
             >
-              <p>{session?.user.name}</p>
+              <p>{session.user.name}</p>
 
-              {session?.user.image ? (
+              {session.user.image ? (
                 <img src={session?.user.image} className="user--pic" />
               ) : (
                 <FaRegUser />

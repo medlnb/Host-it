@@ -66,7 +66,7 @@ function Page() {
 
       <div className="Hline" />
       <div
-        onClick={() => signIn("google", { callbackUrl: "/" })}
+        onClick={() => signIn("google", { callbackUrl: "/" })} //custom the callbackUrl later !important
         className={`login--submit google--login ${
           providers ? "" : "gl--loading"
         }`}

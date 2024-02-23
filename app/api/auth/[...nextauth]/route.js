@@ -5,7 +5,6 @@ import { connectToDatabase } from "@utils/database";
 import User from "@models/user";
 
 const handler = NextAuth({
-  // pages: { signIn: "/welcome" },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID + "",
@@ -16,7 +15,6 @@ const handler = NextAuth({
 
       credentials: {},
       async authorize(credentials, req) {
-        console.log(credentials);
         const user = await User.findOne({
           email: credentials.email,
           password: credentials.password,
@@ -51,21 +49,6 @@ const handler = NextAuth({
           });
         }
 
-        return true;
-      } catch (err) {
-        console.log(err);
-        return false;
-      }
-    },
-    async createUser({ email, image, name }) {
-      try {
-        await connectToDatabase();
-        await User.create({
-          email,
-          image,
-          name,
-          favorites: [],
-        });
         return true;
       } catch (err) {
         console.log(err);

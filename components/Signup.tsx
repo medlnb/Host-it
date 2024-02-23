@@ -22,6 +22,23 @@ function Page() {
   }, []);
   const HandleSubmit = async (e: any) => {
     e.preventDefault();
+    const response = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...inputs,
+        image:
+          "https://qph.cf2.quoracdn.net/main-thumb-2182629636-200-pvgxmwqjhqdquxsdxkuineubuohqdgti.jpeg",
+      }),
+    });
+    if (response.ok) {
+      alert("gj Bro");
+      HandleChangeChildren(<Login />);
+      return;
+    }
+    alert("r u fking stupid or what");
   };
   return (
     <form className="login--form" onSubmit={HandleSubmit}>

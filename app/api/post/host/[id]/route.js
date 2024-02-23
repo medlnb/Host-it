@@ -9,7 +9,6 @@ export const GET = async (req, { params }) => {
     const Posts = await Post.find({ poster: params.id }).select(
       "image title description state city"
     );
-    console.log(Posts);
     return new Response(JSON.stringify(Posts), {
       status: 200,
     });

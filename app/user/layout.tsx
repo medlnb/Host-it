@@ -5,7 +5,7 @@ function layout({ children }: { children: ReactNode }) {
     <div className="UserPage--container">
       {children}
       <div className="UserPage--footer">
-        <b>Contact</b>
+        {/* <b>Contact</b> */}
         <div className="UserPage--contact">
           <a href="mailto:  mohamedlanabi0@gmail.com">Email</a>
           <a href="tel:  +212 6 99 99 99 99">Phone</a>
@@ -18,12 +18,12 @@ function layout({ children }: { children: ReactNode }) {
           >
             Github
           </a>
-          <a href="https://www.linkedin.com/in/mohamed-lanabi-3b7b8a1b9/">
+          {/* <a href="https://www.linkedin.com/in/mohamed-lanabi-3b7b8a1b9/">
             Twitter
           </a>
           <a href="https://www.linkedin.com/in/mohamed-lanabi-3b7b8a1b9/">
             Facebook
-          </a>
+          </a> */}
           <a href="https://www.linkedin.com/in/mohamed-lanabi-3b7b8a1b9/">
             Instagram
           </a>

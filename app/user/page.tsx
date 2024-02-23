@@ -12,31 +12,31 @@ function page() {
       title: "Profile",
       description: "Manage your profile and account settings.",
       path: "/user/profile",
-      icon: <FaRegAddressCard />,
+      icon: <FaRegAddressCard className="UserPage--navElementIcon" />,
     },
     {
       title: "Favorites",
       description: "Manage and review the places you've favorited.",
       path: "/user/favorites",
-      icon: <GrFavorite />,
+      icon: <GrFavorite className="UserPage--navElementIcon" />,
     },
     {
       title: "Hosting",
       description: "Manage your hosting listings and reservations.",
       path: "/user/hosting",
-      icon: <IoIosSwitch />,
+      icon: <IoIosSwitch className="UserPage--navElementIcon" />,
     },
     {
       title: "Settings",
       description: "Manage your account settings and preferences.",
       path: "/user/settings",
-      icon: <IoSettingsOutline />,
+      icon: <IoSettingsOutline className="UserPage--navElementIcon" />,
     },
     {
       title: "Billing",
       description: "Manage your billing and payment methods.",
       path: "/user/billing",
-      icon: <FaRegMoneyBillAlt />,
+      icon: <FaRegMoneyBillAlt className="UserPage--navElementIcon" />,
     },
   ];
   return (
@@ -45,12 +45,14 @@ function page() {
       <div className="UserPage--nav">
         {navElements.map((el, i) => (
           <Link href={el.path} key={i} className="UserPage--navElement">
-            <div className="UserPage--navElementIcon">{el.icon}</div>
-            <div className="UserPage--navElementTitle">
-              <b>{el.title}</b>
-            </div>
-            <div className="UserPage--navElementDescription">
-              {el.description}
+            {el.icon}
+            <div>
+              <p className="UserPage--navElementTitle">
+                <b>{el.title}</b>
+              </p>
+              <p className="UserPage--navElementDescription">
+                {el.description}
+              </p>
             </div>
           </Link>
         ))}

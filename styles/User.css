@@ -35,7 +35,7 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   margin-top: 2rem;
   padding: 1rem;
@@ -72,8 +72,39 @@
   -o-object-fit: cover;
   object-fit: cover;
 }
+.favpage--icon {
+  top: 1rem;
+  font-size: 30px;
+  size: 20px;
+}
 @media (max-width: 768px) {
   .favorites--feed {
     font-size: 0.7rem;
+  }
+  .UserPage--nav {
+    display: flex;
+    flex-direction: column;
+  }
+  .UserPage--navElement {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .UserPage--navElementIcon {
+    margin: 0;
+  }
+  .fav--container img {
+    width: 8rem;
+    height: 5rem;
+  }
+  .favorites--feed {
+    font-size: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+  }
+  .fav--container {
+    gap: 0.5rem;
+    padding: 0.5rem;
   }
 }

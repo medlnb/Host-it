@@ -76,9 +76,7 @@ const Favorite = ({ post, userId, dispatch }: any) => {
     >
       {true ? (
         <IoMdTrash
-          size={20}
-          style={{ top: "1rem" }}
-          className={`fav--icon`}
+          className={`fav--icon favpage--icon`}
           fill="black"
           onClick={() => HandleRemoveFav(post._id)}
         />

@@ -211,7 +211,7 @@
 
 .Filter--container {
   padding: 2rem;
-  max-height: 95%;
+  max-height: 85lvh;
   overflow-y: scroll;
 }
 .Filter--container::-webkit-scrollbar {
@@ -285,6 +285,7 @@
     gap: 0.5rem;
   }
   .Filter--container {
+    height: 75lvh;
     padding: 1rem;
   }
   .price--filter--inputs input {

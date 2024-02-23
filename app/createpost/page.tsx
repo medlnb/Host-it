@@ -31,8 +31,8 @@ function CreatePost() {
     },
     description: "",
     price: {
-      perday: "",
-      permonth: "",
+      perday: 0,
+      permonth: 0,
     },
     Bedrooms: 0,
     Bathrooms: 0,

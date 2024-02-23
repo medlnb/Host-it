@@ -1,6 +1,7 @@
 "use client";
 import "@styles/User.css";
 import "@styles/Posts.css";
+import ClipLoader from "react-spinners/ClipLoader";
 import { useSession } from "next-auth/react";
 import { useContext, useState } from "react";
 import { FaHouseCrack } from "react-icons/fa6";
@@ -46,7 +47,7 @@ function Page() {
 export default Page;
 
 const Favorite = ({ post, userId, dispatch }: any) => {
-  const [loadingremove, setLoadingremove] = useState(true);
+  const [loadingremove, setLoadingremove] = useState(false);
   const router = useRouter();
 
   const HandleRemoveFav = async (PostId: string) => {
@@ -67,27 +68,38 @@ const Favorite = ({ post, userId, dispatch }: any) => {
     }
     setLoadingremove(false);
   };
+
   return (
     <div
       className="fav--container"
-      // onClick={() => {
-      //   router.push(`/post/${post._id}`);
-      // }}
+      onClick={() => {
+        router.push(`/post/${post._id}`);
+      }}
     >
       <img src={post.image[0]} />
+      <div className="Hline bigscreen" style={{ width: "100%" }} />
       <div className="fav--body">
-        <h1>{post.title}</h1>
-        <h2 style={{ color: "gray" }}>{`${post.state} ~ ${post.city}`}</h2>
+        <div className="fav--info">
+          <h1>{post.title}</h1>
+          {post.state === post.city ? (
+            <h2 style={{ color: "gray" }}>{`${post.state}`}</h2>
+          ) : (
+            <h2 style={{ color: "gray" }}>{`${post.state} ~ ${post.city}`}</h2>
+          )}
+        </div>
+        {!loadingremove ? (
+          <IoMdTrash
+            className="favpage--icon"
+            fill="black"
+            onClick={(e) => {
+              e.stopPropagation();
+              HandleRemoveFav(post._id);
+            }}
+          />
+        ) : (
+          <ClipLoader className="favpage--icon" size={15} />
+        )}
       </div>
-      {true ? (
-        <IoMdTrash
-          className="favpage--icon"
-          fill="black"
-          onClick={() => HandleRemoveFav(post._id)}
-        />
-      ) : (
-        "loading"
-      )}
     </div>
   );
 };

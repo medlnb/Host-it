@@ -12,6 +12,9 @@
   padding: 1rem;
   border-radius: 0.5rem;
 }
+.createpost--container::-webkit-scrollbar {
+  display: none;
+}
 .createpost--button {
   display: block;
   margin: 1rem auto;

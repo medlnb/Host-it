@@ -2,26 +2,13 @@ import "@styles/Prices.css";
 
 interface props {
   price: {
-    perday: string;
-    permonth: string;
+    perday: number;
+    permonth: number;
   };
   HandleChangeInputs: any;
 }
 
 function Prices({ price, HandleChangeInputs }: props) {
-  const space_every_3 = (str: string) => {
-    const arr = str.replace(/\s/g, "").split("");
-    let newstring = "";
-    arr.map((char, index) => {
-      if (index % 3 === 0 && index !== 0) {
-        newstring += " " + char;
-      } else {
-        newstring += char;
-      }
-    });
-    return newstring;
-  };
-
   return (
     <div className="pricing--container">
       <h1 className="createpost--title">Prices</h1>
@@ -29,15 +16,14 @@ function Prices({ price, HandleChangeInputs }: props) {
         <div className="price--inputs--container">
           <input
             placeholder="00.00"
-            value={space_every_3(price.perday)}
+            value={price.perday}
             onChange={(e: any) => {
               if (/^[0-9\s]*$/.test(e.target.value)) {
                 HandleChangeInputs((prev: any) => ({
                   ...prev,
                   price: {
                     perday: e.target.value,
-                    permonth:
-                      "" + Number(e.target.value.replace(/\s/g, "")) * 30,
+                    permonth: Number(e.target.value.replace(/\s/g, "")) * 30,
                   },
                 }));
               }
@@ -48,7 +34,7 @@ function Prices({ price, HandleChangeInputs }: props) {
         <div className="price--inputs--container">
           <input
             placeholder="00.00"
-            value={space_every_3(price.permonth)}
+            value={price.permonth}
             onChange={(e) => {
               if (/^[0-9\s]*$/.test(e.target.value))
                 HandleChangeInputs((prev: any) => ({

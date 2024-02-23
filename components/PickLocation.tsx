@@ -15,17 +15,6 @@ import { FaArrowAltCircleUp } from "react-icons/fa";
 
 import { BsFillHouseDownFill } from "react-icons/bs";
 
-// import usePlacesAutocomplete, {
-//   getGeocode,
-//   getLatLng,
-// } from "use-places-autocomplete";
-// import {
-//   Combobox,
-//   ComboboxInput,
-//   ComboboxPopover,
-//   ComboboxList,
-//   ComboboxOption,
-// } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
 interface City {
@@ -231,34 +220,3 @@ function PickLocation({ address, HandleChangeInputs }: any) {
 {
 }
 export default PickLocation;
-
-// const PlaceAutocomplete = () => {
-//   const {
-//     ready,
-//     value,
-//     suggestions: { status, data },
-//     setValue,
-//     clearSuggestions,
-//   } = usePlacesAutocomplete();
-//   return (
-//     <Combobox>
-//       <ComboboxInput
-//         value={value}
-//         onChange={(e) => {
-//           setValue(e.target.value);
-//         }}
-//         disabled={!ready}
-//         placeholder="Enter an address"
-//       />
-//       <ComboboxPopover>
-//         <ComboboxList>
-//           {status === "OK" &&
-//             data.map(({ place_id, description }) => {
-//               console.log(place_id, description);
-//               return <ComboboxOption key={place_id} value={description} />;
-//             })}
-//         </ComboboxList>
-//       </ComboboxPopover>
-//     </Combobox>
-//   );
-// };

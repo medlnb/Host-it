@@ -48,3 +48,24 @@ export const POST = async (req, res) => {
     });
   }
 };
+
+export const PATCH = async (req) => {
+  const { post } = await req.json();
+
+  try {
+    await connectToDatabase();
+    const newPost = await Post.findByIdAndUpdate(
+      { _id: post._id },
+      { ...post }
+    );
+    await newPost.save();
+    return new Response(JSON.stringify(newPost), {
+      status: 201,
+    });
+  } catch (err) {
+    console.log(err);
+    return new Response(JSON.stringify(err), {
+      status: 500,
+    });
+  }
+};

@@ -1,5 +1,5 @@
 .UserPage--container {
-  width: 45rem;
+  width: 60rem;
   max-width: 100%;
   margin: 0 auto;
   padding: 2rem 1rem;
@@ -48,7 +48,7 @@
 }
 .favorites--feed {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 2rem;
   margin-top: 2rem;
   width: 100%;
@@ -57,7 +57,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   gap: 1rem;
   padding: 1rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -66,6 +66,19 @@
 }
 .fav--container:hover {
   outline: 1px solid rgb(197, 197, 197);
+}
+
+.fav--body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.fav--info {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
 }
 .fav--container img {
   border-radius: 0.5rem;
@@ -76,6 +89,7 @@
 }
 .favpage--icon {
   font-size: 25px;
+  cursor: pointer;
 }
 @media (max-width: 768px) {
   .favorites--feed {
@@ -115,5 +129,8 @@
     right: 0.5rem;
     top: 1rem;
     font-size: 20px;
+  }
+  .bigscreen {
+    display: none;
   }
 }

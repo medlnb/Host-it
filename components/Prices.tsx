@@ -1,4 +1,5 @@
 import "@styles/Prices.css";
+import CurrencyInput from "react-currency-input-field";
 
 interface props {
   price: {
@@ -14,34 +15,28 @@ function Prices({ price, HandleChangeInputs }: props) {
       <h1 className="createpost--title">Prices</h1>
       <div className="prices--container">
         <div className="price--inputs--container">
-          <input
-            placeholder="00.00"
+          <CurrencyInput
             value={price.perday}
-            onChange={(e: any) => {
-              if (/^[0-9\s]*$/.test(e.target.value)) {
-                HandleChangeInputs((prev: any) => ({
-                  ...prev,
-                  price: {
-                    perday: e.target.value,
-                    permonth: Number(e.target.value.replace(/\s/g, "")) * 30,
-                  },
-                }));
-              }
-            }}
+            allowDecimals={false}
+            onValueChange={(value) =>
+              HandleChangeInputs((prev: any) => ({
+                ...prev,
+                price: { perday: value, permonth: Number(value) * 30 },
+              }))
+            }
           />
           <p>DZD/per day</p>
         </div>
         <div className="price--inputs--container">
-          <input
-            placeholder="00.00"
+          <CurrencyInput
             value={price.permonth}
-            onChange={(e) => {
-              if (/^[0-9\s]*$/.test(e.target.value))
-                HandleChangeInputs((prev: any) => ({
-                  ...prev,
-                  price: { ...prev["price"], permonth: e.target.value },
-                }));
-            }}
+            allowDecimals={false}
+            onValueChange={(value) =>
+              HandleChangeInputs((prev: any) => ({
+                ...prev,
+                price: { ...prev["price"], permonth: value },
+              }))
+            }
           />
           <p>DZD/per month</p>
         </div>

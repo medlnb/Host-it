@@ -6,13 +6,14 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { FaRegUser } from "react-icons/fa";
 import { floatingConext } from "@Context/FloatingWinContext";
 import Login from "@components/Login";
+import ClipLoader from "react-spinners/ClipLoader";
 
 function Nav() {
   const { data: session } = useSession();
   const { HandleChangeChildren } = useContext(floatingConext);
   const [ToggleNavbar, setToggleNavbar] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  console.log(session);
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -32,7 +33,18 @@ function Nav() {
     <div className="topbar--container">
       <Link href="/">Akrillloo</Link>
       <nav>
-        {session?.user ? (
+        {session === undefined && (
+          // <p onClick={() => signIn("credentials")} className="usernav">
+          //   Sign up
+          // </p>
+          <div
+            className="usernav"
+            onClick={() => setToggleNavbar((prev) => !prev)}
+          >
+            <ClipLoader size={20}/>
+          </div>
+        )}
+        {session && (
           <>
             <Link href="/createpost" className="underline-expand">
               New Post
@@ -50,7 +62,8 @@ function Nav() {
               )}
             </div>
           </>
-        ) : (
+        )}
+        {session === null && (
           // <p onClick={() => signIn("credentials")} className="usernav">
           //   Sign up
           // </p>

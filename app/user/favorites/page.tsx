@@ -74,20 +74,20 @@ const Favorite = ({ post, userId, dispatch }: any) => {
       //   router.push(`/post/${post._id}`);
       // }}
     >
+      <img src={post.image[0]} />
+      <div className="fav--body">
+        <h1>{post.title}</h1>
+        <h2 style={{ color: "gray" }}>{`${post.state} ~ ${post.city}`}</h2>
+      </div>
       {true ? (
         <IoMdTrash
-          className={`fav--icon favpage--icon`}
+          className="favpage--icon"
           fill="black"
           onClick={() => HandleRemoveFav(post._id)}
         />
       ) : (
         "loading"
       )}
-      <img src={post.image[0]} />
-      <div className="fav--body">
-        <h1>{post.title}</h1>
-        <h2 style={{ color: "gray" }}>{`${post.state} ~ ${post.city}`}</h2>
-      </div>
     </div>
   );
 };

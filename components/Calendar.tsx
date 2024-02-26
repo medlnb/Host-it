@@ -164,7 +164,7 @@ const Day = ({ day = 0, reserved, requestReserve, isToday }: DayProps) => {
       )}
       {reserved && typeof reserved !== "string" && (
         <img
-          className="absolute left-1/2 top-1/2 h-2/3 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full"
+          className="absolute left-1/2 top-1/2 h-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full sm:h-2/3"
           src={reserved.image}
           alt="Reserved By"
           onClick={() =>

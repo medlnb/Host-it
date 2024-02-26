@@ -1,5 +1,6 @@
+import { floatingConext } from "@Context/FloatingWinContext";
 import { today, getLocalTimeZone, parseDate } from "@internationalized/date";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 interface Reservation {
   date: string;
@@ -144,6 +145,7 @@ interface DayProps {
 }
 
 const Day = ({ day = 0, reserved, requestReserve, isToday }: DayProps) => {
+  const { HandleChangeChildren } = useContext(floatingConext);
   return (
     <div className="h-14 border border-gray relative overflow-hidden sm:h-24">
       {day !== 0 && day}
@@ -151,8 +153,13 @@ const Day = ({ day = 0, reserved, requestReserve, isToday }: DayProps) => {
         <div
           className="absolute left-1/2 top-1/2 h-2/3 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-gray-700 animate-pulse"
           style={{ aspectRatio: "1/1" }}
-          // src={reseverInfo.image}
-          // onClick={() => console.log(reseverInfo.name)}
+          onClick={() =>
+            HandleChangeChildren(
+              <div className="w-96">
+                <p>dsadasd</p>
+              </div>
+            )
+          }
         />
       )}
       {reserved && typeof reserved !== "string" && (
@@ -160,7 +167,14 @@ const Day = ({ day = 0, reserved, requestReserve, isToday }: DayProps) => {
           className="absolute left-1/2 top-1/2 h-2/3 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full"
           src={reserved.image}
           alt="Reserved By"
-          onClick={() => console.log(reserved.name)}
+          onClick={() =>
+            HandleChangeChildren(
+              <div className="w-96 p-3 flex gap-3">
+                <img className="w-20 rounded-full" src={reserved.image} />
+                <h1>{reserved.name}</h1>
+              </div>
+            )
+          }
         />
       )}
       {requestReserve && (
@@ -172,7 +186,6 @@ const Day = ({ day = 0, reserved, requestReserve, isToday }: DayProps) => {
       {isToday && (
         <div
           style={{
-            backdropFilter: "blur(1px)",
             backgroundColor: "rgba(255, 255, 255, 0.7)",
           }}
           className="absolute w-full h-full top-0 left-0"

@@ -29,7 +29,7 @@ const months = [
 
 function Page() {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
-
+  const [updatecontrol, setUpdatecontrol] = useState(false);
   const decrementMonth = () => {
     setSelectedMonth((prev) => (prev === 0 ? prev : prev - 1));
   };
@@ -60,7 +60,7 @@ function Page() {
           title: data.post.title,
         });
       });
-  }, [PostId]);
+  }, [PostId, updatecontrol]);
 
   if (!PostData) return "loading";
   // console.log(selectedReservation.reservedDate);
@@ -72,7 +72,9 @@ function Page() {
       },
       body: JSON.stringify({ RequestId }),
     });
-    if (response.ok) alert("done");
+    if (response.ok) {
+      setUpdatecontrol((prev) => !prev);
+    }
   };
 
   const thisMonthReserves = PostData.resevedDates.filter(
@@ -100,22 +102,38 @@ function Page() {
           {PostData.reseveRequests.map((element, index) => (
             <div
               key={index}
-              className="border-2 p-3 rounded"
+              className={`border-2 p-3 rounded cursor-pointer ${
+                selectedReservation.requestedreserve === element
+                  ? "border-red-500"
+                  : ""
+              }`}
               onClick={() => {
                 setSelectedMonth(parseDate(element.date).month - 1);
-                setSelectedReserve((prev) => ({
-                  ...prev,
+                setSelectedReserve({
                   requestedreserve: element,
-                }));
+                });
               }}
             >
               <p>{element.reservedBy}</p>
               <p>Duration: {element.Duration + 1}</p>
               <div className="flex justify-around mt-3">
-                <button onClick={() => HandleAccepte(element._id)}>
+                <button
+                  className="underLine"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    HandleAccepte(element._id);
+                  }}
+                >
                   Accepte
                 </button>
-                <button>Repuse</button>
+                <button
+                  className="underLine"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  Repuse
+                </button>
               </div>
             </div>
           ))}

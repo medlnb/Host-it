@@ -25,6 +25,7 @@ const PostSchema = new Schema({
       {
         type: {
           date: String,
+          dateEnd: String,
           Duration: Number,
           reservedBy: { type: Schema.Types.ObjectId, ref: "User" },
         },
@@ -36,6 +37,7 @@ const PostSchema = new Schema({
       {
         type: {
           date: String,
+          dateEnd: String,
           Duration: Number,
           reservedBy: { type: Schema.Types.ObjectId, ref: "User" },
         },

@@ -41,7 +41,6 @@ const Post = ({
 }) => {
   const router = useRouter();
   const [isloading, setisloading] = useState(false);
-  // console.log(isFavorite);
   const HandleGetPage = () => {
     router.push(`/post/${data._id}`);
   };

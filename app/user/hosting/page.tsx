@@ -6,6 +6,7 @@ import { FaHouseCrack } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { FaRegEdit } from "react-icons/fa";
 import { useSession } from "next-auth/react";
+import { FaHandshakeSimple } from "react-icons/fa6";
 
 function Page() {
   const { data: session } = useSession();
@@ -72,15 +73,22 @@ const Host = ({ post }: any) => {
             <h2 style={{ color: "gray" }}>{`${post.state} ~ ${post.city}`}</h2>
           )}
         </div>
-
-        <FaRegEdit
-          className="favpage--icon"
-          fill="black"
-          onClick={(e) => {
-            e.stopPropagation();
-            router.push(`/editpost/${post._id}`);
-          }}
-        />
+        <div className="favpage--icon">
+          <FaRegEdit
+            style={{ marginLeft: ".3rem" }}
+            fill="black"
+            onClick={(e) => {
+              e.stopPropagation();
+              router.push(`/editpost/${post._id}`);
+            }}
+          />
+          <FaHandshakeSimple
+            onClick={(e) => {
+              e.stopPropagation();
+              router.push(`/user/hosting/reservemanager/${post._id}`);
+            }}
+          />
+        </div>
       </div>
     </div>
   );

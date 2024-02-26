@@ -5,7 +5,6 @@ import { defaultTheme, Provider } from "@adobe/react-spectrum";
 import { today } from "@internationalized/date";
 import { getLocalTimeZone } from "@internationalized/date";
 import { parseDate } from "@internationalized/date";
-import { CalendarDate } from "@internationalized/date";
 import "@styles/PostPage.css";
 import { useSession } from "next-auth/react";
 
@@ -60,6 +59,7 @@ function Reserving({ postId, resevedDates, price }: props) {
       method: "PATCH",
       body: JSON.stringify({
         date: value.start.toString(),
+        dateEnd: value.end.toString(),
         Duration: calculateDaysDifference(
           value.start.toString(),
           value.end.toString()

@@ -164,7 +164,7 @@ function Page() {
                 </div>
                 <Reserving
                   postId={data.post._id}
-                  resevedDates={data.post.reseveRequests} //change this latter dont forget blz
+                  resevedDates={data.post.resevedDates} //change this latter dont forget blz
                   price={data.post.price}
                 />
               </div>

@@ -6,12 +6,11 @@ import PlaceInfo from "@components/PlaceInfo";
 import PlaceType from "@components/PlaceType";
 import Prices from "@components/Prices";
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import BeatLoader from "react-spinners/BeatLoader";
 
 function Page() {
-  const pathna = usePathname();
-  const PostId = pathna.split("/")[pathna.split("/").length - 1];
+  const { PostId } = useParams();
   // const [loadingPosting, setloadingPosting] = useState(false);
 
   const [inputs, setInputs] = useState<any>(null);

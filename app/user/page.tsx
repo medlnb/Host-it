@@ -12,35 +12,35 @@ function page() {
       title: "Profile",
       description: "Manage your profile and account settings.",
       path: "/user/profile",
-      icon: <FaRegAddressCard className="UserPage--navElementIcon"/>,
+      icon: <FaRegAddressCard className="UserPage--navElementIcon" />,
     },
     {
       title: "Favorites",
       description: "Manage and review the places you've favorited.",
       path: "/user/favorites",
-      icon: <GrFavorite className="UserPage--navElementIcon"/>,
+      icon: <GrFavorite className="UserPage--navElementIcon" />,
     },
     {
       title: "Hosting",
       description: "Manage your hosting listings and reservations.",
       path: "/user/hosting",
-      icon: <IoIosSwitch className="UserPage--navElementIcon"/>,
+      icon: <IoIosSwitch className="UserPage--navElementIcon" />,
     },
     {
       title: "Settings",
       description: "Manage your account settings and preferences.",
       path: "/user/settings",
-      icon: <IoSettingsOutline className="UserPage--navElementIcon"/>,
+      icon: <IoSettingsOutline className="UserPage--navElementIcon" />,
     },
     {
       title: "Billing",
       description: "Manage your billing and payment methods.",
       path: "/user/billing",
-      icon: <FaRegMoneyBillAlt className="UserPage--navElementIcon"/>,
+      icon: <FaRegMoneyBillAlt className="UserPage--navElementIcon" />,
     },
   ];
   return (
-    <>
+    <div style={{ width: "60rem" }} className="max-w-full mx-auto my-8">
       <h1 style={{ textAlign: "center" }}>Account</h1>
       <div className="UserPage--nav">
         {navElements.map((el, i) => (
@@ -65,7 +65,7 @@ function page() {
           <b>Delete Account</b>
         </p>
       </div>
-    </>
+    </div>
   );
 }
 

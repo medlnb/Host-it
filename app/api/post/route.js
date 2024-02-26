@@ -98,11 +98,10 @@ export const POST = async (req) => {
 export const PATCH = async (req) => {
   try {
     await connectToDatabase();
-    const { date, Duration, reservedBy, postId } = await req.json();
-
+    const { date, dateEnd, Duration, reservedBy, postId } = await req.json();
     const post = await Post.findById(postId);
 
-    post.reseveRequests.push({ date, Duration, reservedBy });
+    post.reseveRequests.push({ date, Duration, reservedBy, dateEnd });
     await post.save();
 
     return new Response(JSON.stringify({ msg: "Reserve request sent" }), {

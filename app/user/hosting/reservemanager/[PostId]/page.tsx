@@ -83,7 +83,7 @@ function Page() {
       parseDate(resevation.date).month === selectedMonth + 1
   );
   return (
-    <div className="flex flex-col-reverse gap-10 px-5 sm:flex-row">
+    <div className="flex flex-col-reverse gap-10 px-0 text-xs sm:flex-row sm:px-5">
       <div className="flex-1 ">
         <div className="flex flex-row justify-center gap-20 w-full">
           <button onClick={decrementMonth}>-</button>

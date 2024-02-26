@@ -98,7 +98,7 @@ function Page() {
       </div>
       <div className="bg-gray-100 rounded-tl-lg rounded-bl-lg p-3">
         <p className="mb-6 text-center">Requests</p>
-        <div className="flex flex-col gap-2">
+        <div className="grid grid-cols-2 sm:flex sm:flex-col gap-2 ">
           {PostData.reseveRequests.map((element, index) => (
             <div
               key={index}
@@ -114,7 +114,7 @@ function Page() {
                 });
               }}
             >
-              <p>{element.reservedBy}</p>
+              <p className="overflow-scroll">{element.reservedBy}</p>
               <p>Duration: {element.Duration + 1}</p>
               <div className="flex justify-around mt-3">
                 <button

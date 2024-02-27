@@ -6,7 +6,7 @@
   max-width: 100%;
   margin: 0 auto;
   padding: 0.5rem 1rem 4rem 0.5rem;
-  height: calc(100lvh - 6rem);
+  /* height: calc(100lvh - 6rem); */
 }
 .UserPage--nav {
   display: grid;
@@ -137,9 +137,6 @@
 }
 
 @media (max-width: 768px) {
-  .favorites--feed {
-    font-size: 0.7rem;
-  }
   .UserPage--nav {
     display: flex;
     flex-direction: column;
@@ -157,14 +154,13 @@
     height: 5rem;
   }
   .favorites--feed {
-    font-size: 0.5rem;
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1rem;
   }
   .fav--container {
     flex-direction: row;
-    font-size: 0.55rem;
+    font-size: .8rem;
     align-items: start;
     gap: 0.5rem;
     padding: 0.5rem;

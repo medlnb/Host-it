@@ -1,7 +1,7 @@
 "use client";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import "@styles/Posts.css";
-import { Suspense, useContext, useState } from "react";
+import { Suspense, useContext } from "react";
 import SearchBar from "@components/SearchBar";
 import Table from "@components/Table";
 import { BsFillBriefcaseFill } from "react-icons/bs";

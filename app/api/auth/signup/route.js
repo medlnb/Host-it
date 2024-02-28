@@ -19,6 +19,7 @@ export const POST = async (req) => {
       password,
       image,
       name: username,
+      messages: [],
     });
 
     if (!newUser)
@@ -29,6 +30,42 @@ export const POST = async (req) => {
     return new Response(JSON.stringify(newUser), {
       status: 200,
     });
+  } catch (err) {
+    console.log(err);
+    return new Response(JSON.stringify(err), {
+      status: 500,
+    });
+  }
+};
+
+export const PATCH = async (req) => {
+  try {
+    await connectToDatabase();
+    const { userId, phonenumber, governmentID, address } = await req.json();
+    const user = await User.findOneAndUpdate(
+      { _id: userId },
+      {
+        phonenumber,
+        governmentID,
+        address,
+      }
+    );
+
+    if (!user)
+      return new Response(JSON.stringify({ err: "Error updating User" }), {
+        status: 500,
+      });
+
+    return new Response(
+      JSON.stringify({
+        phonenumber: user,
+        governmentID: user.governmentID,
+        address: user.address,
+      }),
+      {
+        status: 200,
+      }
+    );
   } catch (err) {
     console.log(err);
     return new Response(JSON.stringify(err), {

@@ -44,6 +44,17 @@ const PostSchema = new Schema({
       },
     ],
   },
+  reviews: {
+    type: [
+      {
+        type: {
+          userId: { type: Schema.Types.ObjectId, ref: "User" },
+          rating: Number,
+          content: String,
+        },
+      },
+    ],
+  },
   description: { type: String },
   amenities: { type: [String] },
   image: { type: [String] },

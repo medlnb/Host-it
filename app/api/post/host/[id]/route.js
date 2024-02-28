@@ -1,4 +1,5 @@
 import { connectToDatabase } from "@utils/database";
+import User from "@models/user";
 import Post from "@models/post";
 
 export const GET = async (req, { params }) => {
@@ -25,16 +26,29 @@ export const POST = async (req, { params }) => {
 
     const { RequestId } = await req.json();
 
-    const post = await Post.findById(params.id, "resevedDates reseveRequests");
+    const post = await Post.findById(
+      params.id,
+      "resevedDates reseveRequests poster title"
+    );
 
     const newreserved = post.reseveRequests.find(
       (element) => element._id.toString() === RequestId
     );
+    const treserverId = newreserved.reservedBy.toString();
     post.reseveRequests = post.reseveRequests.filter(
       (element) => element._id.toString() !== RequestId
     );
 
+    const user = await User.findById(treserverId).select("messages");
+
+    user.messages.push({
+      from: post.poster,
+      post: post.title,
+      content: `your request has been accepted in "${post.title}"`,
+    });
     post.resevedDates.push(newreserved);
+
+    await user.save();
     await post.save();
     return new Response(JSON.stringify({ msg: "reseved seccufully" }), {
       status: 200,

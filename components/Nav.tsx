@@ -2,8 +2,9 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import "@styles/nav.css";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { FaRegUser } from "react-icons/fa";
+import { CiChat1 } from "react-icons/ci";
 import { floatingConext } from "@Context/FloatingWinContext";
 import Login from "@components/Login";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -12,8 +13,8 @@ function Nav() {
   const { data: session } = useSession();
   const { HandleChangeChildren } = useContext(floatingConext);
   const [ToggleNavbar, setToggleNavbar] = useState(false);
+  const [messagesData, setMessagesData] = useState([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  // console.log(session);
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -28,6 +29,15 @@ function Nav() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  useEffect(() => {
+    if (session) {
+      fetch(`/api/messages/${session.user.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setMessagesData(data);
+        });
+    }
+  }, [session]);
 
   return (
     <div className="topbar--container">
@@ -45,6 +55,13 @@ function Nav() {
           <>
             <Link href="/createpost" className="underline-expand">
               New Post
+            </Link>
+            <Link
+              href="/user/messages"
+              className="relative flex items-center mx-2 gap-1"
+            >
+              <p>{messagesData.length}</p>
+              <CiChat1 size={25} />
             </Link>
             <div
               className="usernav"

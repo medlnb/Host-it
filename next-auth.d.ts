@@ -7,7 +7,11 @@ declare module "next-auth" {
   interface Session {
     user: {
       id: string;
-      favorites: string[]; // Adjust the type according to your schema
+      name: string;
+      email: string;
+      phonenumber: string | undefined;
+      governmentID: string | undefined;
+      address: string | undefined;
     } & DefaultSession["user"];
   }
 }

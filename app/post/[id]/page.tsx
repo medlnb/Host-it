@@ -6,6 +6,7 @@ import Reserving from "@components/Reserving";
 import { amenitiesData } from "@components/Amenities";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";
+import Review from "@components/Review";
 
 interface Post {
   _id: string;
@@ -56,6 +57,13 @@ function Page() {
     if (Ref.current) {
       Ref.current.scrollLeft -= 400;
     }
+  };
+
+  const reviewData = {
+    userId: "65cb91386927156701b4bc34",
+    rating: 4,
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, optio facilis unde labore reprehenderit cumque blanditiis cum natus iusto eveniet non quo minus illo ratione facere voluptate porro, sed quasi.",
   };
   return (
     <>
@@ -170,6 +178,23 @@ function Page() {
               </div>
             </div>
           </div>
+          <section className="w-full my-5 rounded p-3 grid grid-cols-4 gap-4">
+            <Review
+              userId={reviewData.userId}
+              rating={reviewData.rating}
+              content={reviewData.content}
+            />
+            <Review
+              userId={reviewData.userId}
+              rating={reviewData.rating}
+              content={reviewData.content}
+            />
+            <Review
+              userId={reviewData.userId}
+              rating={reviewData.rating}
+              content={reviewData.content}
+            />
+          </section>
         </div>
       )}
     </>

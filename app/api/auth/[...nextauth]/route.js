@@ -32,7 +32,11 @@ const handler = NextAuth({
     async session({ session }) {
       const sessionUser = await User.findOne({ email: session.user.email });
       session.user.id = sessionUser._id.toString();
-      session.user.favorites = sessionUser.favorites;
+      session.user.phonenumber = sessionUser.phonenumber;
+      session.user.governmentID = sessionUser.governmentID;
+      session.user.address = sessionUser.address;
+      session.user.image = sessionUser.image;
+      session.user.name = sessionUser.name;
       return session;
     },
     async signIn({ user }) {
@@ -46,6 +50,7 @@ const handler = NextAuth({
             image: user.image,
             name: user.name,
             favorites: [],
+            messages: [],
           });
         }
 

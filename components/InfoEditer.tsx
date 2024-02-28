@@ -28,7 +28,7 @@ function InfoEditer({ title, value, HandleSave }: InfoEditerProps) {
             {value !== "" ? value : "Not provided"}
           </p>
         </div>
-        {(title !== "email" && title !== "legalname") && (
+        {title !== "email" && title !== "legalname" && (
           <p
             className="underline cursor-pointer"
             onClick={() => {
@@ -48,14 +48,6 @@ function InfoEditer({ title, value, HandleSave }: InfoEditerProps) {
           }}
           className="w-full text-gray-500 border-2  border-gray-500 rounded-md p-2"
         />
-        <button
-          onClick={() => {
-            setToggle(!Toggle);
-          }}
-          className="bg-black text-white p-2 w-20 rounded-md"
-        >
-          Save
-        </button>
       </div>
     </div>
   );

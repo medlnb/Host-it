@@ -13,7 +13,7 @@ function Nav() {
   const { data: session } = useSession();
   const { HandleChangeChildren } = useContext(floatingConext);
   const [ToggleNavbar, setToggleNavbar] = useState(false);
-  const [messagesData, setMessagesData] = useState([]);
+  const [messagesData, setMessagesData] = useState<any>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -56,13 +56,15 @@ function Nav() {
             <Link href="/createpost" className="underline-expand">
               New Post
             </Link>
-            <Link
-              href="/user/messages"
-              className="relative flex items-center mx-2 gap-1"
-            >
-              <p>{messagesData.length}</p>
-              <CiChat1 size={25} />
-            </Link>
+            {messagesData && (
+              <Link
+                href="/user/messages"
+                className="relative flex items-center mx-2 gap-1"
+              >
+                <p>{messagesData.length}</p>
+                <CiChat1 size={25} />
+              </Link>
+            )}
             <div
               className="usernav"
               onClick={() => setToggleNavbar((prev) => !prev)}

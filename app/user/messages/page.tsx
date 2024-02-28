@@ -1,6 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
+import { IoMdTrash } from "react-icons/io";
 import "@styles/User.css";
 import { floatingConext } from "@Context/FloatingWinContext";
 
@@ -65,25 +66,25 @@ function Page() {
         ? messagesData.map((message, index) => (
             <div
               key={index}
-              className="mb-3 shadow-md rounded p-3 flex justify-between items-end bg-gray-100"
+              className="mb-3 shadow-md rounded p-3 flex justify-between items-end bg-gray-100 relative"
             >
               <div>
-                <h1 className="">{`${message.post}`}</h1>
-                <h1 className="pl-3 text-gray-500">{message.content}</h1>
+                <h1>{message.post} :</h1>
+                <p className="pl-3 text-gray-500">
+                  {message.content}
+                  <b
+                    className="border-l-2 px-2 text-gray-700 underline"
+                    onClick={() => HandleShowPoster(message.from)}
+                  >
+                    Contact Hoster
+                  </b>
+                </p>
               </div>
 
-              <button
-                className="border-l-2 px-2"
-                onClick={() => HandleShowPoster(message.from)}
-              >
-                Contact Hoster
-              </button>
-              <button
-                className="border-l-2 px-2"
+              <IoMdTrash
+                className="absolute top-4 right-4 "
                 onClick={() => HandleDelete(message._id)}
-              >
-                Remove
-              </button>
+              />
             </div>
           ))
         : "Loading..."}

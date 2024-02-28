@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 
 function Page() {
   const { data: session } = useSession();
-  console.log(session);
   const [UserInfo, setUserInfo] = useState<{
     legalname: string | undefined;
     email: string | undefined;
@@ -61,8 +60,9 @@ function Page() {
                   title={title}
                   value={UserInfo[title] ?? ""}
                   HandleSave={(value) => {
-                    console.log(value);
-                    // setUserInfo((prev) => ({ ...prev, [title]: value }));
+                    setUserInfo((prev: any) => {
+                      return { ...prev, [title]: value };
+                    });
                   }}
                 />
                 <div className="Hline w-full" />

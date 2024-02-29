@@ -31,8 +31,8 @@ function Review({ userId, rating, content }: props) {
   }, []);
   return (
     <div className="border-2 rounded-2xl w-full flex flex-col p-5">
-      <h1 className="text-6xl ">❝</h1>
-      <p>{content}</p>
+      <h1 className="text-4xl md:text-6xl">❝</h1>
+      <p className="text-sm">{content}</p>
       <div className="h-16 my-2 flex flex-row items-center gap-3 w-full">
         {!userProfile ? (
           <>

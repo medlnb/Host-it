@@ -1,6 +1,3 @@
-.hide-scroll-bar::-webkit-scrollbar {
-  display: none;
-}
 .max-width45rem {
   width: 45rem;
   max-width: 100%;

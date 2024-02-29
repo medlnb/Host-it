@@ -24,13 +24,14 @@ function Review({ userId, rating, content }: props) {
       });
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         setUserProfile(data[0]);
       }
     };
     getProfile();
   }, []);
   return (
-    <div className="border-2 rounded-2xl w-full flex flex-col p-5">
+    <div className="border-2 rounded-2xl flex flex-col p-5 min-w-full">
       <h1 className="text-4xl md:text-6xl">❝</h1>
       <p className="text-sm">{content}</p>
       <div className="h-16 my-2 flex flex-row items-center gap-3 w-full">

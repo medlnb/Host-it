@@ -7,6 +7,9 @@
 body::-webkit-scrollbar {
   display: none;
 }
+.hide-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

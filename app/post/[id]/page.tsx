@@ -32,7 +32,6 @@ interface Post {
 }
 
 function Page() {
-  // const [scroolPosition, setScroolPosition] = useState(0);
   const Ref = useRef<HTMLDivElement>(null);
   const { id } = useParams();
 
@@ -60,7 +59,7 @@ function Page() {
   };
 
   const reviewData = {
-    userId: "65cb91386927156701b4bc34",
+    userId: "65df9911fa42431c1a11c6dd",
     rating: 4,
     content:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, optio facilis unde labore reprehenderit cumque blanditiis cum natus iusto eveniet non quo minus illo ratione facere voluptate porro, sed quasi.",
@@ -178,7 +177,7 @@ function Page() {
               </div>
             </div>
           </div>
-          <section className="w-full my-5 rounded p-2 grid grid-cols-1 gap-4 md:grid-cols-4">
+          <section className="w-full my-5 rounded p-2 flex flex-row overflow-x-scroll gap-4 md:grid-cols-4 md:grid hide-scroll-bar">
             <Review
               userId={reviewData.userId}
               rating={reviewData.rating}

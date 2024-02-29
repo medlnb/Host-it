@@ -2,6 +2,8 @@
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import { IoMdTrash } from "react-icons/io";
+import { FaStar } from "react-icons/fa";
+import { CiStar } from "react-icons/ci";
 import "@styles/User.css";
 import { floatingConext } from "@Context/FloatingWinContext";
 
@@ -13,7 +15,7 @@ interface message {
 }
 
 function Page() {
-  const { HandleChangeChildren } = useContext(floatingConext);
+  const { HandleChangeChildren, setToggle } = useContext(floatingConext);
   const [messagesData, setMessagesData] = useState<message[] | null>(null);
   const { data: session, update } = useSession();
   useEffect(() => {
@@ -70,7 +72,7 @@ function Page() {
   };
 
   return (
-    <div className="p-3 max-width45rem" >
+    <div className="p-3 max-width45rem">
       <h2 className="text-center mb-3">Messages</h2>
       {messagesData
         ? messagesData.map((message, index) => (
@@ -90,11 +92,18 @@ function Page() {
                   </b>
                 </p>
               </div>
-
-              <IoMdTrash
-                className="absolute top-4 right-4 "
-                onClick={() => HandleDelete(message._id)}
-              />
+              <div className="absolute top-4 right-4 flex items-center gap-2">
+                <FaStar
+                  className="mb-0.5 cursor-pointer"
+                  onClick={() => {
+                    HandleChangeChildren(<RatingPage setToggle={setToggle} />);
+                  }}
+                />
+                <IoMdTrash
+                  className="cursor-pointer"
+                  onClick={() => HandleDelete(message._id)}
+                />
+              </div>
             </div>
           ))
         : "Loading..."}
@@ -103,3 +112,84 @@ function Page() {
 }
 
 export default Page;
+
+const RatingPage = ({ setToggle }: any) => {
+  const [Inputs, setInputs] = useState<{ content: string; rating: number }>({
+    content: "",
+    rating: 3,
+  });
+  const emptyStarts = [
+    <CiStar
+      key={10}
+      size={30}
+      onClick={() => {
+        setInputs((prev) => ({ ...prev, rating: 1 }));
+      }}
+    />,
+    <CiStar
+      key={11}
+      size={30}
+      onClick={() => {
+        setInputs((prev) => ({ ...prev, rating: 2 }));
+      }}
+    />,
+    <CiStar
+      key={12}
+      size={30}
+      onClick={() => {
+        setInputs((prev) => ({ ...prev, rating: 3 }));
+      }}
+    />,
+    <CiStar
+      key={13}
+      size={30}
+      onClick={() => {
+        setInputs((prev) => ({ ...prev, rating: 4 }));
+      }}
+    />,
+    <CiStar
+      key={14}
+      size={30}
+      onClick={() => {
+        setInputs((prev) => ({ ...prev, rating: 5 }));
+      }}
+    />,
+  ];
+
+  const filledStarts = [];
+  for (let index = 0; index < Inputs.rating; index++) {
+    filledStarts.push(
+      <FaStar
+        key={index}
+        onClick={() => {
+          setInputs((prev) => ({ ...prev, rating: index + 1 }));
+        }}
+        size={26}
+      />
+    );
+    emptyStarts.shift();
+  }
+  return (
+    <div className="w-96 p-3">
+      <div className="flex items-center justify-center my-5">
+        {[...filledStarts, ...emptyStarts].map((star) => star)}
+      </div>
+      <textarea
+        value={Inputs.content}
+        onChange={(e) =>
+          setInputs((prev) => ({ ...prev, content: e.target.value }))
+        }
+        className="border-2 w-full p-1"
+        placeholder="what do u think of this place..."
+      />
+      <p
+        className="text-center mt-3 border-2 rounded p-1 cursor-pointer"
+        onClick={() => {
+          setToggle(false);
+        }}
+      >
+        Submit
+      </p>
+    </div>
+  );
+};

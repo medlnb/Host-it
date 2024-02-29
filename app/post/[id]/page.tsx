@@ -178,7 +178,7 @@ function Page() {
               </div>
             </div>
           </div>
-          <section className="w-full my-5 rounded p-2 grid grid-cols-2 gap-4 md:grid-cols-4">
+          <section className="w-full my-5 rounded p-2 grid grid-cols-1 gap-4 md:grid-cols-4">
             <Review
               userId={reviewData.userId}
               rating={reviewData.rating}

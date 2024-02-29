@@ -54,23 +54,23 @@ function page() {
           return (
             <div className="" key={i}>
               {i === 0 && (
-                <div className="Hline w-full h-0.5 my-5 relative">
+                <div className="Hline w-full h-0.5 my-5 relative  md:hidden">
                   <p className="absolute -top-3 bg-white px-5">User</p>
                 </div>
               )}
               {i === 2 && (
-                <div className="Hline w-full h-0.5 my-5 relative">
+                <div className="Hline w-full h-0.5 my-5 relative  md:hidden">
                   <p className="absolute -top-3 bg-white px-5">
                     Host Management
                   </p>
                 </div>
               )}
               {i === 5 && (
-                <div className="Hline w-full h-0.5 my-5 relative">
+                <div className="Hline w-full h-0.5 my-5 relative  md:hidden">
                   <p className="absolute -top-3 bg-white px-5">Others</p>
                 </div>
               )}
-              <Link href={el.path} className="UserPage--navElement">
+              <Link href={el.path}  className="UserPage--navElement">
                 {el.icon}
                 <div>
                   <p className="UserPage--navElementTitle">

@@ -170,7 +170,7 @@ const RatingPage = ({ setToggle }: any) => {
     emptyStarts.shift();
   }
   return (
-    <div className="w-96 p-3">
+    <div className="w-96 max-w-full p-3" >
       <div className="flex items-center justify-center my-5">
         {[...filledStarts, ...emptyStarts].map((star) => star)}
       </div>

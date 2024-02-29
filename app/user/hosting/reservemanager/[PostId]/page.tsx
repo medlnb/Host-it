@@ -69,7 +69,7 @@ function Page() {
 
   useEffect(() => {
     const Ids = PostData?.reseveRequests.map((request) => request.reservedBy);
-    // console.log(Ids);
+
     const getUsers = async () => {
       const response = await fetch("/api/profile", {
         method: "POST",
@@ -107,11 +107,13 @@ function Page() {
       parseDate(resevation.dateEnd).month === selectedMonth + 1 ||
       parseDate(resevation.date).month === selectedMonth + 1
   );
-  // PostData.reseveRequests
   return (
-    <div className="flex flex-col-reverse gap-10 px-0 text-xs sm:flex-row sm:px-5 h-full">
-      <div className="flex-1 ">
-        <div className="flex flex-row justify-center items-center gap-20 w-full">
+    <div
+      className="flex flex-col-reverse gap-10 px-0 text-xs sm:flex-row"
+      style={{ height: "40rem" }}
+    >
+      <div className="flex-1 h-full">
+        <div className="flex flex-row justify-center items-center gap-20 w-full mb-3">
           <FaCaretLeft
             className="cursor-pointer"
             onClick={decrementMonth}
@@ -130,9 +132,9 @@ function Page() {
           selectedMonth={selectedMonth}
         />
       </div>
-      <div className="flex flex-col bg-gray-100 rounded-tl-lg rounded-bl-lg p-3 h-full">
+      <div className="flex  flex-col bg-gray-100 rounded-tl-lg rounded-bl-lg p-3 h-full border-2">
         <p className="mb-6 text-center">Requests</p>
-        <div className="grid grid-cols-2 py-2 sm:w-56 sm:flex sm:flex-col gap-2  overflow-y-scroll hide-scroll-bar">
+        <div className="grid grid-cols-2 py-2 sm:w-56 sm:flex sm:flex-col gap-2 overflow-y-scroll hide-scroll-bar">
           {PostData.reseveRequests.map((element, index) => {
             let profile = null;
             if (profiles)

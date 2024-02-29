@@ -41,14 +41,16 @@ function PlaceDetails({
           <p>Bedrooms</p>
           <div className="calc">
             <button
-              className={`calc--button ${Bedrooms === 0 && "calc--disabled"}`}
+              className={`calc--button flex justify-center items-center ${
+                Bedrooms === 0 && "calc--disabled"
+              }`}
               onClick={() => handleDecrement("Bedrooms")}
             >
               -
             </button>
             <p>{Bedrooms}</p>
             <button
-              className="calc--button"
+              className="calc--button flex justify-center items-center"
               onClick={() => handleIncrement("Bedrooms")}
             >
               +
@@ -58,16 +60,18 @@ function PlaceDetails({
         {/* {---} */}
         <div className="detail">
           <p>Bathrooms</p>
-          <div className="calc">
+          <div className="calc flex justify-center items-center">
             <button
-              className={`calc--button ${Bathrooms === 0 && "calc--disabled"}`}
+              className={`calc--button flex justify-center items-center ${
+                Bathrooms === 0 && "calc--disabled"
+              }`}
               onClick={() => handleDecrement("Bathrooms")}
             >
               -
             </button>
             <p>{Bathrooms}</p>
             <button
-              className="calc--button"
+              className="calc--button flex justify-center items-center "
               onClick={() => handleIncrement("Bathrooms")}
             >
               +
@@ -77,16 +81,18 @@ function PlaceDetails({
         {/* {---} */}
         <div className="detail">
           <p>Beds</p>
-          <div className="calc">
+          <div className="calc flex justify-center items-center">
             <button
-              className={`calc--button ${Beds === 0 && "calc--disabled"}`}
+              className={`calc--button flex justify-center items-center ${
+                Beds === 0 && "calc--disabled"
+              }`}
               onClick={() => handleDecrement("Beds")}
             >
               -
             </button>
             <p>{Beds}</p>
             <button
-              className="calc--button"
+              className="calc--button flex justify-center items-center"
               onClick={() => handleIncrement("Beds")}
             >
               +
@@ -96,16 +102,18 @@ function PlaceDetails({
         {/* {---} */}
         <div className="detail">
           <p>Guests</p>
-          <div className="calc">
+          <div className="calc flex justify-center items-center">
             <button
-              className={`calc--button ${Guests === 0 && "calc--disabled"}`}
+              className={`calc--button flex justify-center items-center ${
+                Guests === 0 && "calc--disabled"
+              }`}
               onClick={() => handleDecrement("Guests")}
             >
               -
             </button>
             <p>{Guests}</p>
             <button
-              className="calc--button"
+              className="calc--button flex justify-center items-center"
               onClick={() => handleIncrement("Guests")}
             >
               +

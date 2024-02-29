@@ -38,9 +38,19 @@ function Page() {
       const data = await response.json();
       const poster = data[0];
       HandleChangeChildren(
-        <div className="p-3">
-          <h1>{poster.name}</h1>
-          <h1>{poster.email}</h1>
+        <div className="p-3" style={{ width: "30rem" }}>
+          {Object.entries(poster).map((element) => {
+            if (element[0] !== "_id" && element[0] !== "image")
+              return (
+                <>
+                  <div key={element[0]} className="flex flex-row">
+                    <p className="flex-1">{element[0]}</p>
+                    <p className="flex-1">{element[1] + ""}</p>
+                  </div>
+                  <div className="Hline my-4 w-full" />
+                </>
+              );
+          })}
         </div>
       );
     }
@@ -60,7 +70,7 @@ function Page() {
   };
 
   return (
-    <div className="p-3">
+    <div className="p-3 max-width45rem" >
       <h2 className="text-center mb-3">Messages</h2>
       {messagesData
         ? messagesData.map((message, index) => (
@@ -73,7 +83,7 @@ function Page() {
                 <p className="pl-3 text-gray-500">
                   {message.content}
                   <b
-                    className="border-l-2 px-2 text-gray-700 underline"
+                    className="border-l-2 px-2 text-gray-700 underline cursor-pointer"
                     onClick={() => HandleShowPoster(message.from)}
                   >
                     Contact Hoster

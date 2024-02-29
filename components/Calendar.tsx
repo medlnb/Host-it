@@ -24,8 +24,12 @@ function Calendar({
   const [profiles, setProfiles] = useState<
     | {
         _id: string;
-        name: string;
         image: string;
+        name: string;
+        email: string;
+        phonenumber?: string;
+        governmentID?: string;
+        address?: string;
       }[]
     | null
   >(null);
@@ -52,8 +56,7 @@ function Calendar({
     if (reservedDates) {
       getUsers();
     }
-  }, []);
-  // console.log(profiles);
+  }, [selectedMonth]);
 
   const daysLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const todayDate = today(getLocalTimeZone());
@@ -135,8 +138,12 @@ interface DayProps {
   reserved?:
     | {
         _id: string;
-        name: string;
         image: string;
+        name: string;
+        email: string;
+        phonenumber?: string;
+        governmentID?: string;
+        address?: string;
       }
     | string
     | false;
@@ -153,13 +160,6 @@ const Day = ({ day = 0, reserved, requestReserve, isToday }: DayProps) => {
         <div
           className="absolute left-1/2 top-1/2 h-2/3 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-gray-700 animate-pulse"
           style={{ aspectRatio: "1/1" }}
-          onClick={() =>
-            HandleChangeChildren(
-              <div className="w-96">
-                <p>dsadasd</p>
-              </div>
-            )
-          }
         />
       )}
       {reserved && typeof reserved !== "string" && (
@@ -169,9 +169,15 @@ const Day = ({ day = 0, reserved, requestReserve, isToday }: DayProps) => {
           alt="Reserved By"
           onClick={() =>
             HandleChangeChildren(
-              <div className="w-96 p-3 flex gap-3">
-                <img className="w-20 rounded-full" src={reserved.image} />
-                <h1>{reserved.name}</h1>
+              <div className="w-96 p-3 gap-3">
+                <div className="flex gap-3">
+                  <img className="w-20 rounded-full" src={reserved.image} />
+                  <div className="mt-3">
+                    <h1>{reserved.name}</h1>
+                    <h1>{reserved.email}</h1>
+                    <h1>{reserved.phonenumber}</h1>
+                  </div>
+                </div>
               </div>
             )
           }

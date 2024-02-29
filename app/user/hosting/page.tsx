@@ -24,7 +24,7 @@ function Page() {
   }, [session]);
 
   return (
-    <>
+    <div>
       <h1 style={{ textAlign: "center" }}>Hosting</h1>
       {HostData ? (
         HostData.length === 0 ? (
@@ -46,7 +46,7 @@ function Page() {
       ) : (
         "loading"
       )}
-    </>
+    </div>
   );
 }
 
@@ -63,7 +63,7 @@ const Host = ({ post }: any) => {
       }}
     >
       <img src={post.image[0]} />
-      <div className="Hline bigscreen" style={{ width: "100%" }} />
+      <div className="Hline bigscreen w-full"  />
       <div className="fav--body">
         <div className="fav--info">
           <h1>{post.title}</h1>

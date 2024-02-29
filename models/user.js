@@ -13,8 +13,8 @@ const UserSchema = new Schema(
     favorites: { type: [String] },
     id: { type: String },
     phonenumber: { type: String },
-    GovernmentID: { type: String },
-    Address: { type: String },
+    governmentID: { type: String },
+    address: { type: String },
     messages: {
       type: [
         {

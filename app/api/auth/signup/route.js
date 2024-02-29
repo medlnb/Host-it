@@ -42,6 +42,7 @@ export const PATCH = async (req) => {
   try {
     await connectToDatabase();
     const { userId, phonenumber, governmentID, address } = await req.json();
+    console.log(phonenumber, governmentID, address);
     const user = await User.findOneAndUpdate(
       { _id: userId },
       {

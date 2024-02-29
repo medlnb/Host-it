@@ -52,7 +52,7 @@ function page() {
       <div className="UserPage--nav">
         {navElements.map((el, i) => {
           return (
-            <div className="">
+            <div className="" key={i}>
               {i === 0 && (
                 <div className="Hline w-full h-0.5 my-5 relative">
                   <p className="absolute -top-3 bg-white px-5">User</p>
@@ -70,7 +70,7 @@ function page() {
                   <p className="absolute -top-3 bg-white px-5">Others</p>
                 </div>
               )}
-              <Link href={el.path} key={i} className="UserPage--navElement">
+              <Link href={el.path} className="UserPage--navElement">
                 {el.icon}
                 <div>
                   <p className="UserPage--navElementTitle">

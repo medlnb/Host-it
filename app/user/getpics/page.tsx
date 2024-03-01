@@ -3,7 +3,7 @@
 function Page() {
   return (
     <div>
-      <img src="/tmp/me.jpg" />
+      <img src="tmp/me.jpg" />
     </div>
   );
 }

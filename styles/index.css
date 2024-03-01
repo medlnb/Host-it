@@ -10,6 +10,9 @@ body::-webkit-scrollbar {
 .hide-scroll-bar::-webkit-scrollbar {
   display: none;
 }
+.transition-delay-300ms {
+  transition: 300ms;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

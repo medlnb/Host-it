@@ -15,7 +15,7 @@ function Page() {
 
     const path = join("/", "tmp", file.name);
     await writeFile(path, buffer);
-    console.log(`open ${path} plz `);
+    console.log(path);
   }
   return (
     <div>

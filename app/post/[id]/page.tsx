@@ -192,7 +192,7 @@ function Page() {
           <div className="Hline my-5" />
           {overallReviewRate === 0 && "not rated yet"}
           {overallReviewRate ? (
-            <div className="flex justify-center items-center gap-3 text-xl">
+            <div className="flex justify-center items-center gap-3 text-lg">
               <p className="flex items-center gap-1">
                 {overallReviewRate.overallReviewRate}
                 <FaStar className="mb-0.5" />

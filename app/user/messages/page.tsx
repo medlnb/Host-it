@@ -9,6 +9,7 @@ import { floatingConext } from "@Context/FloatingWinContext";
 
 interface message {
   from: string;
+  postId: string;
   post: string;
   content: string;
   _id: string;
@@ -57,13 +58,13 @@ function Page() {
       );
     }
   };
-  const HandleDelete = async (postId: string) => {
+  const HandleDelete = async (messageId: string) => {
     const response = await fetch(`/api/messages/${session?.user.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ messageId: postId }),
+      body: JSON.stringify({ messageId }),
     });
     if (response.ok) {
       update();
@@ -96,7 +97,13 @@ function Page() {
                 <FaStar
                   className="mb-0.5 cursor-pointer"
                   onClick={() => {
-                    HandleChangeChildren(<RatingPage setToggle={setToggle} />);
+                    HandleChangeChildren(
+                      <RatingPage
+                        setToggle={setToggle}
+                        postId={message.postId}
+                        userId={session?.user.id}
+                      />
+                    );
                   }}
                 />
                 <IoMdTrash
@@ -113,7 +120,15 @@ function Page() {
 
 export default Page;
 
-const RatingPage = ({ setToggle }: any) => {
+const RatingPage = ({
+  setToggle,
+  postId,
+  userId,
+}: {
+  setToggle: any;
+  postId: string;
+  userId?: string;
+}) => {
   const [Inputs, setInputs] = useState<{ content: string; rating: number }>({
     content: "",
     rating: 3,
@@ -169,8 +184,23 @@ const RatingPage = ({ setToggle }: any) => {
     );
     emptyStarts.shift();
   }
+
+  const HandleSubmit = async () => {
+    const response = await fetch(`/api/post/${postId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: Inputs.content,
+        userId,
+        rating: Inputs.rating,
+      }),
+    });
+    if (response.ok) alert("Done my g");
+  };
   return (
-    <div className="w-96 max-w-full p-3" >
+    <div className="w-96 max-w-full p-3">
       <div className="flex items-center justify-center my-5">
         {[...filledStarts, ...emptyStarts].map((star) => star)}
       </div>
@@ -185,6 +215,7 @@ const RatingPage = ({ setToggle }: any) => {
       <p
         className="text-center mt-3 border-2 rounded p-1 cursor-pointer"
         onClick={() => {
+          HandleSubmit();
           setToggle(false);
         }}
       >

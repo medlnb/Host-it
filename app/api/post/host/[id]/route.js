@@ -45,6 +45,7 @@ export const POST = async (req, { params }) => {
       from: post.poster,
       post: post.title,
       content: `your request has been accepted in "${post.title}"`,
+      postId: post._id,
     });
     post.resevedDates.push(newreserved);
 

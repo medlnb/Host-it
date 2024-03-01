@@ -6,6 +6,7 @@ import Reserving from "@components/Reserving";
 import { amenitiesData } from "@components/Amenities";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import Review from "@components/Review";
 
 interface Post {
@@ -29,7 +30,23 @@ interface Post {
   Bathrooms: Number;
   Guests: Number;
   Beds: Number;
+  reviews: { userId: string; rating: number; content: string }[];
 }
+
+const avrRate = (
+  array: { userId: string; rating: number; content: string }[] | undefined
+) => {
+  if (!array) return null;
+  if (array.length === 0) return 0;
+  let overallReviewRate = 0;
+  array.map((review) => {
+    overallReviewRate = overallReviewRate + review.rating;
+  });
+  return {
+    overallReviewRate: overallReviewRate / array.length,
+    count: array.length,
+  };
+};
 
 function Page() {
   const Ref = useRef<HTMLDivElement>(null);
@@ -58,12 +75,7 @@ function Page() {
     }
   };
 
-  const reviewData = {
-    userId: "65df9911fa42431c1a11c6dd",
-    rating: 4,
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, optio facilis unde labore reprehenderit cumque blanditiis cum natus iusto eveniet non quo minus illo ratione facere voluptate porro, sed quasi.",
-  };
+  const overallReviewRate = avrRate(data?.post.reviews);
   return (
     <>
       {!data ? (
@@ -177,22 +189,28 @@ function Page() {
               </div>
             </div>
           </div>
+          <div className="Hline my-5" />
+          {overallReviewRate === 0 && "not rated yet"}
+          {overallReviewRate ? (
+            <div className="flex justify-center items-center gap-3 text-xl">
+              <p className="flex items-center gap-1">
+                {overallReviewRate.overallReviewRate}
+                <FaStar className="mb-0.5" />
+              </p>
+              •<p>{overallReviewRate.count} review</p>
+            </div>
+          ) : (
+            <></>
+          )}
           <section className="w-full my-5 rounded p-2 flex flex-row overflow-x-scroll gap-4 md:grid-cols-4 md:grid hide-scroll-bar">
-            <Review
-              userId={reviewData.userId}
-              rating={reviewData.rating}
-              content={reviewData.content}
-            />
-            <Review
-              userId={reviewData.userId}
-              rating={reviewData.rating}
-              content={reviewData.content}
-            />
-            <Review
-              userId={reviewData.userId}
-              rating={reviewData.rating}
-              content={reviewData.content}
-            />
+            {data.post.reviews.map((review, index) => (
+              <Review
+                key={index}
+                userId={review.userId}
+                rating={review.rating}
+                content={review.content}
+              />
+            ))}
           </section>
         </div>
       )}

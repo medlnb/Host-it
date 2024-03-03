@@ -41,7 +41,7 @@ function Nav() {
 
   return (
     <div className="topbar--container">
-      <Link href="/">Akrillloo</Link>
+      <Link href="/">El-Semsar</Link>
       <nav>
         {session === undefined && (
           <div

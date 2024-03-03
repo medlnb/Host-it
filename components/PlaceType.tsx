@@ -1,4 +1,3 @@
-import "@styles/PlaceType.css";
 import { MdApartment } from "react-icons/md";
 import { BsFillBriefcaseFill } from "react-icons/bs";
 import { FaWarehouse } from "react-icons/fa";
@@ -11,7 +10,6 @@ import { MdVilla } from "react-icons/md";
 import { FaCaravan } from "react-icons/fa";
 import { FaHotel } from "react-icons/fa6";
 import { FaBed } from "react-icons/fa";
-import { useState } from "react";
 
 interface props {
   type: string;
@@ -34,11 +32,11 @@ function PlaceType({ type, HandleChangeInputs }: props) {
     { title: "Motel", icon: <FaBed size={30} /> },
   ];
   return (
-    <div style={{ margin: "5rem 0" }}>
-      <h1 className="createpost--title">
+    <div>
+      <h1 className="text-center font-medium text-2xl my-10">
         Which of these best describes your place?
       </h1>
-      <div className="types--container">
+      <div className="my-8 mx-auto grid grid-cols-3 gap-2">
         {types.map((typeData) => (
           <div
             key={typeData.title}
@@ -48,8 +46,8 @@ function PlaceType({ type, HandleChangeInputs }: props) {
                 type: typeData.title,
               }))
             }
-            className={`type--container ${
-              type === typeData.title ? "selectedtype" : ""
+            className={`flex gm:gap-3 gap-1 flex-col md:flex-row items-center md:p-8 p-4 rounded-lg border-2 hover:bg-gray-100 cursor-pointer ${
+              type === typeData.title ? "border-black" : ""
             }`}
           >
             <div className="type--icon">{typeData.icon}</div>

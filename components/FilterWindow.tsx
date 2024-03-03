@@ -5,9 +5,9 @@ import Select from "react-select";
 import { useContext, useState } from "react";
 import { floatingConext } from "@Context/FloatingWinContext";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { HandleFilterChange } from "@components/Posts";
 
 interface props {
-  HandleFilterChange: any;
   LowPrice: string;
   HighPrice: string;
   wilaya: string;
@@ -15,9 +15,9 @@ interface props {
   bedrooms: string;
   bathrooms: string;
   beds: string;
+  amenties: string[] | null;
 }
 const FilterWindow = ({
-  HandleFilterChange,
   wilaya,
   baladia,
   LowPrice,
@@ -25,6 +25,7 @@ const FilterWindow = ({
   beds,
   bedrooms,
   bathrooms,
+  amenties,
 }: any) => {
   const { setToggle } = useContext(floatingConext);
   const searchParams = useSearchParams();
@@ -73,7 +74,9 @@ const FilterWindow = ({
     "Pool",
     "Elevator",
   ];
-  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  const [selectedAmenities, setSelectedAmenities] = useState<string[] | null>(
+    amenties ?? []
+  );
 
   const [selectedinfo, setSelectedinfo] = useState({
     beds: beds,
@@ -85,7 +88,7 @@ const FilterWindow = ({
     const qurries = {
       LowPrice: value[0].toString(),
       HighPrice: value[1].toString(),
-      amenties: selectedAmenities.join(","),
+      amenties: selectedAmenities?.join(","),
       wilaya:
         address.selectedWilaya.value === "none"
           ? null
@@ -105,9 +108,9 @@ const FilterWindow = ({
     const qurries = {
       LowPrice: "100",
       HighPrice: "10000",
-      amenties: selectedAmenities.join(","),
-      wilaya: null,
-      baladia: null,
+      amenties: "",
+      wilaya: undefined,
+      baladia: undefined,
       bedrooms: "0",
       bathrooms: "0",
       beds: "0",
@@ -187,12 +190,12 @@ const FilterWindow = ({
             <div
               key={amenity}
               className={`amenity--item ${
-                selectedAmenities.includes(amenity) ? "amenity-active" : ""
+                selectedAmenities?.includes(amenity) ? "amenity-active" : ""
               }`}
               onClick={() =>
-                setSelectedAmenities((prev) =>
+                setSelectedAmenities((prev: any) =>
                   prev.includes(amenity)
-                    ? prev.filter((item) => item !== amenity)
+                    ? prev.filter((item: any) => item !== amenity)
                     : [...prev, amenity]
                 )
               }

@@ -69,6 +69,7 @@ export const HandleFilterChange = (
     if (type) params.set(inputs[index], type);
     // else params.delete(inputs[index]);
     if (inputs[index] === "baladia" && !type) params.delete("baladia");
+    if (inputs[index] === "amenties" && !type) params.delete("amenties");
     if (inputs[index] === "wilaya" && !type) params.delete("wilaya");
 
     if (inputs[index] === "type" && type === "none") params.delete("type");

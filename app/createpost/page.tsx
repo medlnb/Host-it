@@ -7,6 +7,7 @@ import PlaceType from "@components/PlaceType";
 import Prices from "@components/Prices";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import "@styles/CreatePost.css";
 
 function CreatePost() {
   const { data: session } = useSession();
@@ -58,8 +59,8 @@ function CreatePost() {
       body: JSON.stringify({
         poster: session?.user.id,
         ...inputs,
-        city: inputs.location.selectedbaladiya.label.split("\\")[1],
-        state: inputs.location.selectedWilaya.label.split("\\")[1],
+        city: inputs.location.selectedbaladiya.label.split("\\")[1].trim(),
+        state: inputs.location.selectedWilaya.label.split("\\")[1].trim(),
         location,
         price: {
           perday: inputs.price.perday,
@@ -71,10 +72,8 @@ function CreatePost() {
     // setloadingPosting(false);
   };
 
-  // }, []);
-
   return (
-    <div className="createpost--container">
+    <div className="max-width45rem hide-scroll-bar overflow-x-scroll p-4 rounded">
       <PlaceType type={inputs.type} HandleChangeInputs={setInputs} />
       <div className="Hline" />
       <PickLocation address={inputs.location} HandleChangeInputs={setInputs} />
@@ -108,3 +107,4 @@ function CreatePost() {
 }
 
 export default CreatePost;
+` `;

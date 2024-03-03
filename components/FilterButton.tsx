@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { MdOutlineSettingsInputComposite } from "react-icons/md";
 import FilterWindow from "@components/FilterWindow";
-import { HandleFilterChange } from "@components/Posts";
 import { useSearchParams } from "next/navigation";
 import { floatingConext } from "@Context/FloatingWinContext";
 
@@ -23,13 +22,14 @@ function FilterButton() {
 
   const LowPrice = params.get("LowPrice") ?? 100;
   const HighPrice = params.get("HighPrice") ?? 10000;
-  // const amenties = params.get("amenties") ?? "";
+  const amenties = params.get("amenties")
+    ? params.get("amenties")?.split(",")
+    : null;
   const beds = params.get("beds") ?? "0";
   const bedrooms = params.get("bedrooms") ?? "0";
   const bathrooms = params.get("bathrooms") ?? "0";
   const filterwindow = (
     <FilterWindow
-      HandleFilterChange={HandleFilterChange}
       wilaya={wilaya}
       baladia={baladia}
       LowPrice={LowPrice}
@@ -37,6 +37,7 @@ function FilterButton() {
       beds={beds}
       bedrooms={bedrooms}
       bathrooms={bathrooms}
+      amenties={amenties}
     />
   );
   return (

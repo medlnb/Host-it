@@ -1,5 +1,3 @@
-import "@styles/PlaceInfo.css";
-
 interface props {
   info: {
     title: string;
@@ -10,14 +8,14 @@ interface props {
 
 function PlaceInfo({ info, HandleChangeInputs }: props) {
   return (
-    <div style={{ margin: "5rem 0", width: "100%" }}>
-      <h1 className="createpost--title">
+    <div className="w-full my-5">
+      <h1 className="text-center font-medium text-2xl my-10">
         Now, let{"'"}s give your dome a title Short titles work best.
       </h1>
-      <div className="placeinfo--container">
+      <div className="my-10 w-full">
         <input
-          className={`placeinfo--title ${
-            info.title.length > 0 ? "active--input" : ""
+          className={`w-full my-3 p-3 border border-gray-300 rounded-md focus:outline-none${
+            info.title.length > 0 ? "border-black" : ""
           }`}
           placeholder="Title..."
           value={info.title}
@@ -30,13 +28,15 @@ function PlaceInfo({ info, HandleChangeInputs }: props) {
         />
       </div>
 
-      <h1 className="createpost--title">Create your description</h1>
-      <h2 className="createpost--subtitle">
+      <h1 className="text-center font-medium text-2xl ">
+        Create your description
+      </h1>
+      <h2 className="text-center font-medium text-gray-600">
         Share what makes your place special.
       </h2>
-      <div className="placeinfo--container">
+      <div className="w-full my-5">
         <textarea
-          className={`placeinfo--description ${
+          className={`w-full h-24 p-2 border border-gray-400 rounded-md focus:outline-none ${
             info.description.length > 0 ? "active--input" : ""
           }`}
           placeholder="Description..."

@@ -1,37 +1,8 @@
-.max-width45rem {
-  width: 45rem;
-  max-width: 100%;
-  margin: 0 auto;
-}
 .UserPage--container {
   max-width: 100%;
   margin: 0 auto;
   padding: 0.5rem 1rem 4rem 0.5rem;
   /* height: calc(100lvh - 6rem); */
-}
-.UserPage--nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 0.5rem;
-  width: 100%;
-  padding: 2rem 0;
-}
-.UserPage--navElement {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  border-radius: 0.5rem;
-}
-.UserPage--navElementIcon {
-  font-size: 1.7rem;
-  margin-bottom: 1rem;
-}
-.UserPage--navElementDescription {
-  font-weight: 500;
-  color: #333;
-  font-size: 0.9rem;
 }
 
 .UserPage--footer {
@@ -138,18 +109,6 @@
 }
 
 @media (max-width: 768px) {
-  .UserPage--nav {
-    display: flex;
-    flex-direction: column;
-  }
-  .UserPage--navElement {
-    flex-direction: row;
-    align-items: center;
-    gap: 1.5rem;
-  }
-  .UserPage--navElementIcon {
-    margin: 0;
-  }
   .fav--container img {
     width: 8rem;
     height: 5rem;

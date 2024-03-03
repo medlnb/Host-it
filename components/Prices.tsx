@@ -1,4 +1,3 @@
-import "@styles/Prices.css";
 import CurrencyInput from "react-currency-input-field";
 
 interface props {
@@ -11,12 +10,13 @@ interface props {
 
 function Prices({ price, HandleChangeInputs }: props) {
   return (
-    <div className="pricing--container">
-      <h1 className="createpost--title">Prices</h1>
-      <div className="prices--container">
-        <div className="price--inputs--container">
+    <div className="w-full my-5">
+      <h1 className="text-center font-medium text-2xl my-10">Prices</h1>
+      <div className="mt-4 flex items-center md:flex-row flex-col gap-3 md:justify-between">
+        <div className="flex items-center w-full  md:w-60 md:w-max-1/2 p-2 rounded-md border border-black">
           <CurrencyInput
             value={price.perday}
+            className="w-full border-none focus:outline-none"
             allowDecimals={false}
             onValueChange={(value) =>
               HandleChangeInputs((prev: any) => ({
@@ -25,12 +25,13 @@ function Prices({ price, HandleChangeInputs }: props) {
               }))
             }
           />
-          <p>DZD/per day</p>
+          <p className="whitespace-nowrap">DZD/per day</p>
         </div>
-        <div className="price--inputs--container">
+        <div className="flex items-center w-full  md:w-60 md:w-max-1/2 p-2 rounded-md border border-black">
           <CurrencyInput
             value={price.permonth}
             allowDecimals={false}
+            className="w-full border-none focus:outline-none"
             onValueChange={(value) =>
               HandleChangeInputs((prev: any) => ({
                 ...prev,
@@ -38,7 +39,7 @@ function Prices({ price, HandleChangeInputs }: props) {
               }))
             }
           />
-          <p>DZD/per month</p>
+          <p className="whitespace-nowrap">DZD/per month</p>
         </div>
       </div>
     </div>

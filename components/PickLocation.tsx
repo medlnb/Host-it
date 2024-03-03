@@ -5,14 +5,12 @@ import {
   AdvancedMarker,
   Pin,
 } from "@vis.gl/react-google-maps";
-import "@styles/CreatePost.css";
 import AlgerianCities from "@public/AlgerianCities.json";
 import Select from "react-select";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { FaArrowAltCircleUp } from "react-icons/fa";
-
 import { BsFillHouseDownFill } from "react-icons/bs";
 
 import "@reach/combobox/styles.css";
@@ -132,7 +130,7 @@ function PickLocation({ address, HandleChangeInputs }: any) {
   return (
     <>
       {/* <PlaceAutocomplete /> */}
-      <div className="select-wilaya">
+      <div className="w-full mt-5">
         <h3>Wilaya:</h3>
         <Select
           options={wilayaoptions}
@@ -140,22 +138,22 @@ function PickLocation({ address, HandleChangeInputs }: any) {
           onChange={HandleWilayaChange}
         />
       </div>
-      <div className="select-wilaya">
+      <div className="w-full">
         <h3>Baladia:</h3>
         <Select
           options={Baladiyaoptions}
           value={address.selectedbaladiya}
           onChange={HandleBaladiyaChange}
-          className="select-wilaya"
+          className="w-full"
         />
       </div>
       {/* {isLoaded ? ( */}
-      <div className="createpost--maps--containter">
+      <div>
         <APIProvider
           apiKey="AIzaSyBvdAJhlVyx2nd1imxk6m5BCza6N_l3T0Y"
           libraries={["places"]}
         >
-          <div className="createpost--maps">
+          <div className="h-96 w-full my-5 rounded-md overflow-hidden relative">
             <Map
               defaultZoom={8}
               center={address.position}
@@ -169,7 +167,7 @@ function PickLocation({ address, HandleChangeInputs }: any) {
                   },
                 }));
               }}
-              style={{ width: "100%", height: "100%" }}
+              className="w-full h-full"
             >
               <AdvancedMarker
                 position={address.position}
@@ -192,24 +190,20 @@ function PickLocation({ address, HandleChangeInputs }: any) {
               </AdvancedMarker>
             </Map>
             <FaArrowAltCircleUp
-              className="map-navig"
+              className="absolute text-3xl cursor-pointer hover:text-blue-400 transition top-2 right-1/2 translate-x-1/2"
               onClick={() => HandlePositionChange("top")}
-              id="top"
             ></FaArrowAltCircleUp>
             <FaArrowAltCircleRight
-              className="map-navig"
+              className="absolute text-3xl cursor-pointer hover:text-blue-400 transition top-1/2 right-2 -translate-y-1/2"
               onClick={() => HandlePositionChange("right")}
-              id="right"
             ></FaArrowAltCircleRight>
             <FaArrowAltCircleDown
-              className="map-navig"
+              className="absolute text-3xl cursor-pointer hover:text-blue-400 transition bottom-2 right-1/2 translate-x-1/2"
               onClick={() => HandlePositionChange("bottom")}
-              id="bottom"
             ></FaArrowAltCircleDown>
             <FaArrowAltCircleLeft
-              className="map-navig"
+              className="absolute text-3xl cursor-pointer hover:text-blue-400 transition top-1/2 left-2 -translate-y-1/2"
               onClick={() => HandlePositionChange("left")}
-              id="left"
             ></FaArrowAltCircleLeft>
           </div>
         </APIProvider>
@@ -217,6 +211,5 @@ function PickLocation({ address, HandleChangeInputs }: any) {
     </>
   );
 }
-{
-}
+
 export default PickLocation;

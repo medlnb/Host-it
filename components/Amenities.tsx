@@ -1,4 +1,3 @@
-import "@styles/Amenities.css";
 import { FaWifi } from "react-icons/fa";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { FaKitchenSet } from "react-icons/fa6";
@@ -26,17 +25,19 @@ export const amenitiesData = [
 ];
 function Amenities({ amenities, HandleChangeInputs }: props) {
   return (
-    <div style={{ margin: "5rem 0",width:"100%" }}>
-      <h1 className="createpost--title">
+    <div className="my-10 w-full">
+      <h1 className="text-center font-medium text-2xl my-10">
         Tell guests what your place has to offer
       </h1>
-      <div className="types--container">
+      <div className="my-8 mx-auto grid grid-cols-3 gap-2">
         {amenitiesData.map((amenitie) => {
           const isIncluded = amenities.includes(amenitie.title);
           return (
             <div
               key={amenitie.title}
-              className={`type--container ${isIncluded ? "selectedtype" : ""}`}
+              className={`flex gm:gap-3 gap-1 flex-col md:flex-row items-center md:p-8 p-4 rounded-lg border-2 hover:bg-gray-100 cursor-pointer ${
+                isIncluded ? "border-black" : ""
+              }`}
               onClick={() => {
                 if (isIncluded)
                   HandleChangeInputs((prev: any) => ({

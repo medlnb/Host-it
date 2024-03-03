@@ -1,4 +1,3 @@
-import "@styles/PlaceDetails.css";
 
 interface props {
   Bedrooms: number;
@@ -34,15 +33,18 @@ function PlaceDetails({
   };
 
   return (
-    <div className="placedetails--container" style={{ margin: "5rem auto" }}>
-      <h1 className="createpost--title">Share some basics about your place</h1>
-      <div className="details--container">
-        <div className="detail">
+    <div className="w-full my-10">
+      <h1 className="text-center font-medium text-2xl my-10">
+        Share some basics about your place
+      </h1>
+      <div className="mt-6">
+        <div className="flex justify-between items-center px-4 my-4">
           <p>Bedrooms</p>
-          <div className="calc">
+          <div className="flex flex-row items-center gap-7">
             <button
-              className={`calc--button flex justify-center items-center ${
-                Bedrooms === 0 && "calc--disabled"
+              className={`bg-none border border-gray-500 w-6 h-6 rounded-full cursor-pointer text-gray-400  flex justify-center items-center hover:border-black hover:text-black ${
+                Bedrooms === 0 &&
+                "cursor-not-allowed text-gray-200 border-gray-200 hover:text-gray-200 hover:border-gray-200"
               }`}
               onClick={() => handleDecrement("Bedrooms")}
             >
@@ -50,7 +52,7 @@ function PlaceDetails({
             </button>
             <p>{Bedrooms}</p>
             <button
-              className="calc--button flex justify-center items-center"
+              className="bg-none border border-gray-500 w-6 h-6 rounded-full cursor-pointer text-gray-400  flex justify-center items-center hover:border-black hover:text-black"
               onClick={() => handleIncrement("Bedrooms")}
             >
               +
@@ -58,20 +60,21 @@ function PlaceDetails({
           </div>
         </div>
         {/* {---} */}
-        <div className="detail">
+        <div className="flex justify-between items-center px-4 my-4">
           <p>Bathrooms</p>
-          <div className="calc flex justify-center items-center">
+          <div className="flex flex-row items-center gap-7">
             <button
-              className={`calc--button flex justify-center items-center ${
-                Bathrooms === 0 && "calc--disabled"
+              className={`bg-none border border-gray-500 w-6 h-6 rounded-full cursor-pointer text-gray-400  flex justify-center items-center hover:border-black hover:text-black ${
+                Bathrooms === 0 &&
+                "cursor-not-allowed text-gray-200 border-gray-200 hover:text-gray-200 hover:border-gray-200"
               }`}
               onClick={() => handleDecrement("Bathrooms")}
             >
               -
             </button>
-            <p>{Bathrooms}</p>
+            <p className="w-2 text-center">{Bathrooms}</p>
             <button
-              className="calc--button flex justify-center items-center "
+              className="bg-none border border-gray-500 w-6 h-6 rounded-full cursor-pointer text-gray-400  flex justify-center items-center hover:border-black hover:text-black "
               onClick={() => handleIncrement("Bathrooms")}
             >
               +
@@ -79,20 +82,21 @@ function PlaceDetails({
           </div>
         </div>
         {/* {---} */}
-        <div className="detail">
-          <p>Beds</p>
-          <div className="calc flex justify-center items-center">
+        <div className="flex justify-between items-center px-4 my-4">
+          <p className="w-2 text-center">Beds</p>
+          <div className="flex flex-row items-center gap-7">
             <button
-              className={`calc--button flex justify-center items-center ${
-                Beds === 0 && "calc--disabled"
+              className={`bg-none border border-gray-500 w-6 h-6 rounded-full cursor-pointer text-gray-400  flex justify-center items-center hover:border-black hover:text-black ${
+                Beds === 0 &&
+                "cursor-not-allowed text-gray-200 border-gray-200 hover:text-gray-200 hover:border-gray-200"
               }`}
               onClick={() => handleDecrement("Beds")}
             >
               -
             </button>
-            <p>{Beds}</p>
+            <p className="w-2 text-center">{Beds}</p>
             <button
-              className="calc--button flex justify-center items-center"
+              className="bg-none border border-gray-500 w-6 h-6 rounded-full cursor-pointer text-gray-400  flex justify-center items-center hover:border-black hover:text-black"
               onClick={() => handleIncrement("Beds")}
             >
               +
@@ -100,20 +104,21 @@ function PlaceDetails({
           </div>
         </div>
         {/* {---} */}
-        <div className="detail">
+        <div className="flex justify-between items-center px-4 my-4">
           <p>Guests</p>
-          <div className="calc flex justify-center items-center">
+          <div className="flex flex-row items-center gap-7">
             <button
-              className={`calc--button flex justify-center items-center ${
-                Guests === 0 && "calc--disabled"
+              className={`bg-none border border-gray-500 w-6 h-6 rounded-full cursor-pointer text-gray-400  flex justify-center items-center hover:border-black hover:text-black ${
+                Guests === 0 &&
+                "cursor-not-allowed text-gray-200 border-gray-200 hover:text-gray-200 hover:border-gray-200"
               }`}
               onClick={() => handleDecrement("Guests")}
             >
               -
             </button>
-            <p>{Guests}</p>
+            <p className="w-2 text-center">{Guests}</p>
             <button
-              className="calc--button flex justify-center items-center"
+              className="bg-none border border-gray-500 w-6 h-6 rounded-full cursor-pointer text-gray-400  flex justify-center items-center hover:border-black hover:text-black"
               onClick={() => handleIncrement("Guests")}
             >
               +

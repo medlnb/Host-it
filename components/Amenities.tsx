@@ -54,7 +54,7 @@ function Amenities({ amenities, HandleChangeInputs }: props) {
                 }
               }}
             >
-              <div className="md:text-4xl text-3xl">{amenitie.icon}</div>
+              <div className="md:text-4xl text-2xl">{amenitie.icon}</div>
               <div className="whitespace-nowrap">{amenitie.title}</div>
             </div>
           );

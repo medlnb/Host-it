@@ -18,18 +18,18 @@ interface props {
 
 function PlaceType({ type, HandleChangeInputs }: props) {
   const types = [
-    { title: "Villa", icon: <MdVilla  /> },
-    { title: "Apartment", icon: <MdApartment  /> },
-    { title: "House", icon: <FaHouseChimney  /> },
-    { title: "Campervan", icon: <FaCaravan  /> },
-    { title: "Land", icon: <MdTerrain  /> },
-    { title: "Office", icon: <BsFillBriefcaseFill  /> },
-    { title: "Shop", icon: <FaShop  /> },
-    { title: "Garage", icon: <PiGarageFill  /> },
-    { title: "Warehouse", icon: <FaWarehouse  /> },
-    { title: "Studio", icon: <MdBedroomChild  /> },
-    { title: "Hotel", icon: <FaHotel  /> },
-    { title: "Motel", icon: <FaBed  /> },
+    { title: "Villa", icon: <MdVilla /> },
+    { title: "Apartment", icon: <MdApartment /> },
+    { title: "House", icon: <FaHouseChimney /> },
+    { title: "Campervan", icon: <FaCaravan /> },
+    { title: "Land", icon: <MdTerrain /> },
+    { title: "Office", icon: <BsFillBriefcaseFill /> },
+    { title: "Shop", icon: <FaShop /> },
+    { title: "Garage", icon: <PiGarageFill /> },
+    { title: "Warehouse", icon: <FaWarehouse /> },
+    { title: "Studio", icon: <MdBedroomChild /> },
+    { title: "Hotel", icon: <FaHotel /> },
+    { title: "Motel", icon: <FaBed /> },
   ];
   return (
     <div>
@@ -50,7 +50,7 @@ function PlaceType({ type, HandleChangeInputs }: props) {
               type === typeData.title ? "border-black" : ""
             }`}
           >
-            <div className="md:text-4xl text-3xl">{typeData.icon}</div>
+            <div className="md:text-4xl text-2xl">{typeData.icon}</div>
             <div className="whitespace-nowrap">{typeData.title}</div>
           </div>
         ))}

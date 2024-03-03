@@ -18,18 +18,18 @@ interface props {
 
 function PlaceType({ type, HandleChangeInputs }: props) {
   const types = [
-    { title: "Villa", icon: <MdVilla size={30} /> },
-    { title: "Apartment", icon: <MdApartment size={30} /> },
-    { title: "House", icon: <FaHouseChimney size={30} /> },
-    { title: "Campervan", icon: <FaCaravan size={30} /> },
-    { title: "Land", icon: <MdTerrain size={30} /> },
-    { title: "Office", icon: <BsFillBriefcaseFill size={30} /> },
-    { title: "Shop", icon: <FaShop size={30} /> },
-    { title: "Garage", icon: <PiGarageFill size={30} /> },
-    { title: "Warehouse", icon: <FaWarehouse size={30} /> },
-    { title: "Studio", icon: <MdBedroomChild size={30} /> },
-    { title: "Hotel", icon: <FaHotel size={30} /> },
-    { title: "Motel", icon: <FaBed size={30} /> },
+    { title: "Villa", icon: <MdVilla  /> },
+    { title: "Apartment", icon: <MdApartment  /> },
+    { title: "House", icon: <FaHouseChimney  /> },
+    { title: "Campervan", icon: <FaCaravan  /> },
+    { title: "Land", icon: <MdTerrain  /> },
+    { title: "Office", icon: <BsFillBriefcaseFill  /> },
+    { title: "Shop", icon: <FaShop  /> },
+    { title: "Garage", icon: <PiGarageFill  /> },
+    { title: "Warehouse", icon: <FaWarehouse  /> },
+    { title: "Studio", icon: <MdBedroomChild  /> },
+    { title: "Hotel", icon: <FaHotel  /> },
+    { title: "Motel", icon: <FaBed  /> },
   ];
   return (
     <div>

@@ -50,8 +50,8 @@ function PlaceType({ type, HandleChangeInputs }: props) {
               type === typeData.title ? "border-black" : ""
             }`}
           >
-            <div className="type--icon">{typeData.icon}</div>
-            <div className="type--title">{typeData.title}</div>
+            <div className="md:text-4xl text-3xl">{typeData.icon}</div>
+            <div className="whitespace-nowrap">{typeData.title}</div>
           </div>
         ))}
       </div>

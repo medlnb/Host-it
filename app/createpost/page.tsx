@@ -73,7 +73,7 @@ function CreatePost() {
   };
 
   return (
-    <div className="max-width45rem hide-scroll-bar overflow-x-scroll p-4 rounded">
+    <div className="max-width45rem hide-scroll-bar overflow-x-scroll p-4 rounded ">
       <PlaceType type={inputs.type} HandleChangeInputs={setInputs} />
       <div className="Hline" />
       <PickLocation address={inputs.location} HandleChangeInputs={setInputs} />

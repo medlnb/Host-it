@@ -13,15 +13,15 @@ interface props {
   HandleChangeInputs: any;
 }
 export const amenitiesData = [
-  { title: "Wifi", icon: <FaWifi size={25} /> },
-  { title: "TV", icon: <PiTelevisionSimpleBold size={25} /> },
-  { title: "Kitchen", icon: <FaKitchenSet size={25} /> },
-  { title: "Washer", icon: <BiSolidWasher size={25} /> },
-  { title: "Parking", icon: <MdLocalParking size={25} /> },
-  { title: "Air conditioning", icon: <TbAirConditioning size={25} /> },
-  { title: "Heater", icon: <FaTemperatureArrowUp size={25} /> },
-  { title: "Pool", icon: <MdOutlinePool size={25} /> },
-  { title: "Elevator", icon: <MdOutlineElevator size={25} /> },
+  { title: "Wifi", icon: <FaWifi /> },
+  { title: "TV", icon: <PiTelevisionSimpleBold /> },
+  { title: "Kitchen", icon: <FaKitchenSet /> },
+  { title: "Washer", icon: <BiSolidWasher /> },
+  { title: "Parking", icon: <MdLocalParking /> },
+  { title: "Air conditioning", icon: <TbAirConditioning /> },
+  { title: "Heater", icon: <FaTemperatureArrowUp /> },
+  { title: "Pool", icon: <MdOutlinePool /> },
+  { title: "Elevator", icon: <MdOutlineElevator /> },
 ];
 function Amenities({ amenities, HandleChangeInputs }: props) {
   return (
@@ -54,8 +54,8 @@ function Amenities({ amenities, HandleChangeInputs }: props) {
                 }
               }}
             >
-              <div className="type--icon">{amenitie.icon}</div>
-              <div className="type--title">{amenitie.title}</div>
+              <div className="md:text-4xl text-3xl">{amenitie.icon}</div>
+              <div className="whitespace-nowrap">{amenitie.title}</div>
             </div>
           );
         })}

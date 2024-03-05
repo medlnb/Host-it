@@ -55,27 +55,33 @@ function page() {
   return (
     <div style={{ width: "60rem" }} className="max-w-full mx-auto my-8">
       <h1 className="text-center">Account</h1>
-      <div className="md:grid flex md:grid-cols-3 flex-col gap-3 w-full my-5 ">
+      <div className="md:grid md:grid-cols-3 gap-3 w-full my-10 ">
         {navElements.map((el, i) => {
           return (
             <div className="h-full" key={i}>
-              {i === 0 && (
-                <div className="Hline w-full h-0.5 my-5 relative  md:hidden">
-                  <p className="absolute -top-3 bg-white px-5">User</p>
-                </div>
-              )}
-              {i === 3 && (
-                <div className="Hline w-full h-0.5 my-5 relative  md:hidden">
-                  <p className="absolute -top-3 bg-white px-5">
-                    Host Management
-                  </p>
-                </div>
-              )}
-              {i === 5 && (
-                <div className="Hline w-full h-0.5 my-5 relative  md:hidden">
-                  <p className="absolute -top-3 bg-white px-5">Others</p>
-                </div>
-              )}
+              <div
+                className={`${
+                  i === 0 || i === 3 || i === 5 ? "my-7" : "my-0"
+                } md:hidden`}
+              >
+                {i === 0 && (
+                  <div className="Hline w-full h-0.5  relative  md:hidden">
+                    <p className="absolute -top-3 bg-white px-5">User</p>
+                  </div>
+                )}
+                {i === 3 && (
+                  <div className="Hline w-full h-0.5 relative  md:hidden">
+                    <p className="absolute -top-3 bg-white px-5">
+                      Host Management
+                    </p>
+                  </div>
+                )}
+                {i === 5 && (
+                  <div className="Hline w-full h-0.5 relative  md:hidden">
+                    <p className="absolute -top-3 bg-white px-5">Others</p>
+                  </div>
+                )}
+              </div>
               <Link
                 href={el.path}
                 className="flex flex-row md:flex-col md:items-start items-center gap-6 h-full p-4 rounded-lg shadow-lg "

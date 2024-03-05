@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import "@styles/User.css";
 
 function Page() {
   const [plan, setPlan] = useState<("Oridinal" | "Pro" | "Premuim") | null>(

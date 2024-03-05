@@ -1,6 +1,5 @@
 "use client";
 import InfoEditer from "@components/InfoEditer";
-import "@styles/User.css";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 

@@ -1,6 +1,4 @@
 "use client";
-import "@styles/User.css";
-import "@styles/Posts.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useSession } from "next-auth/react";
 import { useContext, useState } from "react";
@@ -14,19 +12,22 @@ function Page() {
   const { favorites, dispatch } = useContext(FavoritesContext);
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Favorites</h1>
+      <h1 className="text-center">Favorites</h1>
       {favorites ? (
         favorites.length === 0 ? (
-          <div className="empty--Feed--container">
-            <div className="empty--Feed--circle">
-              <div className="empty--Feed">
-                <FaHouseCrack className="empty--Feed--icon" />
+          <div className="flex justify-center items-center h-80 text-md text-black whitecpace-nowrap">
+            <div className="w-64 h-64 relative rounded-full bg-gray-100">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4">
+                <FaHouseCrack className="text-6xl" />
                 <h1>No Posts Found</h1>
               </div>
             </div>
           </div>
         ) : (
-          <div className="favorites--feed">
+          <div
+            className="grid md:grid-cols-3 grid-cols-1 md:gap-6 gap-3 max-w-full my-6 mx-auto"
+            style={{ width: "60rem" }}
+          >
             {favorites.map((post: any) => (
               <Favorite
                 key={post._id}
@@ -71,25 +72,28 @@ const Favorite = ({ post, userId, dispatch }: any) => {
 
   return (
     <div
-      className="fav--container"
+      className="flex md:flex-col flex-row md:items-center items-start text-xs md:gap-4 gap-2 md:p-4 p-2 shadow-md rounded-md relative hover:outline hover:outline-1 hover:outline-gray-300"
       onClick={() => {
         router.push(`/post/${post._id}`);
       }}
     >
-      <img src={post.image[0]} />
-      <div className="Hline bigscreen" style={{ width: "100%" }} />
-      <div className="fav--body">
-        <div className="fav--info">
+      <img
+        src={post.image[0]}
+        className="md:w-full w-28 md:h-40 h-20 rounded-md image-fit"
+      />
+      <div className="Hline w-full hidden md:block" />
+      <div className="flex justify-between items-center w-full">
+        <div className="flex items-start flex-col">
           <h1>{post.title}</h1>
           {post.state === post.city ? (
-            <h2 style={{ color: "gray" }}>{`${post.state}`}</h2>
+            <h2 className="text-gray-500">{`${post.state}`}</h2>
           ) : (
-            <h2 style={{ color: "gray" }}>{`${post.state} ~ ${post.city}`}</h2>
+            <h2 className="text-gray-500">{`${post.state} ~ ${post.city}`}</h2>
           )}
         </div>
         {!loadingremove ? (
           <IoMdTrash
-            className="favpage--icon"
+            className="md:text-lg text-xs cursor-pointer flex flex-col items-center gap-2"
             fill="black"
             onClick={(e) => {
               e.stopPropagation();
@@ -97,7 +101,10 @@ const Favorite = ({ post, userId, dispatch }: any) => {
             }}
           />
         ) : (
-          <ClipLoader className="favpage--icon" size={15} />
+          <ClipLoader
+            className="text-base cursor-pointer flex flex-col items-center gap-2"
+            size={15}
+          />
         )}
       </div>
     </div>

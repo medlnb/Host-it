@@ -5,7 +5,6 @@ import { defaultTheme, Provider } from "@adobe/react-spectrum";
 import { today } from "@internationalized/date";
 import { getLocalTimeZone } from "@internationalized/date";
 import { parseDate } from "@internationalized/date";
-import "@styles/PostPage.css";
 import { useSession } from "next-auth/react";
 
 const calculateDaysDifference = (
@@ -75,8 +74,8 @@ function Reserving({ postId, resevedDates, price }: props) {
     else alert("Failed to reserve");
   };
   return (
-    <form className="reservation-info" onSubmit={HandleSubmit}>
-      <h2>Reservation</h2>
+    <form className="my-3 text-xs" onSubmit={HandleSubmit}>
+      <h2 className="mb-1">Reservation</h2>
       <Provider theme={defaultTheme} colorScheme="light">
         <DateRangePicker
           value={value}
@@ -96,7 +95,7 @@ function Reserving({ postId, resevedDates, price }: props) {
           }
         />
       </Provider>
-      <div className="reservation--price">
+      <div className="flex justify-between my-3 md:text-lg text-md">
         <p>Total price </p>
         <p>{`( ${
           CalculatePrice().months !== 0 ? CalculatePrice().months + "m" : ""
@@ -104,7 +103,10 @@ function Reserving({ postId, resevedDates, price }: props) {
         ${CalculatePrice().total}DA`}</p>
       </div>
       <div className="Hline" />
-      <button className="reservation--submit" type="submit">
+      <button
+        className="block my-3 mx-auto p-2 bg-none border border-gray-800 rounded-md cursor-pointer hover:bg-gray-800 hover:text-white"
+        type="submit"
+      >
         Reserve
       </button>
     </form>

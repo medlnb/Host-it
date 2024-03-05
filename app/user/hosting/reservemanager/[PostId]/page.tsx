@@ -1,6 +1,5 @@
 "use client";
 import Calendar from "@components/Calendar";
-import "@styles/User.css";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { parseDate } from "@internationalized/date";

@@ -1,7 +1,6 @@
 "use client";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import "@styles/nav.css";
 import { signOut, useSession } from "next-auth/react";
 import { FaRegUser } from "react-icons/fa";
 import { CiChat1 } from "react-icons/ci";
@@ -40,12 +39,12 @@ function Nav() {
   }, [session]);
 
   return (
-    <div className="topbar--container">
+    <div className="w-full bg-white flex flex-row items-center justify-between md:py-6 md:px-16 p-3 md:text-base text-xs">
       <Link href="/">El-Semsar</Link>
-      <nav>
+      <nav className="flex flex-row items-center gap-4 relative">
         {session === undefined && (
           <div
-            className="usernav"
+            className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer"
             onClick={() => setToggleNavbar((prev) => !prev)}
           >
             <ClipLoader size={20} />
@@ -66,13 +65,17 @@ function Nav() {
               </Link>
             )}
             <div
-              className="usernav"
+              className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer"
               onClick={() => setToggleNavbar((prev) => !prev)}
             >
               <p>{session.user.name}</p>
 
               {session.user.image ? (
-                <img src={session?.user.image} className="user--pic" />
+                <img
+                  src={session?.user.image}
+                  className="w-8 rounded-full"
+                  style={{ aspectRatio: "1/1" }}
+                />
               ) : (
                 <FaRegUser />
               )}
@@ -84,31 +87,55 @@ function Nav() {
           //   Sign up
           // </p>
           <p
-            onClick={() => HandleChangeChildren(<Login />)}
-            className="usernav"
+            onClick={() =>
+              HandleChangeChildren({ title: "Log In", content: <Login /> })
+            }
+            className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer"
           >
             Sign up
           </p>
         )}
         {ToggleNavbar && (
-          <div className="DroppedNav" ref={dropdownRef}>
+          <div
+            className="absolute shadow-md rounded-md top-14 right-0 flex flex-col bg-white py-2 z-10"
+            ref={dropdownRef}
+          >
             {" "}
             {/* Assign ref to the dropdown menu */}
-            <Link href="/fav" onClick={() => setToggleNavbar(false)}>
+            <Link
+              href="/fav"
+              className="py-2 px-4 hover:bg-gray-100"
+              onClick={() => setToggleNavbar(false)}
+            >
               My Favorites
             </Link>
             <div className="Hline" />
-            <Link href="/user" onClick={() => setToggleNavbar(false)}>
+            <Link
+              href="/user"
+              className="py-2 px-4 hover:bg-gray-100"
+              onClick={() => setToggleNavbar(false)}
+            >
               My Account
             </Link>
-            <Link href="/anoucements" onClick={() => setToggleNavbar(false)}>
+            <Link
+              href="/anoucements"
+              className="py-2 px-4 hover:bg-gray-100"
+              onClick={() => setToggleNavbar(false)}
+            >
               My Anoucements
             </Link>
             <div className="Hline" />
-            <Link href="/feedback" onClick={() => setToggleNavbar(false)}>
+            <Link
+              href="/feedback"
+              className="py-2 px-4 hover:bg-gray-100"
+              onClick={() => setToggleNavbar(false)}
+            >
               Feedback
             </Link>
-            <p onClick={() => signOut()} style={{ cursor: "" }}>
+            <p
+              onClick={() => signOut()}
+              className="cursor-pointer py-2 px-4 hover:bg-gray-100"
+            >
               Log out
             </p>
           </div>

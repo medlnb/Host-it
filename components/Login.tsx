@@ -2,7 +2,6 @@
 import { FaGoogle } from "react-icons/fa";
 import { getProviders, signIn } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
-import "@styles/Login.css";
 import SignUp from "@components/Signup";
 import { floatingConext } from "@Context/FloatingWinContext";
 
@@ -29,11 +28,14 @@ function Page() {
     });
   };
   return (
-    <form className="login--form" onSubmit={HandleSubmit}>
-      <h1 style={{ textAlign: "center" }}>Sign in</h1>
+    <form
+      className="flex flex-col gap-7 max-w-95 rounded-md px-8 py-6 mx-auto"
+      style={{ width: "40rem" }}
+      onSubmit={HandleSubmit}
+    >
       <input
         value={inputs.email}
-        className="login--input"
+        className="w-full border-b border-black p-1 text-sm focus:outline-none"
         placeholder="Email..."
         onChange={(e) =>
           setInputs((prev) => ({ ...prev, email: e.target.value }))
@@ -41,22 +43,25 @@ function Page() {
       />
       <input
         value={inputs.password}
-        className="login--input"
+        className="w-full border-b border-black p-1 text-sm focus:outline-none"
         placeholder="Password..."
         onChange={(e) =>
           setInputs((prev) => ({ ...prev, password: e.target.value }))
         }
       />
       <div>
-        <button style={{ width: "100%" }} className="login--submit">
+        <button
+          className="w-full p-3 text-white text-center rounded-md"
+          style={{ background: "#e3735e" }}
+        >
           Sign in
         </button>
-        <div style={{ padding: ".5rem" }}>
+        <div className="p-2">
           doesnt have an account?
           <span
-            style={{ cursor: "pointer" }}
+            className="cursor-pointer"
             onClick={() => {
-              HandleChangeChildren(<SignUp />);
+              HandleChangeChildren({ title: "Sign Up", content: <SignUp />});
             }}
           >
             <b> Sign in</b>
@@ -67,8 +72,8 @@ function Page() {
       <div className="Hline" />
       <div
         onClick={() => signIn("google", { callbackUrl: "/" })} //custom the callbackUrl later !important
-        className={`login--submit google--login ${
-          providers ? "" : "gl--loading"
+        className={`bg-none text-black border border-black flex items-center justify-center gap-3 cursor-pointer p-3 rounded-md  ${
+          providers ? "" : "text-gray-400 border-gray-400 cursor-wait"
         }`}
       >
         <FaGoogle />

@@ -42,13 +42,17 @@ function FilterButton() {
   );
   return (
     <button
-      className="filter-button"
-      onClick={() => HandleChangeChildren(filterwindow)}
+      className="bg-none border border-black px-3 py-2 cursor-pointer flex items-center gap-1 relative rounded-md hover:bg-gray-100 md:text-lg text-xs"
+      onClick={() =>
+        HandleChangeChildren({ title: "Filter", content: filterwindow })
+      }
     >
       <MdOutlineSettingsInputComposite />
       <label>Filter</label>
       {queryParams.length !== 0 && (
-        <p className="querries--index">{queryParams.length}</p>
+        <p className="bg-black absolute -right-1 -top-1 text-white text-xs w-4 h-4 rounded-full ">
+          {queryParams.length}
+        </p>
       )}
     </button>
   );

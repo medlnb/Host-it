@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import { IoMdTrash } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
-import "@styles/User.css";
 import { floatingConext } from "@Context/FloatingWinContext";
 
 interface message {
@@ -40,22 +39,25 @@ function Page() {
     if (response.ok) {
       const data = await response.json();
       const poster = data[0];
-      HandleChangeChildren(
-        <div className="p-3" style={{ width: "30rem" }}>
-          {Object.entries(poster).map((element) => {
-            if (element[0] !== "_id" && element[0] !== "image")
-              return (
-                <>
-                  <div key={element[0]} className="flex flex-row">
-                    <p className="flex-1">{element[0]}</p>
-                    <p className="flex-1">{element[1] + ""}</p>
-                  </div>
-                  <div className="Hline my-4 w-full" />
-                </>
-              );
-          })}
-        </div>
-      );
+      HandleChangeChildren({
+        title: "Host info",
+        content: (
+          <div className="p-3" style={{ width: "30rem" }}>
+            {Object.entries(poster).map((element) => {
+              if (element[0] !== "_id" && element[0] !== "image")
+                return (
+                  <>
+                    <div key={element[0]} className="flex flex-row">
+                      <p className="flex-1">{element[0]}</p>
+                      <p className="flex-1">{element[1] + ""}</p>
+                    </div>
+                    <div className="Hline my-4 w-full" />
+                  </>
+                );
+            })}
+          </div>
+        ),
+      });
     }
   };
   const HandleDelete = async (messageId: string) => {

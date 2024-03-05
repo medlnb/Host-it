@@ -1,7 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: black;
 }
 
 body::-webkit-scrollbar {
@@ -25,6 +33,92 @@ body::-webkit-scrollbar {
   background: rgb(197, 197, 197);
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.going-up-animation {
+  animation: floatingwindow--open 0.3s ease;
+}
+@keyframes floatingwindow--open {
+  from {
+    transform: translateY(20rem);
+  }
+}
+
+.image-fit {
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.jumping--icon {
+  animation: jump 0.3s infinite alternate;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateX(0);
+  }
+  33% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(5px);
+  }
+}
+
+.loading--background {
+  background: linear-gradient(to right, rgb(118, 118, 118), white);
+  background-size: 200% auto;
+  animation: gradientAnimation 2s linear infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.filter-bar::-webkit-scrollbar {
+  height: 5px;
+}
+
+.filter-bar::-webkit-scrollbar-track {
+  background: rgb(214, 214, 214);
+  border-radius: 20px;
+}
+
+.filter-bar::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 20px;
+}
+
+.filter-item::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: black;
+  margin-top: -0.3rem;
+  transition: 0.3s;
+}
+
+.filter-active::after {
+  width: 20%;
+}
+
+.underline-expand {
+  position: relative;
+}
+.underline-expand::after {
+  content: "";
+  height: 1px;
+  width: 0;
+  background: black;
+  position: absolute;
+  bottom: -0.2rem;
+  left: 0;
+  transition: width 0.2s ease;
+}
+.underline-expand:hover::after {
+  width: 100%;
+}

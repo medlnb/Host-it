@@ -1,6 +1,5 @@
 "use client";
 import Posts from "@components/Posts";
-import "@styles/App.css";
 import { useSearchParams } from "next/navigation";
 
 

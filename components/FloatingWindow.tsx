@@ -1,5 +1,4 @@
 "use client";
-import "@styles/FloatingWindow.css";
 import { IoClose } from "react-icons/io5";
 import { useContext } from "react";
 import { floatingConext } from "@Context/FloatingWinContext";
@@ -11,20 +10,24 @@ function FloatingWindow() {
   };
   if (!toggle) return;
   return (
-    <div className="bluredbg" onClick={HandleOutClick}>
+    <div
+      className="fixed inset-0 grid place-items-center z-50 backdrop-filter backdrop-blur backdrop-contrast-50 bg-opacity-50"
+      onClick={HandleOutClick}
+    >
       <div
-        className="floatingwindow--container"
+        className="max-w-95 bg-white overflow-hidden pb-3 rounded-md shadow-lg text-xs going-up-animation"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="floatingwindow--top">
+        <div className="flex justify-between items-center p-2 border-b border-gray-400">
+          <h1 className="text-md font-medium ">{childrens.title}</h1>
           <IoClose
             onClick={() => setToggle(false)}
             className="floatingwindow--close"
             size={20}
           />
         </div>
-        {childrens}
-        <div className="Hline" style={{width:"100%"}}/>
+        {childrens.content}
+        <div className="Hline w-full" />
       </div>
     </div>
   );

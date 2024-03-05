@@ -1,6 +1,5 @@
 "use client";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import "@styles/Posts.css";
 import { Suspense, useContext } from "react";
 import SearchBar from "@components/SearchBar";
 import Table from "@components/Table";
@@ -114,15 +113,16 @@ const Filter = () => {
   const { replace } = useRouter();
 
   const defaultValue = searchParams.get("type")?.toString();
-
   return (
-    <div className="top--bar">
-      <div className="filter-bar">
+    <div className="flex items-center justify-center md:my-6 mb-2 gap-4 px-2 ">
+      <div className="flex overflow-x-auto items-center md:gap-3 gap-1 py-2 rounded-md filter-bar">
         {types.map((type) => (
           <div
             key={type.title}
-            className={`filter-item ${
-              defaultValue === type.title ? "filter-active" : ""
+            className={`flex flex-col items-center gap-1  text-md cursor-pointer relative hover:text-black filter-item  ${
+              defaultValue === type.title
+                ? "text-black filter-active"
+                : "text-gray-500"
             }`}
             onClick={() => {
               if (searchParams.get("type")?.toString() === type.title)
@@ -143,11 +143,11 @@ const Filter = () => {
                 );
             }}
           >
-            <div className="ff">{type.icon}</div> {type.title}
+            <div className="">{type.icon}</div> {type.title}
           </div>
         ))}
       </div>
-      <div className="bigscreen--filterbutton">
+      <div className="md:block hidden">
         <FilterButton />
       </div>
     </div>
@@ -187,11 +187,8 @@ function Posts({
       <Suspense>
         <SearchBar />
       </Suspense>
-      <div
-        className="Hline hideonsmallscreen"
-        style={{ marginTop: "1rem", background: "#e0e0e0" }}
-      />
-      <div className="hp--container">
+      <div className="Hline bg-gray-300  md:block hidden" />
+      <div className="md:my-4 md:mx-8 p-1 md:text-base text-xs">
         <Suspense>
           <Filter />
         </Suspense>

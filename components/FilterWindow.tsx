@@ -118,12 +118,17 @@ const FilterWindow = ({
     HandleFilterChange(qurries, params, setToggle, pathname, replace);
   };
   return (
-    <div className="Filter--container">
-      <div className="filter--cati">
-        <h1>Price range</h1>
+    <div
+      className="md:p-8 p-2 overflow-y-scroll hide-scroll-bar"
+      style={{ maxHeight: "85lvh", maxWidth: "95vw" }}
+    >
+      <div className="border border-gray-400 my-8 py-8 px-4 relative rounded-md">
+        <h1 className="absolute -top-6 left-1/2 transform -translate-x-1/2 px-4 bg-white whitespace-nowrap">
+          Price range
+        </h1>
         <p>price per night</p>
         <Slider
-          style={{ marginTop: "3rem" }}
+          className="mt-12"
           getAriaLabel={() => "Temperature range"}
           value={value}
           onChange={handleChange}
@@ -134,8 +139,9 @@ const FilterWindow = ({
           min={100}
           max={10000}
         />
-        <div className="price--filter--inputs">
+        <div className="mt-4 flex md:flex-row flex-col justify-around items-center">
           <input
+            className="p-2 rounded-md border border-black focus:outline-none"
             placeholder="min price..."
             onChange={(e) => {
               if (!isNaN(Number(e.target.value))) {
@@ -147,6 +153,7 @@ const FilterWindow = ({
           />
           -
           <input
+            className="p-2 rounded-md border border-black focus:outline-none"
             placeholder="max price..."
             onChange={(e) => {
               if (!isNaN(Number(e.target.value))) {
@@ -158,8 +165,10 @@ const FilterWindow = ({
           />
         </div>
       </div>
-      <div className="filter--cati">
-        <h1>Location</h1>
+      <div className="border border-gray-400 my-8 py-8 px-4 relative rounded-md">
+        <h1 className="absolute -top-6 left-1/2 transform -translate-x-1/2 px-4 bg-white whitespace-nowrap">
+          Location
+        </h1>
         <p>wilaya</p>
         <Select
           options={[{ label: "Wilaya", value: "none" }, ...wilayaoptions]}
@@ -183,14 +192,18 @@ const FilterWindow = ({
           ""
         )}
       </div>
-      <div className="filter--cati">
-        <h1>Amenties</h1>
-        <div className="amenties--filter">
+      <div className="border border-gray-400 my-8 py-8 px-4 relative rounded-md">
+        <h1 className="absolute -top-6 left-1/2 transform -translate-x-1/2 px-4 bg-white whitespace-nowrap">
+          Amenties
+        </h1>
+        <div className="flex md:gap-4 gap-2 flex-wrap">
           {amenitiesData.map((amenity) => (
             <div
               key={amenity}
-              className={`amenity--item ${
-                selectedAmenities?.includes(amenity) ? "amenity-active" : ""
+              className={`flex items-center gap-2 p-2 rounded-md border cursor-pointer ${
+                selectedAmenities?.includes(amenity)
+                  ? "border-black"
+                  : "border-gray-400"
               }`}
               onClick={() =>
                 setSelectedAmenities((prev: any) =>
@@ -205,16 +218,18 @@ const FilterWindow = ({
           ))}
         </div>
       </div>
-      <div className="filter--cati">
-        <h1>Info</h1>
-        <div className="info--filters">
+      <div className="border border-gray-400 my-8 py-8 px-4 relative rounded-md">
+        <h1 className="absolute -top-6 left-1/2 transform -translate-x-1/2 px-4 bg-white whitespace-nowrap">
+          Info
+        </h1>
+        <div>
           <p>Bedrooms</p>
-          <div className="info--filter">
+          <div className="flex justify-between flex-wrap gap-2 mt-2 mb-4">
             {["0", "1", "2", "3", "4", "5", "6", "7"].map((item) => (
               <div
                 key={item}
-                className={`info--item ${
-                  selectedinfo.bedrooms === item ? "info-active" : ""
+                className={`py-2 px-4 border border-gray-500 rounded-3xl cursor-pointer hover:border-black ${
+                  selectedinfo.bedrooms === item ? "bg-black text-white" : ""
                 }`}
                 onClick={() =>
                   setSelectedinfo((prev: any) => ({
@@ -228,12 +243,12 @@ const FilterWindow = ({
             ))}
           </div>
           <p>Bathrooms</p>
-          <div className="info--filter">
+          <div className="flex justify-between flex-wrap gap-2 mt-2 mb-4">
             {["0", "1", "2", "3", "4", "5", "6", "7"].map((item) => (
               <div
                 key={item}
-                className={`info--item ${
-                  selectedinfo.bathrooms === item ? "info-active" : ""
+                className={`py-2 px-4 border border-gray-500 rounded-3xl cursor-pointer hover:border-black ${
+                  selectedinfo.bathrooms === item ? "bg-black text-white" : ""
                 }`}
                 onClick={() =>
                   setSelectedinfo((prev: any) => ({
@@ -247,13 +262,13 @@ const FilterWindow = ({
             ))}
           </div>
           <p>beds</p>
-          <div className="info--filter">
+          <div className="flex justify-between flex-wrap gap-2 mt-2 mb-4">
             {["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"].map(
               (item) => (
                 <div
                   key={item}
-                  className={`info--item ${
-                    selectedinfo.beds === item ? "info-active" : ""
+                  className={`py-2 px-4 border border-gray-500 rounded-3xl cursor-pointer hover:border-black ${
+                    selectedinfo.beds === item ? "bg-black text-white" : ""
                   }`}
                   onClick={() =>
                     setSelectedinfo((prev: any) => ({
@@ -269,15 +284,18 @@ const FilterWindow = ({
           </div>
         </div>
       </div>
-      <div className="filter--submits">
+      <div className="flex items-center justify-around">
         <button
-          className="filter--button"
+          className="border border-gray-500 bg-none py-2 px-4 rounded-md cursor-pointer hover:border-black"
           style={{ background: "#5676ff" }}
           onClick={HandleApply}
         >
           Apply
         </button>
-        <button className="filter--button" onClick={HandleReset}>
+        <button
+          className="border border-gray-500 bg-none py-2 px-4 rounded-md cursor-pointer hover:border-black"
+          onClick={HandleReset}
+        >
           Reset
         </button>
       </div>

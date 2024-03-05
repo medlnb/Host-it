@@ -1,7 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import "@styles/PostPage.css";
 import Reserving from "@components/Reserving";
 import { amenitiesData } from "@components/Amenities";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
@@ -83,19 +82,32 @@ function Page() {
           <div className="post--picture loading--background" />
         </div>
       ) : (
-        <div className="postpage--container">
-          <div className="postpage--topbar">
-            <div className="postpage--images" ref={Ref}>
-              <img className="postpage--mainpic" src={data.post.image[0]} />
-              <div className="little--images">
-                <img className="little-image" src={data.post.image[0]} />
-                <img className="little-image" src={data.post.image[0]} />
-                <img className="little-image" src={data.post.image[0]} />
-                <img className="little-image" src={data.post.image[0]} />
+        <div className="py-3 md:px-28 px-3 text-sm">
+          <div className="w-full relative">
+            <div
+              style={{
+                gridTemplateColumns: "100% 100%",
+                scrollSnapType: "x mandatory",
+              }}
+              className="w-full md:flex grid gap-2 rounded-md md:overflow-hidden overflow-x-scroll hide-scroll-bar"
+              ref={Ref}
+            >
+              <img
+                className="md:w-1/2 w-full image-fit"
+                src={data.post.image[0]}
+                style={{ scrollSnapAlign: "center" }}
+              />
+              <div
+                className="md:w-1/2 w-full h-full grid grid-cols-2 gap-2"
+                style={{ scrollSnapAlign: "center" }}
+              >
+                <img className="image-fit" src={data.post.image[0]} />
+                <img className="image-fit" src={data.post.image[0]} />
+                <img className="image-fit" src={data.post.image[0]} />
+                <img className="image-fit " src={data.post.image[0]} />
               </div>
               <FaArrowAltCircleRight
-                className="postpage--button"
-                style={{ right: ".5rem" }}
+                className="md:hidden block absolute top-1/2 transform -translate-y-1/2 right-1"
                 onClick={handleScrollRight}
                 fill="gray"
                 size={25}
@@ -103,17 +115,16 @@ function Page() {
               <FaArrowAltCircleLeft
                 fill="gray"
                 size={25}
-                className="postpage--button"
-                style={{ left: ".5rem" }}
+                className="md:hidden block absolute top-1/2 transform -translate-y-1/2 left-1"
                 onClick={handleScrollLeft}
               />
             </div>
           </div>
-          <div className="postpage--info">
+          <div className="mt-3 flex justify-between md:flex-row flex-col gap-3">
             <div className="left--info">
-              <h1 style={{ marginTop: "1rem" }}>{data.post.title}</h1>
+              <h1 className="mt-3">{data.post.title}</h1>
               <h2>{data.post.city}</h2>
-              <p className="postpage--status">
+              <p className="mt-2 flex gap-2">
                 <p
                   style={{ whiteSpace: "nowrap" }}
                 >{`${data.post.Bedrooms} Bedrooms `}</p>
@@ -130,27 +141,33 @@ function Page() {
                   style={{ whiteSpace: "nowrap" }}
                 >{`${data.post.Guests} Guests `}</p>
               </p>
-              <div className="postpage--poster">
-                <img src={data.poster.image} />
+              <div className="inline-flex items-center gap-2 mt-2 text-gray-800 text-sm p-2 rounded-md">
+                <img
+                  src={data.poster.image}
+                  className="md:w-14 md:h-14 h-10 w-10 rounded-full image-fit"
+                />
                 <div>
                   <h2>Hosted by {data.poster.name}</h2>
-                  <h3 style={{ color: "gray" }}>
+                  <h3 className="text-gray-400">
                     {`been here since ${posterDate?.getFullYear()}-${
                       1 // posterDate?.getMonth() + 1
                     }-${posterDate?.getDay()}`}
                   </h3>
                 </div>
               </div>
-              <p className="postpage--description"> {data.post.description}</p>
-              {/* <h2>Type: {type}</h2>*/}
+              <p className="my-3 p-3 border border-gray-200 rounded-md shadow-sm">
+                {" "}
+                {data.post.description}
+              </p>
               <div className="Hline" />
-              <h2 style={{ marginTop: "1rem" }}>What this place offers</h2>
-              <div className="postpage--amenities">
+
+              <h2 className="mt-3">What this place offers</h2>
+              <div className="mt-3 flex flex-wrap gap-2">
                 {amenitiesData.map((amenitie) => {
                   if (data.post.amenities.includes(amenitie.title))
                     return (
                       <div
-                        className="postpage--amenities--element"
+                        className="flex items-center gap-2 p-2 border border-gray-300 rounded-md text-gray-800 text-sm"
                         key={amenitie.title}
                       >
                         {amenitie.icon} {amenitie.title}
@@ -159,23 +176,15 @@ function Page() {
                 })}
               </div>
             </div>
-            <div className="right--info">
-              <div className="pricing--container">
-                <div className="pricing--price">
-                  <div
-                    style={{ display: "flex", alignItems: "end", gap: ".5rem" }}
-                  >
+            <div className="max-w-full md:m-0 my-9" style={{ width: "30rem" }}>
+              <div className="border border-gray-300 shadow-md rounded-md p-6">
+                <div className="flex justify-around my-3">
+                  <div className="flex items-end gap-2">
                     <h2>{`${data.post.price.perday} DA`}</h2>
                     <p>/pernight</p>
                   </div>
                   {data.post.price.permonth !== data.post.price.perday * 30 && (
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "end",
-                        gap: ".5rem",
-                      }}
-                    >
+                    <div className="flex items-end gap-2">
                       <h2>{`${data.post.price.permonth} DA`}</h2>
                       <p>/permonth</p>
                     </div>

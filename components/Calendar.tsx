@@ -168,18 +168,21 @@ const Day = ({ day = 0, reserved, requestReserve, isToday }: DayProps) => {
           src={reserved.image}
           alt="Reserved By"
           onClick={() =>
-            HandleChangeChildren(
-              <div className="w-96 p-3 gap-3">
-                <div className="flex gap-3">
-                  <img className="w-20 rounded-full" src={reserved.image} />
-                  <div className="mt-3">
-                    <h1>{reserved.name}</h1>
-                    <h1>{reserved.email}</h1>
-                    <h1>{reserved.phonenumber}</h1>
+            HandleChangeChildren({
+              title: "Reserver Info",
+              content: (
+                <div className="w-96 p-3 gap-3">
+                  <div className="flex gap-3">
+                    <img className="w-20 rounded-full" src={reserved.image} />
+                    <div className="mt-3">
+                      <h1>{reserved.name}</h1>
+                      <h1>{reserved.email}</h1>
+                      <h1>{reserved.phonenumber}</h1>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
+              ),
+            })
           }
         />
       )}

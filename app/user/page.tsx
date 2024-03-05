@@ -1,4 +1,3 @@
-import "@styles/User.css";
 import { FaRegAddressCard } from "react-icons/fa";
 import { GrFavorite } from "react-icons/gr";
 import { IoIosSwitch } from "react-icons/io";
@@ -55,7 +54,7 @@ function page() {
   ];
   return (
     <div style={{ width: "60rem" }} className="max-w-full mx-auto my-8">
-      <h1 style={{ textAlign: "center" }}>Account</h1>
+      <h1 className="text-center">Account</h1>
       <div className="md:grid flex md:grid-cols-3 flex-col gap-3 w-full my-5 ">
         {navElements.map((el, i) => {
           return (

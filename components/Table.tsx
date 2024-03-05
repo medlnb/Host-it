@@ -48,8 +48,8 @@ const Post = ({
     return (
       <>
         {[...Array(3)].map((_, index) => (
-          <div key={index} className="post--container">
-            <div className="post--picture loading--background" />
+          <div key={index} className="relative">
+            <div className="w-full h-52 rounded-md image-fit loading--background" />
           </div>
         ))}
       </>
@@ -79,11 +79,13 @@ const Post = ({
   };
 
   return (
-    <div className="post--container" onClick={HandleGetPage}>
+    <div className="relative" onClick={HandleGetPage}>
       {isFavorite !== undefined &&
         (isFavorite ? (
           <FaHeart
-            className={`fav--icon ${isloading ? "jumping--icon" : ""}`}
+            className={`absolute right-2 top-2 text-lg ${
+              isloading ? "jumping--icon" : ""
+            }`}
             fill="white"
             onClick={(e) => {
               HandleClick(e, "Remove");
@@ -91,7 +93,9 @@ const Post = ({
           />
         ) : (
           <FaRegHeart
-            className={`fav--icon ${isloading ? "jumping--icon" : ""}`}
+            className={`absolute right-2 top-2 text-lg ${
+              isloading ? "jumping--icon" : ""
+            }`}
             fill="white"
             onClick={(e) => {
               HandleClick(e, "Add");
@@ -99,10 +103,13 @@ const Post = ({
           />
         ))}
 
-      <img src={data.image[0]} className="post--picture" />
+      <img
+        src={data.image[0]}
+        className="w-full md:h-52 h-36 rounded-md image-fit loading--background"
+      />
       <div className="post--info">
         <p>{data.title}</p>
-        <p className="post--location">{`${data.state} - ${data.city}`}</p>
+        <p className="whitespace-nowrap overflow-x-hidden text-gray-400 pr-4">{`${data.state} - ${data.city}`}</p>
         <p>19 mar - 29mar</p>
         <p>{`${data.price.perday} DZD/per night`}</p>
       </div>
@@ -220,7 +227,7 @@ export default function Table({
   if (!isloading) {
     if (invoices?.length !== 0)
       return (
-        <div className="Posts--container">
+        <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2">
           {invoices?.map((apost: Post) => {
             let isFavorite = undefined;
             if (favorites)
@@ -240,10 +247,10 @@ export default function Table({
       );
     else
       return (
-        <div className="empty--Feed--container">
-          <div className="empty--Feed--circle">
-            <div className="empty--Feed">
-              <FaHouseCrack className="empty--Feed--icon" />
+        <div className="flex justify-center items-center h-80 text-md text-black whitecpace-nowrap">
+          <div className="w-64 h-64 relative rounded-full bg-gray-100">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4">
+              <FaHouseCrack className="text-6xl" />
               <h1>No Posts Found</h1>
             </div>
           </div>
@@ -251,7 +258,7 @@ export default function Table({
       );
   }
   return (
-    <div className="Posts--container">
+    <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2">
       <Post data={loadingPost} isFavorite={undefined} userId={undefined} />
     </div>
   );

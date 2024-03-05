@@ -12,16 +12,17 @@ function Page() {
   const [plan, setPlan] = useState<(undefined | "Pro" | "Premium") | null>(
     null
   );
+  console.log(session?.user.plan);
   useEffect(() => {
     if (session) {
-      if (session.user.plan === undefined) return setPlan(undefined);
-      const thisday = today(getLocalTimeZone());
-      console.log(session.user.plan.lastDay);
-      if (
-        parseDate(session.user.plan.lastDay.slice(0, 10)).compare(thisday) < 0
-      )
+      if (session.user.plan === undefined) {
         setPlan(undefined);
-      else setPlan(session.user.plan.type);
+      } else {
+        // const thisday = today(getLocalTimeZone());
+        // if (parseDate(session.user.plan.lastDay).compare(thisday) < 0)
+        //   setPlan(undefined);
+        // else setPlan(session.user.plan.type);
+      }
     }
   }, [session]);
 
@@ -104,7 +105,7 @@ function Page() {
             <p className="text-lg">Premium</p>
           </div>
           <p className="text-gray-500 mt-1 text-center">
-            Are you runiing Hotel, Motel ... , this should be perfect for you.
+            Are you running Hotel, Motel ... , this should be perfect for you.
           </p>
         </div>
         <button

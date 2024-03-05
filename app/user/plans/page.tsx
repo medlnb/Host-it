@@ -16,6 +16,7 @@ function Page() {
     if (session) {
       if (session.user.plan === undefined) return setPlan(undefined);
       const thisday = today(getLocalTimeZone());
+      console.log(session.user.plan.lastDay.slice(0, 10));
       if (
         parseDate(session.user.plan.lastDay.slice(0, 10)).compare(thisday) < 0
       )

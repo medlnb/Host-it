@@ -42,7 +42,7 @@ function FilterButton() {
   );
   return (
     <button
-      className="bg-none border border-black px-3 py-2 cursor-pointer flex items-center gap-1 relative rounded-md hover:bg-gray-100 md:text-lg text-xs"
+      className="bg-none border border-black px-3 py-2 cursor-pointer flex items-center gap-1 relative rounded-md hover:bg-gray-100 text-xs md:text-base"
       onClick={() =>
         HandleChangeChildren({ title: "Filter", content: filterwindow })
       }

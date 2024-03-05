@@ -37,6 +37,7 @@ const handler = NextAuth({
       session.user.address = sessionUser.address;
       session.user.image = sessionUser.image;
       session.user.name = sessionUser.name;
+      session.user.plan = sessionUser.plan;
       return session;
     },
     async signIn({ user }) {

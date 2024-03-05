@@ -58,7 +58,7 @@ const Host = ({ post }: any) => {
 
   return (
     <div
-      className="flex md:flex-col flex-row md:items-center items-start text-xs md:gap-4 gap-2 md:p-4 p-2 shadow-md rounded-md relative hover:outline hover:outline-1 hover:outline-gray-300"
+      className="flex md:flex-col flex-row md:items-center items-start text-xs md:gap-4 gap-2 md:p-4 p-2 center-shadow rounded-md relative hover:outline hover:outline-1 hover:outline-gray-300"
       onClick={() => {
         router.push(`/post/${post._id}`);
       }}

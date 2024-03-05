@@ -84,7 +84,7 @@ function page() {
               </div>
               <Link
                 href={el.path}
-                className="flex flex-row md:flex-col md:items-start items-center gap-6 h-full p-4 rounded-lg shadow-lg "
+                className="flex flex-row md:flex-col md:items-start md:m-0 my-3  items-center gap-6 h-full p-4 rounded-lg center-shadow "
               >
                 {el.icon}
                 <div>

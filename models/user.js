@@ -15,6 +15,14 @@ const UserSchema = new Schema(
     phonenumber: { type: String },
     governmentID: { type: String },
     address: { type: String },
+    plan: {
+      type: {
+        type: String,
+        enum: ["Pro", "Premium"],
+      },
+      lastDay: String,
+    },
+
     messages: {
       type: [
         {

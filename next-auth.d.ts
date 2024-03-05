@@ -12,6 +12,7 @@ declare module "next-auth" {
       phonenumber: string | undefined;
       governmentID: string | undefined;
       address: string | undefined;
+      plan: { type: "Pro" | "Premium"; lastDay: string } | undefined;
     } & DefaultSession["user"];
   }
 }

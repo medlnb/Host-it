@@ -143,7 +143,7 @@ function Page() {
             return (
               <div
                 key={index}
-                className={`shadow-md py-2 rounded cursor-pointer ${
+                className={`center-shadow py-2 rounded cursor-pointer ${
                   selectedReservation.requestedreserve === element
                     ? "border-2 border-red-500"
                     : ""
@@ -156,7 +156,7 @@ function Page() {
                 }}
               >
                 {profiles ? (
-                  <div className="flex gap-2 mb-2  shadow-sm rounded p-2">
+                  <div className="flex gap-2 mb-2 shadow-md rounded p-2">
                     <img
                       className="h-12 cursor-pointer rounded-full "
                       src={profile.image}

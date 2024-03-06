@@ -12,16 +12,15 @@ function Page() {
   const [plan, setPlan] = useState<(undefined | "Pro" | "Premium") | null>(
     null
   );
-  console.log(session?.user.plan);
   useEffect(() => {
     if (session) {
       if (session.user.plan === undefined) {
         setPlan(undefined);
       } else {
-        // const thisday = today(getLocalTimeZone());
-        // if (parseDate(session.user.plan.lastDay).compare(thisday) < 0)
-        //   setPlan(undefined);
-        // else setPlan(session.user.plan.type);
+        const thisday = today(getLocalTimeZone());
+        if (parseDate(session.user.plan.lastDay).compare(thisday) < 0)
+          setPlan(undefined);
+        else setPlan(session.user.plan.type);
       }
     }
   }, [session]);

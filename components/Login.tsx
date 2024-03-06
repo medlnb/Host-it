@@ -29,7 +29,7 @@ function Page() {
   };
   return (
     <form
-      className="flex flex-col gap-7 max-w-95 rounded-md px-8 py-6 mx-auto"
+      className="max-w-full flex flex-col gap-7 max-w-95 rounded-md md:px-8 px-3 py-6 mx-auto"
       style={{ width: "40rem" }}
       onSubmit={HandleSubmit}
     >
@@ -61,7 +61,7 @@ function Page() {
           <span
             className="cursor-pointer"
             onClick={() => {
-              HandleChangeChildren({ title: "Sign Up", content: <SignUp />});
+              HandleChangeChildren({ title: "Sign Up", content: <SignUp /> });
             }}
           >
             <b> Sign in</b>

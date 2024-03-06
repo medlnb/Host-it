@@ -15,7 +15,8 @@ function FloatingWindow() {
       onClick={HandleOutClick}
     >
       <div
-        className="max-w-95 bg-white overflow-hidden pb-3 rounded-md shadow-lg text-xs going-up-animation"
+        className="bg-white overflow-hidden pb-3 rounded-md shadow-lg text-xs going-up-animation"
+        style={{ maxWidth: "95%" }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center p-2 border-b border-gray-400">

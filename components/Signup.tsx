@@ -34,14 +34,14 @@ function Page() {
     });
     if (response.ok) {
       alert("gj Bro");
-      HandleChangeChildren({ title: "Log In", content: <Login />});
+      HandleChangeChildren({ title: "Log In", content: <Login /> });
       return;
     }
     alert("r u fking stupid or what");
   };
   return (
     <form
-      className="flex flex-col gap-7 max-w-95 rounded-md px-8 py-6 mx-auto"
+      className="max-w-full flex flex-col gap-7 max-w-95 rounded-md md:px-8 px-3 py-6 mx-auto"
       style={{ width: "40rem" }}
       onSubmit={HandleSubmit}
     >
@@ -80,7 +80,9 @@ function Page() {
         <div className="p-2">
           Already have an account?{" "}
           <b
-            onClick={() => HandleChangeChildren(<Login />)}
+            onClick={() =>
+              HandleChangeChildren({ title: "Log In", content: <Login /> })
+            }
             className="cursor-pointer"
           >
             Sign up

@@ -11,10 +11,17 @@ import { MdOutlineElevator } from "react-icons/md";
 import { useContext } from "react";
 import { NewPostContext } from "@Context/NewPostContext";
 
-interface props {
-  amenities: string[];
-  HandleChangeInputs: any;
-}
+const amenitiesData = [
+  { title: "Wifi", icon: <FaWifi /> },
+  { title: "TV", icon: <PiTelevisionSimpleBold /> },
+  { title: "Kitchen", icon: <FaKitchenSet /> },
+  { title: "Washer", icon: <BiSolidWasher /> },
+  { title: "Parking", icon: <MdLocalParking /> },
+  { title: "Air conditioning", icon: <TbAirConditioning /> },
+  { title: "Heater", icon: <FaTemperatureArrowUp /> },
+  { title: "Pool", icon: <MdOutlinePool /> },
+  { title: "Elevator", icon: <MdOutlineElevator /> },
+];
 
 function Amenities() {
   const {
@@ -60,14 +67,3 @@ function Amenities() {
 }
 
 export default Amenities;
-export const amenitiesData = [
-  { title: "Wifi", icon: <FaWifi /> },
-  { title: "TV", icon: <PiTelevisionSimpleBold /> },
-  { title: "Kitchen", icon: <FaKitchenSet /> },
-  { title: "Washer", icon: <BiSolidWasher /> },
-  { title: "Parking", icon: <MdLocalParking /> },
-  { title: "Air conditioning", icon: <TbAirConditioning /> },
-  { title: "Heater", icon: <FaTemperatureArrowUp /> },
-  { title: "Pool", icon: <MdOutlinePool /> },
-  { title: "Elevator", icon: <MdOutlineElevator /> },
-];

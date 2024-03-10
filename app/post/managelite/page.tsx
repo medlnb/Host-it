@@ -15,7 +15,7 @@ function Page() {
           router.push("/post/managelite/type");
         }}
       >
-        Let's Go
+        Let s Go
       </button>
     </div>
   );

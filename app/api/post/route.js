@@ -19,17 +19,6 @@ export const POST = async (req) => {
       "Hotel",
       "Motel",
     ];
-    // const amentiesdta = [
-    //   "Wifi",
-    //   "TV",
-    //   "Kitchen",
-    //   "Washer",
-    //   "Parking",
-    //   "Air conditioning",
-    //   "Heater",
-    //   "Pool",
-    //   "Elevator",
-    // ];
     const {
       query,
       type,
@@ -52,7 +41,6 @@ export const POST = async (req) => {
     const searchquerry = query || "";
     const searchfilter = type || types;
 
-    console.log(serchamenties);
     let querry = Post.find({
       title: { $regex: searchquerry, $options: "i" },
     });
@@ -83,8 +71,8 @@ export const POST = async (req) => {
       .lte(Number(HighPricedta));
 
     const Posts = await querry;
-
-    return new Response(JSON.stringify(Posts), {
+    const t = await Post.find();
+    return new Response(JSON.stringify(t), {
       status: 200,
     });
   } catch (err) {

@@ -10,8 +10,20 @@ const PostSchema = new Schema({
     },
     required: true,
   },
-  city: { type: String, required: true },
-  state: { type: String, required: true },
+  city: {
+    type: {
+      name: String,
+      id: Number,
+    },
+    required: true,
+  },
+  state: {
+    type: {
+      name: String,
+      id: Number,
+    },
+    required: true,
+  },
   location: {
     type: {
       lat: String,

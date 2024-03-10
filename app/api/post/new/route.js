@@ -16,7 +16,6 @@ export const POST = async (req, res) => {
     Beds,
     description,
     amenities,
-    image,
   } = await req.json();
   try {
     await connectToDatabase();
@@ -35,10 +34,9 @@ export const POST = async (req, res) => {
       resevedDates: [],
       description,
       amenities,
-      image,
     });
     await newPost.save();
-    return new Response(JSON.stringify(newPost), {
+    return new Response(JSON.stringify({ PostId: newPost._id }), {
       status: 201,
     });
   } catch (err) {
@@ -51,7 +49,7 @@ export const POST = async (req, res) => {
 
 export const PATCH = async (req) => {
   const { post } = await req.json();
-
+  console.log(post);
   try {
     await connectToDatabase();
     const newPost = await Post.findByIdAndUpdate(

@@ -3,8 +3,6 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { FaCrown, FaUser } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
-import { today } from "@internationalized/date";
-import { getLocalTimeZone, parseDate } from "@internationalized/date";
 import BeatLoader from "react-spinners/BeatLoader";
 
 function Page() {
@@ -17,10 +15,7 @@ function Page() {
       if (session.user.plan === undefined) {
         setPlan(undefined);
       } else {
-        const thisday = today(getLocalTimeZone());
-        if (parseDate(session.user.plan.lastDay).compare(thisday) < 0)
-          setPlan(undefined);
-        else setPlan(session.user.plan.type);
+        setPlan(session.user.plan.type);
       }
     }
   }, [session]);

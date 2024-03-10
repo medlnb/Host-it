@@ -54,7 +54,6 @@ const Post = ({
         ))}
       </>
     );
-
   const HandleClick = async (e: any, type: "Add" | "Remove") => {
     e.stopPropagation();
     setisloading(true);
@@ -77,7 +76,6 @@ const Post = ({
     }
     setisloading(false);
   };
-
   return (
     <div className="relative" onClick={HandleGetPage}>
       {isFavorite !== undefined &&
@@ -104,9 +102,10 @@ const Post = ({
         ))}
 
       <img
-        src={data.image[0]}
+        src={`https://semsardatabase.onrender.com/media/${data.image[2]}`}
         className="w-full md:h-52 h-36 rounded-md image-fit loading--background"
       />
+      <p>sadsad</p>
       <div className="post--info">
         <p>{data.title}</p>
         <p className="whitespace-nowrap overflow-x-hidden text-gray-400 pr-4">{`${data.state} - ${data.city}`}</p>
@@ -142,11 +141,11 @@ export default function Table({
   type: string;
   currentPage: number;
 }) {
-  const { data: session, update } = useSession();
+  const { data: session } = useSession();
   const [isloading, setisloading] = useState(false);
   const [invoices, setInvoices] = useState<any[] | null>(null);
   const { favorites, dispatch } = useContext(FavoritesContext);
-
+  
   useEffect(() => {
     const fetchPosts = async () => {
       setisloading(true);

@@ -83,7 +83,7 @@ const Host = ({ post }: any) => {
             fill="black"
             onClick={(e) => {
               e.stopPropagation();
-              router.push(`/editpost/${post._id}`);
+              router.push(`/post/manage/${post._id}`);
             }}
           />
           <FaHandshakeSimple

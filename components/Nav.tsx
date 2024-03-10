@@ -7,6 +7,8 @@ import { CiChat1 } from "react-icons/ci";
 import { floatingConext } from "@Context/FloatingWinContext";
 import Login from "@components/Login";
 import ClipLoader from "react-spinners/ClipLoader";
+import { FaCrown } from "react-icons/fa";
+import { FaStar } from "react-icons/fa6";
 
 function Nav() {
   const { data: session } = useSession();
@@ -52,7 +54,7 @@ function Nav() {
         )}
         {session && (
           <>
-            <Link href="/createpost" className="underline-expand">
+            <Link href="/post/managelite" className="underline-expand">
               New Post
             </Link>
             {messagesData && (
@@ -68,6 +70,15 @@ function Nav() {
               className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer"
               onClick={() => setToggleNavbar((prev) => !prev)}
             >
+              {session.user.plan && (
+                <>
+                  {session.user.plan.type === "Premium" ? (
+                    <FaCrown size={20} className="mb-1" />
+                  ) : (
+                    <FaStar size={20} className="mb-1" />
+                  )}
+                </>
+              )}
               <p>{session.user.name}</p>
 
               {session.user.image ? (

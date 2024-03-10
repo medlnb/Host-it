@@ -126,3 +126,23 @@ body::-webkit-scrollbar {
 .underline-expand:hover::after {
   width: 100%;
 }
+
+/* ----------------------------------------- */
+.show-up {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -0.5rem;
+  transition: bottom 0.2s;
+  color: white;
+}
+
+.show-up-triger:hover .show-up {
+  bottom: 0.5rem;
+  color: black;
+}
+.show-up-triger:hover .colored{
+  background: rgb(55, 55, 55);
+}
+
+/* absolute left-1/2 transform -translate-x-1/2 show-up */

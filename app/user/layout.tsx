@@ -1,13 +1,14 @@
-import { ReactNode } from "react";
-import { options } from "@app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
+"use client";
 
-async function Layout({ children }: { children: ReactNode }) {
-  const session = await getServerSession(options);
-  if (!session) console.log("helllo");
+import { useSession } from "next-auth/react";
+
+function Layout({ children }: { children: React.ReactNode }) {
+  const { data: session } = useSession();
+  // const session = await getServerSession(options); database connection is to slow, so it takes time to get the user info
   return (
     <div className="max-w-full my-0 mx-auto mt-2 mr-4 mb-16 ml-2">
-      {children}
+      {session === null ? "not allowed" : children}
+
       <div className="fixed flex bottom-0 left-1/2 transform -translate-x-1/2 justify-center items-center gap-4 p-4 border-t border-gray-400 bg-white">
         <a href="mailto:  mohamedlanabi0@gmail.com">Email</a>
         <a href="tel:  +212 6 99 99 99 99">Phone</a>

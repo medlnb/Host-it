@@ -1,14 +1,13 @@
+"use client";
 import NewPostNav from "@components/NewPostNav";
 import NewPostProv from "@components/NewPostProv";
-import { options } from "@app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
 
-
-async function Layout({ children }: { children: React.ReactNode }) {
-  const session = await getServerSession(options);
+function Layout({ children }: { children: React.ReactNode }) {
+  const { data: session } = useSession(); //using client session instead of server because the server session takes too long to fetch
   return (
     <>
-      {session ? (
+      {session !== undefined ? (
         <div>
           <NewPostNav />
           <NewPostProv>{children}</NewPostProv>

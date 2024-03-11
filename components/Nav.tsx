@@ -12,6 +12,7 @@ import { FaStar } from "react-icons/fa6";
 
 function Nav() {
   const { data: session } = useSession();
+  console.log(session);
   const { HandleChangeChildren } = useContext(floatingConext);
   const [ToggleNavbar, setToggleNavbar] = useState(false);
   const [messagesData, setMessagesData] = useState<any>(null);

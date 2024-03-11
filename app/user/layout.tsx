@@ -5,10 +5,10 @@ import { getServerSession } from "next-auth";
 const AuthCheck = async ({ children }: { children: ReactNode }) => {
   const session = await getServerSession(options);
   if (!session) return <p>not Logged in</p>;
-  else return layout({ children });
+  else return Layout({ children });
 };
 
-function layout({ children }: { children: ReactNode }) {
+function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="max-w-full my-0 mx-auto mt-2 mr-4 mb-16 ml-2">
       {children}

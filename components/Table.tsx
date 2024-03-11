@@ -102,7 +102,7 @@ const Post = ({
         ))}
 
       <img
-        src={`https://semsardatabase.onrender.com/media/${data.image[2]}`}
+        src={`https://semsardatabase.onrender.com/media/${data.image[0]}`}
         className="w-full md:h-52 h-36 rounded-md image-fit loading--background"
       />
       <p>sadsad</p>

@@ -1,5 +1,5 @@
 "use client";
-import { useReducer, createContext } from "react";
+import { useReducer, createContext, useEffect } from "react";
 
 interface Post {
   id: string | null;
@@ -31,56 +31,30 @@ interface Post {
 
 const Default_value = {
   id: null,
-  title: localStorage.getItem("NewPost.title") ?? "",
-  type: localStorage.getItem("NewPost.type") ?? "Villa",
-  state: localStorage.getItem("state")
-    ? {
-        name: "Alger Centre",
-        id: Number(localStorage.getItem("state")),
-      }
-    : {
-        name: "Alger Centre",
-        id: 16,
-      },
-  city: localStorage.getItem("city")
-    ? {
-        name: "",
-        id: Number(localStorage.getItem("city")),
-      }
-    : {
-        name: "Alger Centre",
-        id: 0,
-      },
+  title: "",
+  type: "Villa",
+  state: {
+    name: "Alger Centre",
+    id: 16,
+  },
+  city: {
+    name: "Alger Centre",
+    id: 0,
+  },
   location: {
-    lat: localStorage.getItem("lat")
-      ? Number(localStorage.getItem("lat"))
-      : 36.7681618,
-    lng: localStorage.getItem("lng")
-      ? Number(localStorage.getItem("lng"))
-      : 3.0404258,
+    lat: 36.7681618,
+    lng: 3.0404258,
   },
-  description: localStorage.getItem("NewPost.description") ?? "",
+  description: "",
   price: {
-    perday: localStorage.getItem("NewPost.perdayprice")
-      ? Number(localStorage.getItem("NewPost.perdayprice"))
-      : 0,
-    permonth: localStorage.getItem("NewPost.permonthprice")
-      ? Number(localStorage.getItem("NewPost.permonthprice"))
-      : 0,
+    perday: 0,
+    permonth: 0,
   },
-  Bedrooms: localStorage.getItem("Bedrooms")
-    ? Number(localStorage.getItem("Bedrooms"))
-    : 0,
-  Bathrooms: localStorage.getItem("Bathrooms")
-    ? Number(localStorage.getItem("Bathrooms"))
-    : 0,
-  Guests: localStorage.getItem("Guests")
-    ? Number(localStorage.getItem("Guests"))
-    : 0,
-  Beds: localStorage.getItem("Beds") ? Number(localStorage.getItem("Beds")) : 0,
-  amenities: localStorage.getItem("amenities")
-    ? (localStorage.getItem("amenities") + "").split(",")
-    : [],
+  Bedrooms: 0,
+  Bathrooms: 0,
+  Guests: 0,
+  Beds: 0,
+  amenities: [],
   image: [],
 };
 export const NewPostContext = createContext<{
@@ -94,6 +68,10 @@ export const NewPostContext = createContext<{
 const NewPostReducer = (
   state: Post,
   action:
+    | {
+        type: "SET_POST";
+        payload: Post;
+      }
     | {
         type:
           | "SET_TITLE"
@@ -136,6 +114,8 @@ const NewPostReducer = (
       }
 ) => {
   switch (action.type) {
+    case "SET_POST":
+      return action.payload;
     case "CHANGE_DETAILS":
       if (action.payload.operation === "+") {
         localStorage.setItem(
@@ -272,6 +252,68 @@ export const NewPostContextProvider = ({
     NewPostReducer,
     Default_value
   );
+  useEffect(() => {
+    if (typeof window !== "undefined")
+      dispatch({
+        type: "SET_POST",
+        payload: {
+          id: null,
+          title: localStorage.getItem("NewPost.title") ?? "",
+          type: localStorage.getItem("NewPost.type") ?? "Villa",
+          state: localStorage.getItem("state")
+            ? {
+                name: "Alger Centre",
+                id: Number(localStorage.getItem("state")),
+              }
+            : {
+                name: "Alger Centre",
+                id: 16,
+              },
+          city: localStorage.getItem("city")
+            ? {
+                name: "",
+                id: Number(localStorage.getItem("city")),
+              }
+            : {
+                name: "Alger Centre",
+                id: 0,
+              },
+          location: {
+            lat: localStorage.getItem("lat")
+              ? Number(localStorage.getItem("lat"))
+              : 36.7681618,
+            lng: localStorage.getItem("lng")
+              ? Number(localStorage.getItem("lng"))
+              : 3.0404258,
+          },
+          description: localStorage.getItem("NewPost.description") ?? "",
+          price: {
+            perday: localStorage.getItem("NewPost.perdayprice")
+              ? Number(localStorage.getItem("NewPost.perdayprice"))
+              : 0,
+            permonth: localStorage.getItem("NewPost.permonthprice")
+              ? Number(localStorage.getItem("NewPost.permonthprice"))
+              : 0,
+          },
+          Bedrooms: localStorage.getItem("Bedrooms")
+            ? Number(localStorage.getItem("Bedrooms"))
+            : 0,
+          Bathrooms: localStorage.getItem("Bathrooms")
+            ? Number(localStorage.getItem("Bathrooms"))
+            : 0,
+          Guests: localStorage.getItem("Guests")
+            ? Number(localStorage.getItem("Guests"))
+            : 0,
+          Beds: localStorage.getItem("Beds")
+            ? Number(localStorage.getItem("Beds"))
+            : 0,
+          amenities: localStorage.getItem("amenities")
+            ? (localStorage.getItem("amenities") + "").split(",")
+            : [],
+          image: [],
+        },
+      });
+  }, []);
   return (
     <NewPostContext.Provider value={{ NewPost, dispatch }}>
       {children}

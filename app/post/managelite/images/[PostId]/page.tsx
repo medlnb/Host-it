@@ -1,14 +1,15 @@
 "use client";
-import { NewPostContext } from "@Context/NewPostContext";
 import { useParams } from "next/navigation";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 function Page() {
   const { PostId } = useParams();
   const [images, setimages] = useState<{ url: string; path: string }[]>([]);
-  const { dispatch } = useContext(NewPostContext);
-  const uploadFile = (file: any, filename = null) => {
-    const baseUrl = "https://semsardatabase.onrender.com:3001";
+
+  const handleFileChange = async (event: any) => {
+    const file = event.target.files[0];
+
+    const baseUrl = "https://semsardatabase.onrender.com";
     const formData = new FormData();
 
     formData.append("file", file);
@@ -19,41 +20,22 @@ function Page() {
       url = baseUrl + "/file" + "?folder=" + encodeURIComponent(PostId);
 
     // fetch POST request to express server
-    return fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
       body: formData,
-    })
-      .then((response) => response.json().then((json) => ({ json, response })))
-      .then(({ json, response }) =>
-        !response.ok ? Promise.reject(json) : json
-      )
-      .then(
-        (response) => response,
-        (error) => error
-      );
-  };
-
-  const handleFileChange = (event: any) => {
-    const file = event.target.files[0];
-
-    if (file) {
-      uploadFile(file)
-        .then((response) => {
-          const imageURL = URL.createObjectURL(file);
-          const path = response.path.split("/").slice(-2).join("/");
-          setimages((prev) => [
-            ...prev,
-            {
-              url: imageURL,
-              path,
-            },
-          ]);
-          alert("done");
-        })
-        .catch((error) => {
-          console.error("Upload failed:", error);
-          alert("error");
-        });
+    });
+    if (response.ok) {
+      const data = await response.json();
+      const path = data.path.split("/").slice(-2).join("/");
+      const imageURL = URL.createObjectURL(file);
+      setimages((prev) => [
+        ...prev,
+        {
+          url: imageURL,
+          path,
+        },
+      ]);
+      alert("done");
     }
   };
 

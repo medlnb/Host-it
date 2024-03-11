@@ -2,7 +2,7 @@
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Reserving from "@components/Reserving";
-import { amenitiesData } from "@components/Amenities";
+// import { amenitiesData } from "@components/Amenities";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
@@ -162,7 +162,7 @@ function Page() {
               <div className="Hline" />
 
               <h2 className="mt-3">What this place offers</h2>
-              <div className="mt-3 flex flex-wrap gap-2">
+              {/* <div className="mt-3 flex flex-wrap gap-2">
                 {amenitiesData.map((amenitie) => {
                   if (data.post.amenities.includes(amenitie.title))
                     return (
@@ -174,7 +174,7 @@ function Page() {
                       </div>
                     );
                 })}
-              </div>
+              </div> */}
             </div>
             <div className="max-w-full md:m-0 my-9" style={{ width: "30rem" }}>
               <div className="border border-gray-300 shadow-md rounded-md p-6">

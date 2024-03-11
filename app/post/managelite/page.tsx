@@ -1,11 +1,7 @@
 "use client";
-
-import { NewPostContext } from "@Context/NewPostContext";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
 
 function Page() {
-  const { dispatch } = useContext(NewPostContext);
   const router = useRouter();
   return (
     <div>

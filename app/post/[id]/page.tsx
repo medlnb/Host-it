@@ -2,11 +2,30 @@
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Reserving from "@components/Reserving";
-// import { amenitiesData } from "@components/Amenities";
-import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { FaArrowAltCircleLeft, FaWifi } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import Review from "@components/Review";
+import { PiTelevisionSimpleBold } from "react-icons/pi";
+import { BiSolidWasher } from "react-icons/bi";
+import { FaKitchenSet, FaTemperatureArrowUp } from "react-icons/fa6";
+import {
+  MdLocalParking,
+  MdOutlineElevator,
+  MdOutlinePool,
+} from "react-icons/md";
+import { TbAirConditioning } from "react-icons/tb";
+const amenitiesData = [
+  { title: "Wifi", icon: <FaWifi /> },
+  { title: "TV", icon: <PiTelevisionSimpleBold /> },
+  { title: "Kitchen", icon: <FaKitchenSet /> },
+  { title: "Washer", icon: <BiSolidWasher /> },
+  { title: "Parking", icon: <MdLocalParking /> },
+  { title: "Air conditioning", icon: <TbAirConditioning /> },
+  { title: "Heater", icon: <FaTemperatureArrowUp /> },
+  { title: "Pool", icon: <MdOutlinePool /> },
+  { title: "Elevator", icon: <MdOutlineElevator /> },
+];
 
 interface Post {
   _id: string;
@@ -14,11 +33,17 @@ interface Post {
   title: string;
   type: string;
   price: { perday: number; permonth: number };
-  city: String;
-  state: String;
+  city: {
+    name: string;
+    id: number;
+  };
+  state: {
+    name: string;
+    id: number;
+  };
   location: {
-    lat: String;
-    lng: String;
+    lat: number;
+    lng: number;
   };
   resevedDates: { date: string; Duration: number; reservedBy: string }[];
   reseveRequests: { date: string; Duration: number; reservedBy: string }[];
@@ -94,17 +119,29 @@ function Page() {
             >
               <img
                 className="md:w-1/2 w-full image-fit"
-                src={data.post.image[0]}
+                src={`https://semsardatabase.onrender.com/media/${data.post.image[0]}`}
                 style={{ scrollSnapAlign: "center" }}
               />
               <div
                 className="md:w-1/2 w-full h-full grid grid-cols-2 gap-2"
                 style={{ scrollSnapAlign: "center" }}
               >
-                <img className="image-fit" src={data.post.image[0]} />
-                <img className="image-fit" src={data.post.image[0]} />
-                <img className="image-fit" src={data.post.image[0]} />
-                <img className="image-fit " src={data.post.image[0]} />
+                <img
+                  className="image-fit"
+                  src={`https://semsardatabase.onrender.com/media/${data.post.image[0]}`}
+                />
+                <img
+                  className="image-fit"
+                  src={`https://semsardatabase.onrender.com/media/${data.post.image[0]}`}
+                />
+                <img
+                  className="image-fit"
+                  src={`https://semsardatabase.onrender.com/media/${data.post.image[0]}`}
+                />
+                <img
+                  className="image-fit "
+                  src={`https://semsardatabase.onrender.com/media/${data.post.image[0]}`}
+                />
               </div>
               <FaArrowAltCircleRight
                 className="md:hidden block absolute top-1/2 transform -translate-y-1/2 right-1"
@@ -123,7 +160,7 @@ function Page() {
           <div className="mt-3 flex justify-between md:flex-row flex-col gap-3">
             <div className="left--info">
               <h1 className="mt-3">{data.post.title}</h1>
-              <h2>{data.post.city}</h2>
+              <h2>{data.post.city.name}</h2>
               <p className="mt-2 flex gap-2">
                 <p
                   style={{ whiteSpace: "nowrap" }}
@@ -162,7 +199,7 @@ function Page() {
               <div className="Hline" />
 
               <h2 className="mt-3">What this place offers</h2>
-              {/* <div className="mt-3 flex flex-wrap gap-2">
+              <div className="mt-3 flex flex-wrap gap-2">
                 {amenitiesData.map((amenitie) => {
                   if (data.post.amenities.includes(amenitie.title))
                     return (
@@ -174,7 +211,7 @@ function Page() {
                       </div>
                     );
                 })}
-              </div> */}
+              </div>
             </div>
             <div className="max-w-full md:m-0 my-9" style={{ width: "30rem" }}>
               <div className="border border-gray-300 shadow-md rounded-md p-6">

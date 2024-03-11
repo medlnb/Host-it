@@ -13,11 +13,17 @@ interface Post {
   title: string;
   type: string;
   price: { perday: number; permonth: number };
-  city: String;
-  state: String;
+  city: {
+    name: string;
+    id: number;
+  };
+  state: {
+    name: string;
+    id: number;
+  };
   location: {
-    lat: String;
-    lng: String;
+    lat: number;
+    lng: number;
   };
   resevedDateFrom?: string[];
   resevedDateTo?: string[];
@@ -108,7 +114,7 @@ const Post = ({
       <p>sadsad</p>
       <div className="post--info">
         <p>{data.title}</p>
-        <p className="whitespace-nowrap overflow-x-hidden text-gray-400 pr-4">{`${data.state} - ${data.city}`}</p>
+        <p className="whitespace-nowrap overflow-x-hidden text-gray-400 pr-4">{`${data.state.name} - ${data.city.name}`}</p>
         <p>19 mar - 29mar</p>
         <p>{`${data.price.perday} DZD/per night`}</p>
       </div>
@@ -145,7 +151,7 @@ export default function Table({
   const [isloading, setisloading] = useState(false);
   const [invoices, setInvoices] = useState<any[] | null>(null);
   const { favorites, dispatch } = useContext(FavoritesContext);
-  
+
   useEffect(() => {
     const fetchPosts = async () => {
       setisloading(true);
@@ -193,11 +199,17 @@ export default function Table({
     title: "loading",
     type: "loading",
     price: { perday: 0, permonth: 0 },
-    city: "loading",
-    state: "loading",
+    city: {
+      name: "string",
+      id: 0,
+    },
+    state: {
+      name: "string",
+      id: 0,
+    },
     location: {
-      lat: "loading",
-      lng: "loading",
+      lat: 0,
+      lng: 0,
     },
     resevedDateFrom: ["loading"],
     resevedDateTo: ["loading"],

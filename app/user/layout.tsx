@@ -3,10 +3,11 @@ import { options } from "@app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 
 async function Layout({ children }: { children: ReactNode }) {
-  
   const session = await getServerSession(options);
+  console.log(session);
   return (
     <>
+      <p>hello</p>
       {session ? (
         <div className="max-w-full my-0 mx-auto mt-2 mr-4 mb-16 ml-2">
           {children}

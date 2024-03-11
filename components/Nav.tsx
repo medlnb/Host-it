@@ -113,13 +113,13 @@ function Nav() {
           >
             {" "}
             {/* Assign ref to the dropdown menu */}
-            <Link
+            {/* <Link
               href="/fav"
               className="py-2 px-4 hover:bg-gray-100"
               onClick={() => setToggleNavbar(false)}
             >
               My Favorites
-            </Link>
+            </Link> */}
             <div className="Hline" />
             <Link
               href="/user"
@@ -128,21 +128,21 @@ function Nav() {
             >
               My Account
             </Link>
-            <Link
+            {/* <Link
               href="/anoucements"
               className="py-2 px-4 hover:bg-gray-100"
               onClick={() => setToggleNavbar(false)}
             >
               My Anoucements
-            </Link>
+            </Link> */}
             <div className="Hline" />
-            <Link
+            {/* <Link
               href="/feedback"
               className="py-2 px-4 hover:bg-gray-100"
               onClick={() => setToggleNavbar(false)}
             >
               Feedback
-            </Link>
+            </Link> */}
             <p
               onClick={() => signOut()}
               className="cursor-pointer py-2 px-4 hover:bg-gray-100"

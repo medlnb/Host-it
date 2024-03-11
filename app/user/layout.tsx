@@ -1,11 +1,9 @@
 import { ReactNode } from "react";
 import { options } from "@app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth/next";
 
 async function Layout({ children }: { children: ReactNode }) {
-  const dd = getServerSession(options);
-  console.log(dd);
-  const session = true;
+  const session = await getServerSession(options);
 
   return (
     <>

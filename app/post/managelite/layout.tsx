@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import NewPostNav from "@components/NewPostNav";
 import NewPostProv from "@components/NewPostProv";
 import { options } from "@app/api/auth/[...nextauth]/options";

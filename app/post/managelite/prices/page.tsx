@@ -16,8 +16,8 @@ function Prices() {
       headers: {
         "Content-Type": "application/json",
       },
-    
-    body: JSON.stringify({ ...NewPost,poster: session?.user.id}),
+
+      body: JSON.stringify({ ...NewPost, poster: session?.user.id }),
     });
     if (response.ok) {
       const data = await response.json();
@@ -58,7 +58,12 @@ function Prices() {
           <p className="whitespace-nowrap">DZD/per month</p>
         </div>
       </div>
-      <button onClick={HandlePost}>POST</button>
+      <button
+        className="my-6 mx-auto block p-2 bg-black text-white rounded-md"
+        onClick={HandlePost}
+      >
+        POST
+      </button>
     </div>
   );
 }

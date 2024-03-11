@@ -15,6 +15,7 @@ import {
   MdOutlinePool,
 } from "react-icons/md";
 import { TbAirConditioning } from "react-icons/tb";
+
 const amenitiesData = [
   { title: "Wifi", icon: <FaWifi /> },
   { title: "TV", icon: <PiTelevisionSimpleBold /> },
@@ -49,7 +50,10 @@ interface Post {
   reseveRequests: { date: string; Duration: number; reservedBy: string }[];
   description?: string;
   amenities: string[];
-  image: string[];
+  image: {
+    display_url: string;
+    delete_url: string;
+  }[];
   Bedrooms: Number;
   Bathrooms: Number;
   Guests: Number;
@@ -119,29 +123,17 @@ function Page() {
             >
               <img
                 className="md:w-1/2 w-full image-fit"
-                src={`https://semsardatabase.onrender.com/media/${data.post.image[0]}`}
+                src={`${data.post.image[0].display_url}`}
                 style={{ scrollSnapAlign: "center" }}
               />
               <div
                 className="md:w-1/2 w-full h-full grid grid-cols-2 gap-2"
                 style={{ scrollSnapAlign: "center" }}
               >
-                <img
-                  className="image-fit"
-                  src={`https://semsardatabase.onrender.com/media/${data.post.image[0]}`}
-                />
-                <img
-                  className="image-fit"
-                  src={`https://semsardatabase.onrender.com/media/${data.post.image[0]}`}
-                />
-                <img
-                  className="image-fit"
-                  src={`https://semsardatabase.onrender.com/media/${data.post.image[0]}`}
-                />
-                <img
-                  className="image-fit "
-                  src={`https://semsardatabase.onrender.com/media/${data.post.image[0]}`}
-                />
+                <img className="image-fit" src={`${data.post.image[0].display_url}`} />
+                <img className="image-fit" src={`${data.post.image[0].display_url}`} />
+                <img className="image-fit" src={`${data.post.image[0].display_url}`} />
+                <img className="image-fit " src={`${data.post.image[0].display_url}`} />
               </div>
               <FaArrowAltCircleRight
                 className="md:hidden block absolute top-1/2 transform -translate-y-1/2 right-1"

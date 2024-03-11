@@ -29,7 +29,10 @@ interface Post {
   resevedDateTo?: string[];
   description?: string;
   amenities: string[];
-  image: string[];
+  image: {
+    display_url: string;
+    delete_url: string;
+  }[];
 }
 
 const Post = ({
@@ -108,7 +111,7 @@ const Post = ({
         ))}
 
       <img
-        src={`https://semsardatabase.onrender.com/media/${data.image[0]}`}
+        src={`${data.image[0].display_url}`}
         className="w-full md:h-52 h-36 rounded-md image-fit loading--background"
       />
       <p>sadsad</p>
@@ -215,7 +218,7 @@ export default function Table({
     resevedDateTo: ["loading"],
     description: "loading",
     amenities: ["loading"],
-    image: ["loading"],
+    image: [],
   };
   interface Favorites {
     _id: string;

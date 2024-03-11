@@ -69,7 +69,16 @@ const PostSchema = new Schema({
   },
   description: { type: String },
   amenities: { type: [String] },
-  image: { type: [String] },
+  image: {
+    type: [
+      {
+        type: {
+          display_url: String,
+          delete_url: String,
+        },
+      },
+    ],
+  },
   Bedrooms: { type: Number },
   Bathrooms: { type: Number },
   Guests: { type: Number },

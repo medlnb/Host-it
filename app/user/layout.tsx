@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 
 async function Layout({ children }: { children: ReactNode }) {
   // const session = await getServerSession(options);
+  console.log(options);
   const session = true;
 
   return (

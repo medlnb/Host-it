@@ -12,13 +12,9 @@ function FilterButton() {
     (key) => key !== "type" && key !== "query" && key !== "baladia"
   );
   const wilayadata = params.get("wilaya");
-  const wilaya = wilayadata
-    ? { label: wilayadata, value: wilayadata }
-    : { label: "Wilaya", value: "none" };
+  const wilaya = wilayadata ? wilayadata : "0";
   const baladiadata = params.get("baladia");
-  const baladia = baladiadata
-    ? { label: baladiadata, value: baladiadata }
-    : { label: "Baladia", value: "none" };
+  const baladia = baladiadata ? baladiadata : "0";
 
   const LowPrice = params.get("LowPrice") ?? 100;
   const HighPrice = params.get("HighPrice") ?? 10000;

@@ -130,10 +130,16 @@ function Page() {
                 className="md:w-1/2 w-full h-full grid grid-cols-2 gap-2"
                 style={{ scrollSnapAlign: "center" }}
               >
-                <img className="image-fit" src={`${data.post.image[0].display_url}`} />
-                <img className="image-fit" src={`${data.post.image[0].display_url}`} />
-                <img className="image-fit" src={`${data.post.image[0].display_url}`} />
-                <img className="image-fit " src={`${data.post.image[0].display_url}`} />
+                {data.post.image.map((img, index) => {
+                  if (index !== 0 && index < 4)
+                    return (
+                      <img className="image-fit" src={`${img.display_url}`} />
+                    );
+                })}
+                <img
+                  className="image-fit"
+                  src={`${data.post.image[0].display_url}`}
+                />
               </div>
               <FaArrowAltCircleRight
                 className="md:hidden block absolute top-1/2 transform -translate-y-1/2 right-1"

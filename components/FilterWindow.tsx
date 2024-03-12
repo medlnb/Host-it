@@ -10,8 +10,8 @@ import { HandleFilterChange } from "@components/Posts";
 interface props {
   LowPrice: string;
   HighPrice: string;
-  wilaya: string;
-  baladia: string;
+  stateId: number;
+  cityId: number;
   bedrooms: string;
   bathrooms: string;
   beds: string;
@@ -49,19 +49,20 @@ const FilterWindow = ({
     selectedWilaya: wilaya,
     selectedBaladiya: baladia,
   });
-  const wilayaoptions = AlgerianCities.map((city: any) => ({
-    value: `${city[0].wilaya_id}\\ ${city[0].name}`,
+  console.log(address);
+  const wilayaoptions = AlgerianCities.map((city) => ({
+    value: `${city[0].wilaya_id}`,
     label: `${city[0].wilaya_id}\\ ${city[0].name}`,
   }));
-  let Baladiyaoptions: { value: string; label: string }[] = [];
-  if (address.selectedWilaya.value === "none") Baladiyaoptions = [];
-  else
-    Baladiyaoptions = AlgerianCities[
-      Number(address.selectedWilaya.label.split("\\")[0]) - 1
-    ].map((city: any) => ({
-      value: `${city.wilaya_id}\\ ${city.name}`,
-      label: `${city.wilaya_id}\\ ${city.name}`,
-    }));
+  const Baladiyaoptions =
+    address.selectedWilaya === "0"
+      ? []
+      : AlgerianCities[Number(address.selectedWilaya) - 1].map(
+          (city, index) => ({
+            value: `${index}`,
+            label: `${index}\\ ${city.name}`,
+          })
+        );
 
   const amenitiesData = [
     "Wifi",
@@ -89,14 +90,9 @@ const FilterWindow = ({
       LowPrice: value[0].toString(),
       HighPrice: value[1].toString(),
       amenties: selectedAmenities?.join(","),
-      wilaya:
-        address.selectedWilaya.value === "none"
-          ? null
-          : address.selectedWilaya.value,
+      wilaya: address.selectedWilaya === "0" ? null : address.selectedWilaya,
       baladia:
-        address.selectedBaladiya.value === "none"
-          ? null
-          : address.selectedBaladiya.value,
+        address.selectedBaladiya === "0" ? null : address.selectedBaladiya,
       bedrooms: selectedinfo.bedrooms,
       bathrooms: selectedinfo.bathrooms,
       beds: selectedinfo.beds,
@@ -171,20 +167,32 @@ const FilterWindow = ({
         </h1>
         <p>wilaya</p>
         <Select
-          options={[{ label: "Wilaya", value: "none" }, ...wilayaoptions]}
-          value={address.selectedWilaya}
+          options={[{ label: "Wilaya", value: "0" }, ...wilayaoptions]}
+          value={
+            [{ label: "Wilaya", value: "0" }, ...wilayaoptions][
+              Number(address.selectedWilaya)
+            ]
+          }
           onChange={(e) => {
-            if (e) setAddress({ selectedBaladiya: e, selectedWilaya: e });
+            if (e)
+              setAddress({
+                selectedBaladiya: "0",
+                selectedWilaya: e.value,
+              });
           }}
         />
-        {address.selectedWilaya.value !== "none" ? (
+        {address.selectedWilaya !== "0" ? (
           <>
             <p>baladiya</p>
             <Select
               options={Baladiyaoptions}
-              value={address.selectedBaladiya}
+              value={Baladiyaoptions[Number(address.selectedBaladiya)]}
               onChange={(e) => {
-                if (e) setAddress((prev) => ({ ...prev, selectedBaladiya: e }));
+                if (e)
+                  setAddress((prev) => ({
+                    ...prev,
+                    selectedBaladiya: e.value,
+                  }));
               }}
             />
           </>

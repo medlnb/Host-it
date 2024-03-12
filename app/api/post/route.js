@@ -46,14 +46,11 @@ export const POST = async (req) => {
     });
 
     if (wilaya) {
-      querry = querry.where("state").equals(wilaya.split("\\")[1].substring(1));
+      querry = querry.where("state.id").equals(wilaya);
     }
 
-    if (
-      baladia &&
-      wilaya.split("\\")[1].substring(1) !== baladia.split("\\")[1].substring(1)
-    ) {
-      querry = querry.where("city").equals(baladia.split("\\")[1].substring(1));
+    if (baladia) {
+      querry = querry.where("city.id").equals(baladia);
     }
     if (serchamenties) querry = querry.where("amenities").all(serchamenties);
     querry = querry
@@ -71,8 +68,7 @@ export const POST = async (req) => {
       .lte(Number(HighPricedta));
 
     const Posts = await querry;
-    const t = await Post.find();
-    return new Response(JSON.stringify(t), {
+    return new Response(JSON.stringify(Posts), {
       status: 200,
     });
   } catch (err) {

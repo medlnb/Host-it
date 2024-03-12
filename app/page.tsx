@@ -2,9 +2,7 @@
 import Posts from "@components/Posts";
 import { useSearchParams } from "next/navigation";
 
-
 function App() {
-
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   return (

@@ -45,6 +45,10 @@ function Page() {
       style={{ width: "40rem" }}
       onSubmit={HandleSubmit}
     >
+      <div className="text-center">
+        <h1 className="text-2xl font-semibold mb-2">Welcome to El-Semsar</h1>
+        <h3 className="">Create an Account!</h3>
+      </div>
       <input
         value={inputs.username}
         className="w-full border-b border-black p-1 text-sm focus:outline-none"

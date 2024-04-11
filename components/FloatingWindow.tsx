@@ -19,8 +19,9 @@ function FloatingWindow() {
         style={{ maxWidth: "95%" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-between items-center p-2 border-b border-gray-400">
-          <h1 className="text-md font-medium ">{childrens.title}</h1>
+        <div className="flex justify-between items-center p-4 border-b border-gray-400">
+          <p>{""}</p>
+          <h1 className="text-xl font-bold ">{childrens.title}</h1>
           <IoClose
             onClick={() => setToggle(false)}
             className="floatingwindow--close"
@@ -28,7 +29,7 @@ function FloatingWindow() {
           />
         </div>
         {childrens.content}
-        <div className="Hline w-full" />
+        <div className="Hline" style={{ width: "100%" }} />
       </div>
     </div>
   );

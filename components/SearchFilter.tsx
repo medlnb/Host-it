@@ -18,7 +18,6 @@ import {
 } from "react-icons/md";
 import { PiGarageFill } from "react-icons/pi";
 import { floatingConext } from "@Context/FloatingWinContext";
-import FilterButton from "@components/FilterButton";
 import { HandleFilterChange } from "@components/Posts";
 
 const SearchFilter = () => {
@@ -76,9 +75,6 @@ const SearchFilter = () => {
             <div className="">{type.icon}</div> {type.title}
           </div>
         ))}
-      </div>
-      <div className="md:block hidden">
-        <FilterButton />
       </div>
     </div>
   );

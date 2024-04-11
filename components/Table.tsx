@@ -6,6 +6,15 @@ import { FavoritesContext } from "@Context/FavoritesContext";
 import Post from "@components/Post";
 import EmptyContent from "./EmptyContent";
 
+interface Favorites {
+  _id: string;
+  title: string;
+  description: string;
+  city: string;
+  state: string;
+  image: string[];
+}
+
 export default function Table({
   query,
   currentPage,
@@ -74,38 +83,7 @@ export default function Table({
     HighPrice,
     LowPrice,
   ]);
-  const loadingPost = {
-    _id: "loading",
-    poster: "loading",
-    title: "loading",
-    type: "loading",
-    price: { perday: 0, permonth: 0 },
-    city: {
-      name: "string",
-      id: 0,
-    },
-    state: {
-      name: "string",
-      id: 0,
-    },
-    location: {
-      lat: 0,
-      lng: 0,
-    },
-    resevedDateFrom: ["loading"],
-    resevedDateTo: ["loading"],
-    description: "loading",
-    amenities: ["loading"],
-    image: [],
-  };
-  interface Favorites {
-    _id: string;
-    title: string;
-    description: string;
-    city: string;
-    state: string;
-    image: string[];
-  }
+
   const HandleAddFav = (post: Favorites) => {
     if (!dispatch) return;
     dispatch({ type: "ADD_FAVORITE", payload: [post] });

@@ -1,6 +1,5 @@
 "use client";
 import { Suspense } from "react";
-import SearchBar from "@components/SearchBar";
 import Table from "@components/Table";
 import SearchFilter from "@components/SearchFilter";
 
@@ -103,9 +102,6 @@ function Posts({
   const currentPage = Number(searchParams?.page) || 1;
   return (
     <>
-      <Suspense>
-        <SearchBar />
-      </Suspense>
       <div className="Hline bg-gray-300  md:block hidden" />
       <div className="md:my-4 md:mx-8 p-1 md:text-base text-xs">
         <Suspense>

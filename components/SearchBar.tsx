@@ -1,46 +1,66 @@
 "use client";
-import { CiSearch } from "react-icons/ci";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";
-import FilterButton from "./FilterButton";
+import { useSearchParams } from "next/navigation";
+import { BiSearch } from "react-icons/bi";
+import { useContext } from "react";
+import { floatingConext } from "@Context/FloatingWinContext";
+import FilterWindow from "@components/FilterWindow";
 
 function SearchBar() {
   const searchParams = useSearchParams();
+  const { HandleChangeChildren } = useContext(floatingConext);
   const params = new URLSearchParams(searchParams);
-  const pathname = usePathname();
-  const { replace } = useRouter();
 
-  const handleSearch = useDebouncedCallback((term: string) => {
-    if (term) {
-      params.set("query", term);
-    } else {
-      params.delete("query");
-    }
-    replace(`${pathname}?${params.toString()}`);
-  }, 300);
+  const wilayadata = params.get("wilaya");
+  const wilaya = wilayadata ? wilayadata : "0";
+  const baladiadata = params.get("baladia");
+  const baladia = baladiadata ? baladiadata : "0";
+
+  const LowPrice = params.get("LowPrice") ?? 100;
+  const HighPrice = params.get("HighPrice") ?? 10000;
+  const amenties = params.get("amenties")
+    ? params.get("amenties")?.split(",")
+    : null;
+  const beds = params.get("beds") ?? "0";
+  const bedrooms = params.get("bedrooms") ?? "0";
+  const bathrooms = params.get("bathrooms") ?? "0";
+  const filterwindow = (
+    <FilterWindow
+      wilaya={wilaya}
+      baladia={baladia}
+      LowPrice={LowPrice}
+      HighPrice={HighPrice}
+      beds={beds}
+      bedrooms={bedrooms}
+      bathrooms={bathrooms}
+      amenties={amenties}
+    />
+  );
 
   return (
     <div
-      className="flex items-center max-w-full my-0 mx-auto gap-3 px-2 md:mb-4"
-      style={{ width: "40rem" }}
+      onClick={() =>
+        HandleChangeChildren({
+          title: "Filter Search",
+          content: filterwindow,
+        })
+      }
+      className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer"
     >
-      <div className="flex-1 center-shadow rounded-3xl px-4 py-2 relative">
-        <input
-          className="bg-none border-none w-full focus:outline-none md:text-md text-xs"
-          onChange={(e) => handleSearch(e.target.value)}
-          placeholder="Search Location..."
-          defaultValue={searchParams.get("query")?.toString()}
-        />
-        <CiSearch
-          className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer  hover:scale-120"
-          size={20}
-          // .search--icon:hover {
-          //   transform: translateY(-50%) scale(1.2);
-          // }
-        />
-      </div>
-      <div className="md:hidden block ">
-        <FilterButton />
+      <div className="flex flex-row items-center justify-between">
+        <div className="text-sm px-6">
+          {searchParams.get("query")?.toString()
+            ? searchParams.get("query")?.toString()
+            : "Anywhere"}
+        </div>
+        <div className="hidden sm:block text-losm px-6 border-x-[1px] flex-1 text-center">
+          {"durationLabel"}
+        </div>
+        <div className="text-sm pl-6 pr-2 text-gray-600 flex flex-row items-center gap-3">
+          <div className="hidden sm:block text-center">{"guessLabel"}</div>
+          <div className="p-2 bg-rose-500 rounded-full text-white">
+            <BiSearch size={18} />
+          </div>
+        </div>
       </div>
     </div>
   );

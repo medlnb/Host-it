@@ -45,9 +45,14 @@ function Nav() {
   return (
     <div className="w-full bg-white flex flex-row items-center justify-between md:py-6 md:px-16 p-3 md:text-base text-xs">
       <Link href="/">El-Semsar</Link>
-      <Suspense>
-        <SearchBar />
-      </Suspense>
+      {
+        <div className="hidden sm:block">
+          <Suspense>
+            <SearchBar />
+          </Suspense>
+        </div>
+      }
+
       <nav className="flex flex-row items-center gap-4 relative">
         {session === undefined && (
           <div
@@ -99,9 +104,6 @@ function Nav() {
           </>
         )}
         {session === null && (
-          // <p onClick={() => signIn("credentials")} className="usernav">
-          //   Sign up
-          // </p>
           <p
             onClick={() =>
               HandleChangeChildren({ title: "Log In", content: <Login /> })

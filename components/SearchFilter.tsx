@@ -17,8 +17,6 @@ import {
   MdVilla,
 } from "react-icons/md";
 import { PiGarageFill } from "react-icons/pi";
-import { floatingConext } from "@Context/FloatingWinContext";
-import { HandleFilterChange } from "@components/Posts";
 
 const SearchFilter = () => {
   const types = [
@@ -35,7 +33,6 @@ const SearchFilter = () => {
     { title: "Hotel", icon: <FaHotel /> },
     { title: "Motel", icon: <FaBed /> },
   ];
-  const { setToggle } = useContext(floatingConext);
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const pathname = usePathname();
@@ -54,22 +51,13 @@ const SearchFilter = () => {
                 : "text-gray-500"
             }`}
             onClick={() => {
-              if (searchParams.get("type")?.toString() === type.title)
-                HandleFilterChange(
-                  { type: "none" },
-                  params,
-                  setToggle,
-                  pathname,
-                  replace
-                );
-              else
-                HandleFilterChange(
-                  { type: type.title },
-                  params,
-                  setToggle,
-                  pathname,
-                  replace
-                );
+              if (searchParams.get("type")?.toString() === type.title) {
+                params.delete("type");
+                replace(`${pathname}?${params.toString()}`);
+              } else {
+                params.set("type", type.title);
+                replace(`${pathname}?${params.toString()}`);
+              }
             }}
           >
             <div className="">{type.icon}</div> {type.title}

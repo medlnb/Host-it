@@ -2,23 +2,34 @@
 import { useContext, useState } from "react";
 import { floatingConext } from "@Context/FloatingWinContext";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { HandleFilterChange } from "@components/Posts";
 import PriceFilter from "./PriceFilter";
 import LocationFilter from "./LocationFilter";
 import AmentiesFilter from "./AmentiesFilter";
-import InfoEditer from "./InfoEditer";
 import InfoFilter from "./InfoFilter";
 
-interface props {
-  LowPrice: string;
-  HighPrice: string;
-  stateId: number;
-  cityId: number;
-  bedrooms: string;
-  bathrooms: string;
-  beds: string;
-  amenties: string[] | null;
-}
+// interface props {
+//   LowPrice: string;
+//   HighPrice: string;
+//   stateId: number;
+//   cityId: number;
+//   bedrooms: string;
+//   bathrooms: string;
+//   beds: string;
+//   amenties: string[] | null;
+// }
+
+// interface props {
+//   type?: string;
+//   LowPrice?: string;
+//   HighPrice?: string;
+//   amenties?: string;
+//   wilaya?: string;
+//   baladia?: string;
+//   bedrooms?: string;
+//   bathrooms?: string;
+//   beds?: string;
+// }
+
 const FilterWindow = ({
   wilaya,
   baladia,
@@ -36,44 +47,61 @@ const FilterWindow = ({
   const params = new URLSearchParams(searchParams);
   const pathname = usePathname();
   const { replace } = useRouter();
-
   const [querries, setQuerries] = useState({
     LowPrice: Number(LowPrice),
     HighPrice: Number(HighPrice),
-    amenties,
+    amenties: amenties ?? [],
     wilaya,
     baladia,
     bedrooms,
     bathrooms,
     beds,
   });
-  // const HandleApply = () => {
-  //   const qurries = {
-  //     LowPrice: value[0].toString(),
-  //     HighPrice: value[1].toString(),
-  //     amenties: selectedAmenities?.join(","),
-  //     wilaya: address.selectedWilaya === "0" ? null : address.selectedWilaya,
-  //     baladia:
-  //       address.selectedBaladiya === "0" ? null : address.selectedBaladiya,
-  //     bedrooms: selectedinfo.bedrooms,
-  //     bathrooms: selectedinfo.bathrooms,
-  //     beds: selectedinfo.beds,
-  //   };
-  //   HandleFilterChange(qurries, params, setToggle, pathname, replace);
-  // };
+
+  const HandleFilterChange = (
+    params: URLSearchParams,
+    setToggle: (toggle: boolean) => void,
+    pathname: string,
+    replace: (url: string) => void
+  ) => {
+    if (querries.baladia != 0) params.set("baladia", querries.baladia);
+    else params.delete("baladia");
+
+    if (querries.amenties.length !== 0)
+      params.set("amenties", querries.amenties.join(","));
+    else params.delete("amenties");
+
+    if (querries.wilaya != 0) params.set("wilaya", querries.wilaya);
+    else params.delete("wilaya");
+
+    if (querries.beds != 0) params.set("beds", querries.beds);
+    else params.delete("beds");
+
+    if (querries.bedrooms != 0) params.set("bedrooms", querries.bedrooms);
+    else params.delete("bedrooms");
+
+    if (querries.bathrooms != 0) params.set("bathrooms", querries.bathrooms);
+    else params.delete("bathrooms");
+
+    if (querries.HighPrice != 10000)
+      params.set("HighPrice", querries.HighPrice.toString());
+    else params.delete("HighPrice");
+
+    if (querries.LowPrice != 100)
+      params.set("LowPrice", querries.LowPrice.toString());
+    else params.delete("LowPrice");
+
+    replace(`${pathname}?${params.toString()}`);
+
+    setToggle(false);
+  };
+
+  const HandleApply = () => {
+    HandleFilterChange(params, setToggle, pathname, replace);
+  };
 
   const HandleReset = () => {
-    const qurries = {
-      LowPrice: "100",
-      HighPrice: "10000",
-      amenties: "",
-      wilaya: undefined,
-      baladia: undefined,
-      bedrooms: "0",
-      bathrooms: "0",
-      beds: "0",
-    };
-    HandleFilterChange(qurries, params, setToggle, pathname, replace);
+    replace(`${pathname}`);
   };
   return (
     <div
@@ -94,21 +122,31 @@ const FilterWindow = ({
           />
         )}
         {Step === "Location" && (
-          <LocationFilter wilaya={querries.wilaya} baladia={querries.baladia} />
+          <LocationFilter
+            wilaya={querries.wilaya}
+            baladia={querries.baladia}
+            setQuerries={setQuerries}
+          />
         )}
-        {Step === "Amenties" && <AmentiesFilter amenties={querries.amenties} />}
+        {Step === "Amenties" && (
+          <AmentiesFilter
+            amenties={querries.amenties}
+            setQuerries={setQuerries}
+          />
+        )}
         {Step === "Guests" && (
           <InfoFilter
             beds={querries.beds}
             bedrooms={querries.bedrooms}
             bathrooms={querries.bathrooms}
+            setQuerries={setQuerries}
           />
         )}
       </div>
       <div className="flex items-center justify-around">
         <button
           className="bg-rose-500 text-white py-2 px-4 rounded-md cursor-pointer hover:border-black"
-          // onClick={HandleApply}
+          onClick={HandleApply}
         >
           Apply
         </button>

@@ -4,56 +4,58 @@ import Select from "react-select";
 function LocationFilter({
   wilaya,
   baladia,
+  setQuerries,
 }: {
   wilaya: string;
   baladia: string;
+  setQuerries: React.Dispatch<
+    React.SetStateAction<{
+      LowPrice: number;
+      HighPrice: number;
+      amenties: any;
+      wilaya: any;
+      baladia: any;
+      bedrooms: any;
+      bathrooms: any;
+      beds: any;
+    }>
+  >;
 }) {
-  const [address, setAddress] = useState({
-    selectedWilaya: wilaya,
-    selectedBaladiya: baladia,
-  });
   const wilayaoptions = AlgerianCities.map((city) => ({
     value: `${city[0].wilaya_id}`,
     label: `${city[0].wilaya_id}\\ ${city[0].name}`,
   }));
   const Baladiyaoptions =
-    address.selectedWilaya === "0"
+    wilaya === "0"
       ? []
-      : AlgerianCities[Number(address.selectedWilaya) - 1].map(
-          (city, index) => ({
-            value: `${index}`,
-            label: `${index}\\ ${city.name}`,
-          })
-        );
+      : AlgerianCities[Number(wilaya) - 1].map((city, index) => ({
+          value: `${index}`,
+          label: `${index}\\ ${city.name}`,
+        }));
   return (
     <div className="border border-gray-400 my-8 py-8 px-4 relative rounded-md">
       <p>wilaya</p>
       <Select
         options={[{ label: "Wilaya", value: "0" }, ...wilayaoptions]}
         value={
-          [{ label: "Wilaya", value: "0" }, ...wilayaoptions][
-            Number(address.selectedWilaya)
-          ]
+          [{ label: "Wilaya", value: "0" }, ...wilayaoptions][Number(wilaya)]
         }
         onChange={(e) => {
           if (e)
-            setAddress({
-              selectedBaladiya: "0",
-              selectedWilaya: e.value,
-            });
+            setQuerries((prev) => ({ ...prev, wilaya: e.value, baladia: "0" }));
         }}
       />
-      {address.selectedWilaya !== "0" ? (
+      {wilaya !== "0" ? (
         <>
           <p>baladiya</p>
           <Select
             options={Baladiyaoptions}
-            value={Baladiyaoptions[Number(address.selectedBaladiya)]}
+            value={Baladiyaoptions[Number(baladia)]}
             onChange={(e) => {
               if (e)
-                setAddress((prev) => ({
+                setQuerries((prev) => ({
                   ...prev,
-                  selectedBaladiya: e.value,
+                  baladia: e.value,
                 }));
             }}
           />

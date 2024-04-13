@@ -11,6 +11,7 @@ import { FaCrown } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import SearchBar from "@components/SearchBar";
 import { usePathname } from "next/navigation";
+import { FaUserCircle } from "react-icons/fa";
 
 function Nav() {
   const { data: session } = useSession();
@@ -105,14 +106,15 @@ function Nav() {
           </>
         )}
         {session === null && (
-          <p
+          <div
+            className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer hover:shadow-md hover:shadow-gray-500  "
             onClick={() =>
               HandleChangeChildren({ title: "Log In", content: <Login /> })
             }
-            className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer"
           >
-            Sign up
-          </p>
+            <p>Sign up</p>
+            <FaUserCircle size={20} />
+          </div>
         )}
         {ToggleNavbar && (
           <div

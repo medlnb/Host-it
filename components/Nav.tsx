@@ -130,7 +130,7 @@ function Nav() {
             >
               My Favorites
             </Link> */}
-            <div className="Hline" />
+            {/* <div className="Hline" /> */}
             <Link
               href="/user"
               className="py-2 px-4 hover:bg-gray-100"

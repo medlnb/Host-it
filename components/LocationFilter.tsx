@@ -1,5 +1,4 @@
 import AlgerianCities from "@public/AlgerianCities.json";
-import { useState } from "react";
 import Select from "react-select";
 function LocationFilter({
   wilaya,

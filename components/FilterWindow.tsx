@@ -7,28 +7,16 @@ import LocationFilter from "./LocationFilter";
 import AmentiesFilter from "./AmentiesFilter";
 import InfoFilter from "./InfoFilter";
 
-// interface props {
-//   LowPrice: string;
-//   HighPrice: string;
-//   stateId: number;
-//   cityId: number;
-//   bedrooms: string;
-//   bathrooms: string;
-//   beds: string;
-//   amenties: string[] | null;
-// }
-
-// interface props {
-//   type?: string;
-//   LowPrice?: string;
-//   HighPrice?: string;
-//   amenties?: string;
-//   wilaya?: string;
-//   baladia?: string;
-//   bedrooms?: string;
-//   bathrooms?: string;
-//   beds?: string;
-// }
+interface props {
+  wilaya: string;
+  baladia: string;
+  LowPrice: string | 100;
+  HighPrice: string | 10000;
+  beds: string;
+  bedrooms: string;
+  bathrooms: string;
+  amenties: string[];
+}
 
 const FilterWindow = ({
   wilaya,
@@ -39,7 +27,7 @@ const FilterWindow = ({
   bedrooms,
   bathrooms,
   amenties,
-}: any) => {
+}: props) => {
   const [Step, setStep] = useState("Price");
 
   const { setToggle } = useContext(floatingConext);
@@ -50,7 +38,7 @@ const FilterWindow = ({
   const [querries, setQuerries] = useState({
     LowPrice: Number(LowPrice),
     HighPrice: Number(HighPrice),
-    amenties: amenties ?? [],
+    amenties,
     wilaya,
     baladia,
     bedrooms,
@@ -64,23 +52,23 @@ const FilterWindow = ({
     pathname: string,
     replace: (url: string) => void
   ) => {
-    if (querries.baladia != 0) params.set("baladia", querries.baladia);
+    if (querries.baladia != "0") params.set("baladia", querries.baladia);
     else params.delete("baladia");
 
     if (querries.amenties.length !== 0)
       params.set("amenties", querries.amenties.join(","));
     else params.delete("amenties");
 
-    if (querries.wilaya != 0) params.set("wilaya", querries.wilaya);
+    if (querries.wilaya != "0") params.set("wilaya", querries.wilaya);
     else params.delete("wilaya");
 
-    if (querries.beds != 0) params.set("beds", querries.beds);
+    if (querries.beds != "0") params.set("beds", querries.beds);
     else params.delete("beds");
 
-    if (querries.bedrooms != 0) params.set("bedrooms", querries.bedrooms);
+    if (querries.bedrooms != "0") params.set("bedrooms", querries.bedrooms);
     else params.delete("bedrooms");
 
-    if (querries.bathrooms != 0) params.set("bathrooms", querries.bathrooms);
+    if (querries.bathrooms != "0") params.set("bathrooms", querries.bathrooms);
     else params.delete("bathrooms");
 
     if (querries.HighPrice != 10000)
@@ -95,24 +83,29 @@ const FilterWindow = ({
 
     setToggle(false);
   };
-
   const HandleApply = () => {
     HandleFilterChange(params, setToggle, pathname, replace);
   };
 
   const HandleReset = () => {
     replace(`${pathname}`);
+    setToggle(false);
   };
   return (
-    <div
-      className="md:p-8 p-2 pt-0 md:pt-0 overflow-y-scroll hide-scroll-bar flex flex-col justify-between"
-      style={{
-        width: "50rem",
-        maxHeight: "85lvh",
-        maxWidth: "95vw",
-      }}
-    >
-      <FilterNav Step={Step} setStep={setStep} />
+    <div className="w-[50rem] max-h-[85lvh] max-w-[95vw] md:p-8 p-2 pt-0 md:pt-0 overflow-y-scroll hide-scroll-bar flex flex-col justify-between">
+      <FilterNav
+        Step={Step}
+        setStep={setStep}
+        status={{
+          Price: querries.HighPrice !== 10000 || querries.LowPrice !== 100,
+          Location: querries.wilaya !== "0",
+          Amenties: querries.amenties.length !== 0,
+          Guests:
+            querries.bathrooms !== "0" ||
+            querries.bedrooms !== "0" ||
+            querries.beds !== "0",
+        }}
+      />
       <div>
         {Step === "Price" && (
           <PriceFilter
@@ -163,7 +156,20 @@ const FilterWindow = ({
 
 export default FilterWindow;
 
-const FilterNav = ({ Step, setStep }: { Step: string; setStep: any }) => {
+const FilterNav = ({
+  Step,
+  setStep,
+  status,
+}: {
+  Step: string;
+  setStep: any;
+  status: {
+    Price: boolean;
+    Location: boolean;
+    Amenties: boolean;
+    Guests: boolean;
+  };
+}) => {
   const Navs = ["Price", "Location", "Amenties", "Guests"];
   return (
     <nav className="flex justify-around mb-2">
@@ -175,7 +181,12 @@ const FilterNav = ({ Step, setStep }: { Step: string; setStep: any }) => {
             Step === element && "border-b border-black"
           }`}
         >
-          {element}
+          <div className="relative">
+            {status[
+              element as "Price" | "Location" | "Amenties" | "Guests"
+            ] && <p className="absolute right-0">•</p>}
+            {element}
+          </div>
         </div>
       ))}
     </nav>

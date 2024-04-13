@@ -1,4 +1,5 @@
 "use client";
+import AlgerianCities from "@public/AlgerianCities.json";
 import { useSearchParams } from "next/navigation";
 import { BiSearch } from "react-icons/bi";
 import { useContext } from "react";
@@ -18,8 +19,8 @@ function SearchBar() {
   const LowPrice = params.get("LowPrice") ?? 100;
   const HighPrice = params.get("HighPrice") ?? 10000;
   const amenties = params.get("amenties")
-    ? params.get("amenties")?.split(",")
-    : null;
+    ? params.get("amenties")!.split(",")
+    : [];
   const beds = params.get("beds") ?? "0";
   const bedrooms = params.get("bedrooms") ?? "0";
   const bathrooms = params.get("bathrooms") ?? "0";
@@ -48,15 +49,26 @@ function SearchBar() {
     >
       <div className="flex flex-row items-center justify-between">
         <div className="text-sm px-6">
-          {searchParams.get("query")?.toString()
-            ? searchParams.get("query")?.toString()
+          {searchParams.get("wilaya")?.toString()
+            ? AlgerianCities[
+                Number(searchParams.get("wilaya")?.toString()) - 1
+              ][0].name
             : "Anywhere"}
         </div>
         <div className="hidden sm:block text-losm px-6 border-x-[1px] flex-1 text-center">
-          {"durationLabel"}
+          {searchParams.get("LowPrice") && searchParams.get("HighPrice")
+            ? `${searchParams.get("LowPrice")} - ${searchParams.get(
+                "HighPrice"
+              )} DZD`
+            : searchParams.get("LowPrice")
+            ? `> ${searchParams.get("LowPrice")} DZD`
+            : searchParams.get("HighPrice")
+            ? `< ${searchParams.get("HighPrice")} DZD`
+            : null}
         </div>
+
         <div className="text-sm pl-6 pr-2 text-gray-600 flex flex-row items-center gap-3">
-          <div className="hidden sm:block text-center">{"guessLabel"}</div>
+          {/* <div className="hidden sm:block text-center">{"guessLabel"}</div> */}
           <div className="p-2 bg-rose-500 rounded-full text-white">
             <BiSearch size={18} />
           </div>

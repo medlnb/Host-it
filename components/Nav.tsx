@@ -10,10 +10,11 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { FaCrown } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import SearchBar from "@components/SearchBar";
+import { usePathname } from "next/navigation";
 
 function Nav() {
   const { data: session } = useSession();
-  // console.log(session);
+  const pathname = usePathname();
   const { HandleChangeChildren } = useContext(floatingConext);
   const [ToggleNavbar, setToggleNavbar] = useState(false);
   const [messagesData, setMessagesData] = useState<any>(null);
@@ -45,13 +46,13 @@ function Nav() {
   return (
     <div className="w-full bg-white flex flex-row items-center justify-between md:py-6 md:px-16 p-3 md:text-base text-xs">
       <Link href="/">El-Semsar</Link>
-      {
+      {pathname === "/" && (
         <div className="hidden sm:block">
           <Suspense>
             <SearchBar />
           </Suspense>
         </div>
-      }
+      )}
 
       <nav className="flex flex-row items-center gap-4 relative">
         {session === undefined && (

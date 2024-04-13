@@ -20,7 +20,6 @@ export const POST = async (req) => {
       "Motel",
     ];
     const {
-      query,
       type,
       wilaya,
       baladia,
@@ -37,23 +36,9 @@ export const POST = async (req) => {
     const bathroomsdta = bathrooms || 0;
     const bedsdta = beds || 0;
     const serchamenties = amenties ? amenties.split(",") : null;
-
-    const searchquerry = query || "";
     const searchfilter = type || types;
 
-    let querry = Post.find({
-      title: { $regex: searchquerry, $options: "i" },
-    });
-
-    if (wilaya) {
-      querry = querry.where("state.id").equals(wilaya);
-    }
-
-    if (baladia) {
-      querry = querry.where("city.id").equals(baladia);
-    }
-    if (serchamenties) querry = querry.where("amenities").all(serchamenties);
-    querry = querry
+    let querry = Post.find({})
       .where("type")
       .equals(searchfilter)
       .where("Bedrooms")
@@ -66,6 +51,15 @@ export const POST = async (req) => {
       .gte(Number(LowPricedta))
       .where("price.perday")
       .lte(Number(HighPricedta));
+
+    if (wilaya) {
+      querry = querry.where("state.id").equals(wilaya);
+    }
+
+    if (baladia) {
+      querry = querry.where("city.id").equals(baladia);
+    }
+    if (serchamenties) querry = querry.where("amenities").all(serchamenties);
 
     const Posts = await querry;
     return new Response(JSON.stringify(Posts), {

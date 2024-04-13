@@ -45,7 +45,9 @@ function SearchBar() {
           content: filterwindow,
         })
       }
-      className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer"
+      className={`border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer ${
+        params.size !== 0 ? "border-black" : ""
+      }`}
     >
       <div className="flex flex-row items-center justify-between">
         <div className="text-sm px-6">

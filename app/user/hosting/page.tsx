@@ -8,7 +8,17 @@ import { FaHandshakeSimple } from "react-icons/fa6";
 
 function Page() {
   const { data: session } = useSession();
-  const [HostData, setHostData] = useState<any>(null);
+  const [HostData, setHostData] = useState<
+    | {
+        _id: string;
+        title: String;
+        state: { name: string; id: number };
+        city: { name: string; id: number };
+        description: string;
+        image: { display_url: string }[];
+      }[]
+    | null
+  >(null);
 
   useEffect(() => {
     const getHostData = async () => {
@@ -39,8 +49,16 @@ function Page() {
             className="grid md:grid-cols-3 grid-cols-1 md:gap-6 gap-3 max-w-full my-6 mx-auto"
             style={{ width: "60rem" }}
           >
-            {HostData.map((post: any) => (
-              <Host key={post._id} post={post} />
+            {HostData.map((post) => (
+              <Host
+                key={post._id}
+                _id={post._id}
+                title={post.title}
+                city={post.city}
+                state={post.state}
+                description={post.description}
+                image={post.image}
+              />
             ))}
           </div>
         )
@@ -53,28 +71,42 @@ function Page() {
 
 export default Page;
 
-const Host = ({ post }: any) => {
+const Host = ({
+  _id,
+  title,
+  state,
+  city,
+  description,
+  image,
+}: {
+  _id: string;
+  title: String;
+  state: { name: string; id: number };
+  city: { name: string; id: number };
+  description: string;
+  image: { display_url: string }[];
+}) => {
   const router = useRouter();
 
   return (
     <div
       className="flex md:flex-col flex-row md:items-center items-start text-xs md:gap-4 gap-2 md:p-4 p-2 center-shadow rounded-md relative hover:outline hover:outline-1 hover:outline-gray-300"
       onClick={() => {
-        router.push(`/post/${post._id}`);
+        router.push(`/post/${_id}`);
       }}
     >
       <img
-        src={post.image[0]}
+        src={image[0].display_url}
         className="md:w-full w-28 md:h-40 h-20 rounded-md image-fit"
       />
       <div className="Hline w-full hidden md:block" />
       <div className="flex justify-between items-center w-full">
         <div className="flex items-start flex-col">
-          <h1>{post.title}</h1>
-          {post.state === post.city ? (
-            <h2 className="text-gray-500">{`${post.state}`}</h2>
+          <h1>{title}</h1>
+          {state.name === city.name ? (
+            <h2 className="text-gray-500">{`${state.name}`}</h2>
           ) : (
-            <h2 className="text-gray-500">{`${post.state} ~ ${post.city}`}</h2>
+            <h2 className="text-gray-500">{`${state.name} ~ ${city.name}`}</h2>
           )}
         </div>
         <div className="md:text-lg text-xs cursor-pointer flex flex-col items-center gap-2">
@@ -83,13 +115,13 @@ const Host = ({ post }: any) => {
             fill="black"
             onClick={(e) => {
               e.stopPropagation();
-              router.push(`/post/manage/${post._id}`);
+              router.push(`/post/manage/${_id}`);
             }}
           />
           <FaHandshakeSimple
             onClick={(e) => {
               e.stopPropagation();
-              router.push(`/user/hosting/reservemanager/${post._id}`);
+              router.push(`/user/hosting/reservemanager/${_id}`);
             }}
           />
         </div>

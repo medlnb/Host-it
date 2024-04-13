@@ -18,7 +18,6 @@ function App() {
           bedrooms: params.get("bedrooms") ?? undefined,
           bathrooms: params.get("bathrooms") ?? undefined,
           beds: params.get("beds") ?? undefined,
-          query: params.get("query") ?? undefined,
         }}
       />
     </div>

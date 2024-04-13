@@ -17,7 +17,6 @@ function Posts({
     HighPrice?: string;
     LowPrice?: string;
     type?: string;
-    query?: string;
     page?: string;
   };
 }) {
@@ -30,7 +29,6 @@ function Posts({
   const HighPrice = searchParams?.HighPrice || "";
   const LowPrice = searchParams?.LowPrice || "";
   const type = searchParams?.type || "";
-  const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   return (
     <>
@@ -47,7 +45,6 @@ function Posts({
           <SearchFilter />
         </Suspense>
         <Table
-          query={query}
           type={type}
           wilaya={wilaya}
           baladia={baladia}

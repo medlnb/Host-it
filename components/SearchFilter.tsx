@@ -60,7 +60,7 @@ const SearchFilter = () => {
               }
             }}
           >
-            <div className="">{type.icon}</div> {type.title}
+            <div>{type.icon}</div> {type.title}
           </div>
         ))}
       </div>

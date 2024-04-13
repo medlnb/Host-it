@@ -83,7 +83,7 @@ body::-webkit-scrollbar {
 }
 
 .filter-bar::-webkit-scrollbar {
-  height: 5px;
+  height: 2px;
 }
 
 .filter-bar::-webkit-scrollbar-track {
@@ -141,7 +141,7 @@ body::-webkit-scrollbar {
   bottom: 0.5rem;
   color: black;
 }
-.show-up-triger:hover .colored{
+.show-up-triger:hover .colored {
   background: rgb(55, 55, 55);
 }
 

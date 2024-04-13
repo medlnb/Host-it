@@ -16,7 +16,6 @@ interface Favorites {
 }
 
 export default function Table({
-  query,
   currentPage,
   type,
   wilaya,
@@ -36,7 +35,6 @@ export default function Table({
   amenties?: string;
   HighPrice?: string;
   LowPrice?: string;
-  query: string;
   type: string;
   currentPage: number;
 }) {
@@ -52,7 +50,6 @@ export default function Table({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          query,
           type,
           wilaya,
           baladia,
@@ -71,7 +68,6 @@ export default function Table({
     };
     fetchPosts();
   }, [
-    query,
     currentPage,
     type,
     wilaya,

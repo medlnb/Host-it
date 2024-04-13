@@ -32,36 +32,45 @@ function LocationFilter({
           label: `${index}\\ ${city.name}`,
         }));
   return (
-    <div className="border border-gray-400 my-8 py-8 px-4 relative rounded-md">
-      <p>wilaya</p>
-      <Select
-        options={[{ label: "Wilaya", value: "0" }, ...wilayaoptions]}
-        value={
-          [{ label: "Wilaya", value: "0" }, ...wilayaoptions][Number(wilaya)]
-        }
-        onChange={(e) => {
-          if (e)
-            setQuerries((prev) => ({ ...prev, wilaya: e.value, baladia: "0" }));
-        }}
-      />
-      {wilaya !== "0" ? (
-        <>
-          <p>baladiya</p>
-          <Select
-            options={Baladiyaoptions}
-            value={Baladiyaoptions[Number(baladia)]}
-            onChange={(e) => {
-              if (e)
-                setQuerries((prev) => ({
-                  ...prev,
-                  baladia: e.value,
-                }));
-            }}
-          />
-        </>
-      ) : (
-        ""
-      )}
+    <div>
+      <h1 className="text-center text-2xl font-medium my-3">
+        Where do u wanna go?
+      </h1>
+      <div className="border border-gray-400 my-8 py-8 px-4 relative rounded-md">
+        <p>wilaya</p>
+        <Select
+          options={[{ label: "Wilaya", value: "0" }, ...wilayaoptions]}
+          value={
+            [{ label: "Wilaya", value: "0" }, ...wilayaoptions][Number(wilaya)]
+          }
+          onChange={(e) => {
+            if (e)
+              setQuerries((prev) => ({
+                ...prev,
+                wilaya: e.value,
+                baladia: "0",
+              }));
+          }}
+        />
+        {wilaya !== "0" ? (
+          <>
+            <p>baladiya</p>
+            <Select
+              options={Baladiyaoptions}
+              value={Baladiyaoptions[Number(baladia)]}
+              onChange={(e) => {
+                if (e)
+                  setQuerries((prev) => ({
+                    ...prev,
+                    baladia: e.value,
+                  }));
+              }}
+            />
+          </>
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 }

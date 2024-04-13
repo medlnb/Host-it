@@ -54,7 +54,7 @@ function Nav() {
         </div>
       )}
 
-      <nav className="flex flex-row items-center gap-4 relative">
+      <nav className="flex flex-row items-center gap-1 relative">
         {session === undefined && (
           <div
             className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer"
@@ -78,15 +78,15 @@ function Nav() {
               </Link>
             )}
             <div
-              className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer"
+              className="flex items-center flex-row py-2 px-1 sm:rounded-xl rounded-lg sm:gap-2 gap-1 border border-black cursor-pointer"
               onClick={() => setToggleNavbar((prev) => !prev)}
             >
               {session.user.plan && (
                 <>
                   {session.user.plan.type === "Premium" ? (
-                    <FaCrown size={20} className="mb-1" />
+                    <FaCrown size={15} />
                   ) : (
-                    <FaStar size={20} className="mb-1" />
+                    <FaStar size={15} />
                   )}
                 </>
               )}
@@ -95,7 +95,7 @@ function Nav() {
               {session.user.image ? (
                 <img
                   src={session?.user.image}
-                  className="w-8 rounded-full"
+                  className="w-6 sm:w-8 rounded-full"
                   style={{ aspectRatio: "1/1" }}
                 />
               ) : (

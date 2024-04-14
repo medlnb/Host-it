@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 
 export function useScroll() {
   // storing this to get the scroll direction
+  if (typeof window !== "undefined") {
+    return undefined;
+  }
   const [lastScrollTop, setLastScrollTop] = useState(0);
   // the offset of the document.body
   const [bodyOffset, setBodyOffset] = useState(
@@ -18,10 +21,7 @@ export function useScroll() {
   >();
 
   const listener = () => {
-    if (typeof window !== "undefined") {
-      setBodyOffset(document.body.getBoundingClientRect());
-    }
-
+    setBodyOffset(document.body.getBoundingClientRect());
     setScrollY(-bodyOffset.top);
     setScrollX(bodyOffset.left);
     const direction = lastScrollTop > -bodyOffset.top ? "down" : "up";

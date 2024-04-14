@@ -55,7 +55,7 @@ function Nav() {
         </div>
       )}
 
-      <nav className="flex-row items-center gap-1 relative">
+      <nav className="flex flex-row items-center gap-1 relative">
         {session === undefined && (
           <div
             className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer"

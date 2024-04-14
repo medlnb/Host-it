@@ -20,7 +20,7 @@ function Rootlayout({ children }: { children: ReactNode }) {
           <FloatingWinContextProvider>
             <main className="app">
               <FloatingWindow />
-              <div className="hidden sm:flex">
+              <div className="hidden sm:block">
                 <Nav />
               </div>
 

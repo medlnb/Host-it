@@ -18,7 +18,10 @@ export function useScroll() {
   >();
 
   const listener = () => {
-    setBodyOffset(document.body.getBoundingClientRect());
+    if (typeof window !== "undefined") {
+      setBodyOffset(document.body.getBoundingClientRect());
+    }
+
     setScrollY(-bodyOffset.top);
     setScrollX(bodyOffset.left);
     const direction = lastScrollTop > -bodyOffset.top ? "down" : "up";

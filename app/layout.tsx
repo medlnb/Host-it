@@ -5,9 +5,10 @@ import Nav from "@components/Nav";
 import FloatingWindow from "@components/FloatingWindow";
 import { FloatingWinContextProvider } from "@Context/FloatingWinContext";
 import { FavoritesContextProvider } from "@Context/FavoritesContext";
+import SmFooter from "@components/SmFooter";
 
 export const metadata = {
-  title: "Akriillooo",
+  title: "El-Semsar",
   description: "My App Description",
 };
 
@@ -19,10 +20,16 @@ function Rootlayout({ children }: { children: ReactNode }) {
           <FloatingWinContextProvider>
             <main className="app">
               <FloatingWindow />
-              <Nav />
+              <div className="hidden sm:flex">
+                <Nav />
+              </div>
+
               <Suspense>
                 <FavoritesContextProvider>{children}</FavoritesContextProvider>
               </Suspense>
+              <div className="block sm:hidden">
+                <SmFooter />
+              </div>
             </main>
           </FloatingWinContextProvider>
         </Provider>

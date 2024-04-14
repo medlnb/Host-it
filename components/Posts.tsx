@@ -35,7 +35,7 @@ function Posts({
       <div className="Hline bg-gray-300  md:block hidden" />
       <div className="md:my-4 md:mx-8 p-1 md:text-base text-xs">
         {
-          <div className="block sm:hidden mx-4">
+          <div className="block sm:hidden mx-4 my-2">
             <Suspense>
               <SearchBar />
             </Suspense>
@@ -44,6 +44,42 @@ function Posts({
         <Suspense>
           <SearchFilter />
         </Suspense>
+        <Table
+          type={type}
+          wilaya={wilaya}
+          baladia={baladia}
+          bathrooms={bathrooms}
+          bedrooms={bedrooms}
+          beds={beds}
+          amenties={amenties}
+          LowPrice={LowPrice}
+          HighPrice={HighPrice}
+          currentPage={currentPage}
+        />
+        <Table
+          type={type}
+          wilaya={wilaya}
+          baladia={baladia}
+          bathrooms={bathrooms}
+          bedrooms={bedrooms}
+          beds={beds}
+          amenties={amenties}
+          LowPrice={LowPrice}
+          HighPrice={HighPrice}
+          currentPage={currentPage}
+        />
+        <Table
+          type={type}
+          wilaya={wilaya}
+          baladia={baladia}
+          bathrooms={bathrooms}
+          bedrooms={bedrooms}
+          beds={beds}
+          amenties={amenties}
+          LowPrice={LowPrice}
+          HighPrice={HighPrice}
+          currentPage={currentPage}
+        />
         <Table
           type={type}
           wilaya={wilaya}

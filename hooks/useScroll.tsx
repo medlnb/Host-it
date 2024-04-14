@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 export function useScroll() {
   // storing this to get the scroll direction
   if (typeof window !== "undefined") {
-    return undefined;
+    return {
+      scrollDirection: undefined,
+    };
   }
   const [lastScrollTop, setLastScrollTop] = useState(0);
   // the offset of the document.body

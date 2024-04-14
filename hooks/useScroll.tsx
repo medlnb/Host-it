@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 export function useScroll() {
   // storing this to get the scroll direction
-  if (typeof window !== "undefined") {
+  if (typeof window === "undefined") {
     return {
       scrollDirection: undefined,
     };

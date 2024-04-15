@@ -1,6 +1,6 @@
 "use client";
 import { IoMdSettings } from "react-icons/io";
-import { BsFillHouseAddFill } from "react-icons/bs";
+import { MdAddHome } from "react-icons/md";
 import { FaHome, FaUserAlt } from "react-icons/fa";
 import { useScroll } from "@hooks/useScroll";
 import { RiMessage3Fill } from "react-icons/ri";
@@ -21,30 +21,34 @@ function SmFooter() {
     <div
       className={`${scrollDirection === "up" ? "hidden" : "flex"}
       ${pathname.split("/")[2] === "managelite" && "hidden"} 
-      w-full h-12 items-center justify-around rounded-b rounded-2xl bg-rose-500 fixed bottom-0`}
+      w-full h-12 items-center justify-around border-t border-rose-500 fixed bottom-0`}
     >
-      <Link href={"/"}>
-        <FaHome size={25} fill="white" />
+      <Link href={"/"} className="text-rose-500">
+        <FaHome size={25} />
       </Link>
       {session !== null && session !== undefined ? (
         <>
-          <Link href={"/user/messages"}>
-            <RiMessage3Fill size={25} fill="white" />
+          <Link href={"/user/messages"} className="text-rose-500">
+            <RiMessage3Fill size={25} />
           </Link>
 
           <div className="flex items-center justify-center relative">
             <Link
               href={"/post/managelite"}
-              className="absolute -top-12 z-100 bg-rose-500 p-2 rounded-full border-2 border-white"
+              className="absolute -top-12 z-100 p-2 rounded-full border border-rose-500 bg-white "
             >
-              <BsFillHouseAddFill size={25} fill="white" />
+              <MdAddHome size={25} />
             </Link>
           </div>
-          <Link href={"/"}>
-            <IoMdSettings size={25} fill="white" />
+          <Link href={"/"} className="text-rose-500">
+            <IoMdSettings size={25} />
           </Link>
           <Link href={"/user"} className="flex items-center justify-center">
-            <FaUserAlt size={23} fill="white" />
+            {session.user.image ? (
+              <img src={session.user.image} className="h-6 rounded-full" />
+            ) : (
+              <FaUserAlt size={23} />
+            )}
           </Link>
         </>
       ) : (

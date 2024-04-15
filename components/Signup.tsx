@@ -75,10 +75,7 @@ function Page() {
         }
       />
       <div>
-        <button
-          className="w-full p-3 text-white text-center rounded-md"
-          style={{ background: "#e3735e" }}
-        >
+        <button className="w-full p-3 text-white text-center rounded-md bg-rose-500">
           Sign in
         </button>
         <div className="p-2">

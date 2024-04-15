@@ -121,16 +121,6 @@ function Nav() {
             className="absolute shadow-md rounded-md top-14 right-0 flex flex-col bg-white py-2 z-10"
             ref={dropdownRef}
           >
-            {" "}
-            {/* Assign ref to the dropdown menu */}
-            {/* <Link
-              href="/fav"
-              className="py-2 px-4 hover:bg-gray-100"
-              onClick={() => setToggleNavbar(false)}
-            >
-              My Favorites
-            </Link> */}
-            {/* <div className="Hline" /> */}
             <Link
               href="/user"
               className="py-2 px-4 hover:bg-gray-100"
@@ -138,21 +128,7 @@ function Nav() {
             >
               My Account
             </Link>
-            {/* <Link
-              href="/anoucements"
-              className="py-2 px-4 hover:bg-gray-100"
-              onClick={() => setToggleNavbar(false)}
-            >
-              My Anoucements
-            </Link> */}
             <div className="Hline" />
-            {/* <Link
-              href="/feedback"
-              className="py-2 px-4 hover:bg-gray-100"
-              onClick={() => setToggleNavbar(false)}
-            >
-              Feedback
-            </Link> */}
             <p
               onClick={() => signOut()}
               className="cursor-pointer py-2 px-4 hover:bg-gray-100"

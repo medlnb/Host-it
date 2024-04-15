@@ -24,9 +24,9 @@ function NewPostNav() {
   return (
     <>
       <button
-        className="absolute top-0 m-1 px-2 py-1 border rounded text-sm"
+        className="block sm:hidden absolute top-0 m-1 px-2 py-1 border rounded text-sm"
         onClick={() => {
-          router.push("/post/managelite/type");
+          router.push("/");
         }}
       >
         Cancel

@@ -56,42 +56,6 @@ function Posts({
           HighPrice={HighPrice}
           currentPage={currentPage}
         />
-        <Table
-          type={type}
-          wilaya={wilaya}
-          baladia={baladia}
-          bathrooms={bathrooms}
-          bedrooms={bedrooms}
-          beds={beds}
-          amenties={amenties}
-          LowPrice={LowPrice}
-          HighPrice={HighPrice}
-          currentPage={currentPage}
-        />
-        <Table
-          type={type}
-          wilaya={wilaya}
-          baladia={baladia}
-          bathrooms={bathrooms}
-          bedrooms={bedrooms}
-          beds={beds}
-          amenties={amenties}
-          LowPrice={LowPrice}
-          HighPrice={HighPrice}
-          currentPage={currentPage}
-        />
-        <Table
-          type={type}
-          wilaya={wilaya}
-          baladia={baladia}
-          bathrooms={bathrooms}
-          bedrooms={bedrooms}
-          beds={beds}
-          amenties={amenties}
-          LowPrice={LowPrice}
-          HighPrice={HighPrice}
-          currentPage={currentPage}
-        />
       </div>
     </>
   );

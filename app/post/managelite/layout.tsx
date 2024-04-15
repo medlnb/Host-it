@@ -5,17 +5,15 @@ import { useSession } from "next-auth/react";
 
 function Layout({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession(); //using client session instead of server because the server session takes too long to fetch
+  console.log(session);
+  if (session === null) return <div>9awed</div>;
   return (
-    <>
-      {session !== undefined ? (
-        <div>
-          <NewPostNav />
-          <NewPostProv>{children}</NewPostProv>
-        </div>
-      ) : (
-        "run bich"
-      )}
-    </>
+    <div className="sm:h-full h-lvh flex flex-col justify-center">
+      <NewPostNav />
+      <NewPostProv>
+        <div className="px-1">{children}</div>
+      </NewPostProv>
+    </div>
   );
 }
 

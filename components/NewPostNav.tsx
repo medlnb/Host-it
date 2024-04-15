@@ -20,30 +20,50 @@ function NewPostNav() {
     if (isNext) router.push(`/post/managelite/${navs[curretnIndex + 1]}`);
     else router.push(`/post/managelite/${navs[curretnIndex - 1]}`);
   };
+
   return (
     <>
-      <div className="flex md:hidden fixed bottom-1 flex justify-between w-full">
-        {page !== "type" && page !== "images" ? (
-          <button
-            className="bg-gray-500 py-2 px-6 rounded-r text-white hover:bg-black"
-            onClick={() => HandleNavigate(false)}
-          >
-            Prev
-          </button>
-        ) : (
-          <div></div>
-        )}
-        {page !== "prices" && page !== "images" ? (
-          <button
-            className="bg-gray-500 py-2 px-6 rounded-l text-white hover:bg-black"
-            onClick={() => HandleNavigate(true)}
-          >
-            Next
-          </button>
-        ) : (
-          <div></div>
-        )}
-      </div>
+      <button
+        className="absolute top-0 m-1 px-2 py-1 border rounded text-sm"
+        onClick={() => {
+          router.push("/post/managelite/type");
+        }}
+      >
+        Cancel
+      </button>
+      {page === "managelite" ? (
+        <button
+          className="block md:hidden fixed bottom-1 w-full bg-rose-500 py-2 px-6 rounded text-white hover:bg-black"
+          onClick={() => {
+            router.push("/post/managelite/type");
+          }}
+        >
+          Prev
+        </button>
+      ) : (
+        <div className="flex md:hidden fixed bottom-1 justify-between w-full">
+          {page !== "type" && page !== "images" ? (
+            <button
+              className="bg-gray-500 py-2 px-6 rounded-r text-white hover:bg-black"
+              onClick={() => HandleNavigate(false)}
+            >
+              Prev
+            </button>
+          ) : (
+            <div></div>
+          )}
+          {page !== "prices" && page !== "images" ? (
+            <button
+              className="bg-rose-500 py-2 px-6 rounded-l text-white hover:bg-black"
+              onClick={() => HandleNavigate(true)}
+            >
+              Next
+            </button>
+          ) : (
+            <div></div>
+          )}
+        </div>
+      )}
       <div className="hidden md:flex flex-row fixed left-1/2 transform -translate-x-1/2 bottom-1 w-11/12 h-8 ml-1 rounded-lg overflow-hidden">
         {navs.map((nav: string, index) => {
           return (

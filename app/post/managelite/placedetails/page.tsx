@@ -19,7 +19,7 @@ function PlaceDetails() {
 
   return (
     <div className="max-width45rem my-10">
-      <h1 className="text-center font-medium text-2xl my-10">
+      <h1 className="text-center font-medium text-2xl mt-0 sm:my-10">
         Share some basics about your place
       </h1>
       <div className="mt-6">

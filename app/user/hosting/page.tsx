@@ -1,24 +1,55 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaHouseCrack } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { FaRegEdit } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 import { FaHandshakeSimple } from "react-icons/fa6";
+import { CurrentPostContext } from "@Context/CurrentPostContext";
+
+interface Post {
+  _id: string;
+  title: string;
+  type: string;
+  state: {
+    name: string;
+    id: number;
+  };
+  city: {
+    name: string;
+    id: number;
+  };
+  location: {
+    lat: number;
+    lng: number;
+  };
+  description: string;
+  price: {
+    perday: number;
+    permonth: number;
+  };
+  Bedrooms: number;
+  Bathrooms: number;
+  Guests: number;
+  Beds: number;
+  amenities: string[];
+  image: { display_url: string }[];
+}
 
 function Page() {
   const { data: session } = useSession();
-  const [HostData, setHostData] = useState<
-    | {
-        _id: string;
-        title: String;
-        state: { name: string; id: number };
-        city: { name: string; id: number };
-        description: string;
-        image: { display_url: string }[];
-      }[]
-    | null
-  >(null);
+  // const [HostData, setHostData] = useState<
+  //   | {
+  //       _id: string;
+  //       title: String;
+  //       state: { name: string; id: number };
+  //       city: { name: string; id: number };
+  //       description: string;
+  //       image: { display_url: string }[];
+  //     }[]
+  //   | null
+  // >(null);
+  const [HostData, setHostData] = useState<Post[] | null>(null);
 
   useEffect(() => {
     const getHostData = async () => {
@@ -45,10 +76,7 @@ function Page() {
             </div>
           </div>
         ) : (
-          <div
-            className="grid md:grid-cols-3 grid-cols-1 md:gap-6 gap-3 max-w-full my-6 mx-auto"
-            style={{ width: "60rem" }}
-          >
+          <div className="w-[60rem] grid md:grid-cols-3 grid-cols-1 md:gap-6 gap-3 max-w-full my-6 mx-auto">
             {HostData.map((post) => (
               <Host
                 key={post._id}
@@ -56,8 +84,8 @@ function Page() {
                 title={post.title}
                 city={post.city}
                 state={post.state}
-                description={post.description}
-                image={post.image}
+                image={post.image[0].display_url}
+                post={post}
               />
             ))}
           </div>
@@ -76,18 +104,18 @@ const Host = ({
   title,
   state,
   city,
-  description,
   image,
+  post,
 }: {
   _id: string;
   title: String;
   state: { name: string; id: number };
   city: { name: string; id: number };
-  description: string;
-  image: { display_url: string }[];
+  image: string;
+  post: Post;
 }) => {
   const router = useRouter();
-
+  const { dispatch } = useContext(CurrentPostContext);
   return (
     <div
       className="flex md:flex-col flex-row md:items-center items-start text-xs md:gap-4 gap-2 md:p-4 p-2 center-shadow rounded-md relative hover:outline hover:outline-1 hover:outline-gray-300"
@@ -96,18 +124,16 @@ const Host = ({
       }}
     >
       <img
-        src={image[0].display_url}
+        src={image}
         className="md:w-full w-28 md:h-40 h-20 rounded-md image-fit"
       />
       <div className="Hline w-full hidden md:block" />
       <div className="flex justify-between items-center w-full">
         <div className="flex items-start flex-col">
           <h1>{title}</h1>
-          {state.name === city.name ? (
-            <h2 className="text-gray-500">{`${state.name}`}</h2>
-          ) : (
-            <h2 className="text-gray-500">{`${state.name} ~ ${city.name}`}</h2>
-          )}
+          <h2 className="text-gray-500">{`${state.name} ${
+            state.name === city.name ? "" : ` ~ ${city.name}`
+          }`}</h2>
         </div>
         <div className="md:text-lg text-xs cursor-pointer flex flex-col items-center gap-2">
           <FaRegEdit
@@ -115,7 +141,8 @@ const Host = ({
             fill="black"
             onClick={(e) => {
               e.stopPropagation();
-              router.push(`/post/manage/${_id}`);
+              router.push(`/user/hosting/managelite/type`);
+              dispatch({ type: "SET_POST", payload: post });
             }}
           />
           <FaHandshakeSimple

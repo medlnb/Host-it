@@ -1,13 +1,12 @@
 "use client";
-
-import { NewPostContext } from "@Context/NewPostContext";
+import { CurrentPostContext } from "@Context/CurrentPostContext";
 import { useContext } from "react";
 
 function PlaceInfo() {
   const {
-    NewPost: { title, description },
+    CurrentPost: { title, description },
     dispatch,
-  } = useContext(NewPostContext);
+  } = useContext(CurrentPostContext);
   return (
     <div className="max-width45rem my-5">
       <h1 className="text-center font-medium text-2xl my-10">
@@ -22,8 +21,8 @@ function PlaceInfo() {
           value={title}
           onChange={(e) =>
             dispatch({
-              type: "SET_TITLE",
-              payload: e.target.value,
+              type: "SET_STRING",
+              payload: { key: "title", value: e.target.value },
             })
           }
         />
@@ -44,8 +43,8 @@ function PlaceInfo() {
           value={description}
           onChange={(e) =>
             dispatch({
-              type: "SET_DESCRIPTION",
-              payload: e.target.value,
+              type: "SET_STRING",
+              payload: { key: "description", value: e.target.value },
             })
           }
         />

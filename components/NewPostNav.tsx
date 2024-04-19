@@ -17,8 +17,9 @@ function NewPostNav() {
   ];
   const HandleNavigate = (isNext: boolean) => {
     const curretnIndex = navs.indexOf(page);
-    if (isNext) router.push(`/post/managelite/${navs[curretnIndex + 1]}`);
-    else router.push(`/post/managelite/${navs[curretnIndex - 1]}`);
+    if (isNext)
+      router.push(`/user/hosting/managelite/${navs[curretnIndex + 1]}`);
+    else router.push(`/user/hosting/managelite/${navs[curretnIndex - 1]}`);
   };
 
   return (
@@ -35,7 +36,7 @@ function NewPostNav() {
         <button
           className="block md:hidden fixed bottom-1 w-full bg-rose-500 py-2 px-6 rounded text-white hover:bg-black"
           onClick={() => {
-            router.push("/post/managelite/type");
+            router.push("/user/hosting/managelite/type");
           }}
         >
           Prev
@@ -73,7 +74,8 @@ function NewPostNav() {
                 nav === "images" ? "opacity-50" : ""
               }`}
               onClick={() => {
-                if (nav !== "images") router.push(`/post/managelite/${nav}`);
+                if (nav !== "images")
+                  router.push(`/user/hosting/managelite/${nav}`);
               }}
             >
               <p

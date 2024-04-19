@@ -1,6 +1,5 @@
 "use client";
-
-import { NewPostContext } from "@Context/NewPostContext";
+import { CurrentPostContext } from "@Context/CurrentPostContext";
 import { useContext } from "react";
 
 interface props {
@@ -13,9 +12,9 @@ interface props {
 
 function PlaceDetails() {
   const {
-    NewPost: { Bedrooms, Bathrooms, Guests, Beds },
+    CurrentPost: { Bedrooms, Bathrooms, Guests, Beds },
     dispatch,
-  } = useContext(NewPostContext);
+  } = useContext(CurrentPostContext);
 
   return (
     <div className="max-width45rem my-10">

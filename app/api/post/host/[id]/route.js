@@ -7,8 +7,9 @@ export const GET = async (req, { params }) => {
     await connectToDatabase();
 
     const Posts = await Post.find({ poster: params.id }).select(
-      "image title description state city"
+      "image title type description state city location price Bedrooms Bathrooms Guests Beds amenities"
     );
+
     return new Response(JSON.stringify(Posts), {
       status: 200,
     });

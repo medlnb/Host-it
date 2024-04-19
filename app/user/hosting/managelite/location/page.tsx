@@ -8,10 +8,9 @@ import {
 import AlgerianCities from "@public/AlgerianCities.json";
 import Select from "react-select";
 import { BsFillHouseDownFill } from "react-icons/bs";
-
 import "@reach/combobox/styles.css";
 import { useContext } from "react";
-import { NewPostContext } from "@Context/NewPostContext";
+import { CurrentPostContext } from "@Context/CurrentPostContext";
 
 interface City {
   id: string;
@@ -25,9 +24,9 @@ interface City {
 
 function Page() {
   const {
-    NewPost: { location, city, state },
+    CurrentPost: { location, city, state },
     dispatch,
-  } = useContext(NewPostContext);
+  } = useContext(CurrentPostContext);
 
   const wilayaoptions = AlgerianCities.map((city: City[]) => ({
     value: `${city[0].name}$${city[0].latitude}$${city[0].longitude}`,
@@ -104,19 +103,19 @@ function Page() {
         />
       </div>
       <div>
-        <APIProvider
-          apiKey="AIzaSyBvdAJhlVyx2nd1imxk6m5BCza6N_l3T0Y"
-          libraries={["places"]}
-        >
+        <APIProvider apiKey="AIzaSyBvdAJhlVyx2nd1imxk6m5BCza6N_l3T0Y">
           <div className="h-96 w-full my-5 rounded-md overflow-hidden relative">
             <Map
               defaultZoom={8}
-              center={location}
+              center={{ lat: Number(location.lat), lng: Number(location.lng) }}
               mapId="17c2e4987b812891"
               className="w-full h-full"
             >
               <AdvancedMarker
-                position={location}
+                position={{
+                  lat: Number(location.lat),
+                  lng: Number(location.lng),
+                }}
                 draggable
                 onDragEnd={(e: any) => {
                   dispatch({

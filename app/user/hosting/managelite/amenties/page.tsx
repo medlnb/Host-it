@@ -9,7 +9,7 @@ import { FaTemperatureArrowUp } from "react-icons/fa6";
 import { MdOutlinePool } from "react-icons/md";
 import { MdOutlineElevator } from "react-icons/md";
 import { useContext } from "react";
-import { NewPostContext } from "@Context/NewPostContext";
+import { CurrentPostContext } from "@Context/CurrentPostContext";
 
 const amenitiesData = [
   { title: "Wifi", icon: <FaWifi /> },
@@ -25,9 +25,9 @@ const amenitiesData = [
 
 function Amenities() {
   const {
-    NewPost: { amenities },
+    CurrentPost: { amenities },
     dispatch,
-  } = useContext(NewPostContext);
+  } = useContext(CurrentPostContext);
   return (
     <div className="my-10 max-width45rem">
       <h1 className="text-center font-medium text-2xl my-10">

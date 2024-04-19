@@ -54,7 +54,7 @@ function SmFooter() {
       ) : (
         <FaUserAlt
           size={23}
-          fill="white"
+          className="text-rose-500"
           onClick={() =>
             HandleChangeChildren({ title: "Log In", content: <Login /> })
           }

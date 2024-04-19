@@ -7,6 +7,7 @@ async function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="max-w-full my-0 mx-auto mt-2 mr-4 mb-16 ml-2">
       {/* {session === null ? "not allowed" : children} */}
+
       {children}
     </div>
   );

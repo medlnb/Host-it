@@ -54,90 +54,94 @@ function Nav() {
           </Suspense>
         </div>
       )}
-
-      <nav className="flex flex-row items-center gap-1 relative">
-        {session === undefined && (
-          <div
-            className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer"
-            onClick={() => setToggleNavbar((prev) => !prev)}
-          >
-            <ClipLoader size={20} />
-          </div>
-        )}
-        {session && (
-          <>
-            <Link href="/post/managelite" className="underline-expand">
-              New Post
-            </Link>
-            {messagesData && (
-              <Link
-                href="/user/messages"
-                className="relative flex items-center mx-2 gap-1"
-              >
-                <p>{messagesData.length}</p>
-                <CiChat1 size={25} />
-              </Link>
-            )}
+      {pathname.split("/")[3] !== "managelite" && (
+        <nav className="flex flex-row items-center gap-1 relative">
+          {session === undefined && (
             <div
-              className="flex items-center flex-row py-2 px-1 sm:rounded-xl rounded-lg sm:gap-2 gap-1 border border-black cursor-pointer"
+              className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer"
               onClick={() => setToggleNavbar((prev) => !prev)}
             >
-              {session.user.plan && (
-                <>
-                  {session.user.plan.type === "Premium" ? (
-                    <FaCrown size={15} />
-                  ) : (
-                    <FaStar size={15} />
-                  )}
-                </>
-              )}
-              <p>{session.user.name}</p>
-
-              {session.user.image ? (
-                <img
-                  src={session?.user.image}
-                  className="w-6 sm:w-8 rounded-full"
-                  style={{ aspectRatio: "1/1" }}
-                />
-              ) : (
-                <FaRegUser />
-              )}
+              <ClipLoader size={20} />
             </div>
-          </>
-        )}
-        {session === null && (
-          <div
-            className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer hover:shadow-md hover:shadow-gray-500  "
-            onClick={() =>
-              HandleChangeChildren({ title: "Log In", content: <Login /> })
-            }
-          >
-            <p>Sign up</p>
-            <FaUserCircle size={20} />
-          </div>
-        )}
-        {ToggleNavbar && (
-          <div
-            className="absolute shadow-md rounded-md top-14 right-0 flex flex-col bg-white py-2 z-10"
-            ref={dropdownRef}
-          >
-            <Link
-              href="/user"
-              className="py-2 px-4 hover:bg-gray-100"
-              onClick={() => setToggleNavbar(false)}
+          )}
+          {session && (
+            <>
+              <Link
+                href="/user/hosting/managelite"
+                className="underline-expand"
+              >
+                New Post
+              </Link>
+              {messagesData && (
+                <Link
+                  href="/user/messages"
+                  className="relative flex items-center mx-2 gap-1"
+                >
+                  <p>{messagesData.length}</p>
+                  <CiChat1 size={25} />
+                </Link>
+              )}
+              <div
+                className="flex items-center flex-row py-2 px-1 sm:rounded-xl rounded-lg sm:gap-2 gap-1 border border-black cursor-pointer"
+                onClick={() => setToggleNavbar((prev) => !prev)}
+              >
+                {session.user.plan && (
+                  <>
+                    {session.user.plan.type === "Premium" ? (
+                      <FaCrown size={15} />
+                    ) : (
+                      <FaStar size={15} />
+                    )}
+                  </>
+                )}
+                <p>{session.user.name}</p>
+
+                {session.user.image ? (
+                  <img
+                    src={session?.user.image}
+                    className="w-6 sm:w-8 rounded-full"
+                    style={{ aspectRatio: "1/1" }}
+                  />
+                ) : (
+                  <FaRegUser />
+                )}
+              </div>
+            </>
+          )}
+          {session === null && (
+            <div
+              className="flex items-center flex-row p-2 rounded-xl gap-2 border border-black cursor-pointer hover:shadow-md hover:shadow-gray-500  "
+              onClick={() =>
+                HandleChangeChildren({ title: "Log In", content: <Login /> })
+              }
             >
-              My Account
-            </Link>
-            <div className="Hline" />
-            <p
-              onClick={() => signOut()}
-              className="cursor-pointer py-2 px-4 hover:bg-gray-100"
+              <p>Sign up</p>
+              <FaUserCircle size={20} />
+            </div>
+          )}
+          {ToggleNavbar && (
+            <div
+              className="absolute shadow-md rounded-md top-14 right-0 flex flex-col bg-white py-2 z-10"
+              ref={dropdownRef}
             >
-              Log out
-            </p>
-          </div>
-        )}
-      </nav>
+              <Link
+                href="/user"
+                className="py-2 px-4 hover:bg-gray-100"
+                onClick={() => setToggleNavbar(false)}
+              >
+                My Account
+              </Link>
+              <div className="Hline" />
+              <p
+                onClick={() => signOut()}
+                className="cursor-pointer py-2 px-4 hover:bg-gray-100"
+              >
+                Log out
+              </p>
+            </div>
+          )}
+        </nav>
+      )}
     </div>
   );
 }

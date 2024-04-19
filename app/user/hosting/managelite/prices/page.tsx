@@ -1,5 +1,5 @@
 "use client";
-import { NewPostContext } from "@Context/NewPostContext";
+import { CurrentPostContext } from "@Context/CurrentPostContext";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
@@ -7,9 +7,8 @@ import CurrencyInput from "react-currency-input-field";
 
 function Prices() {
   const router = useRouter();
-  const { NewPost, dispatch } = useContext(NewPostContext);
+  const { CurrentPost, dispatch } = useContext(CurrentPostContext);
   const { data: session } = useSession();
-
   const HandlePost = async () => {
     const response = await fetch("/api/post/new", {
       method: "POST",
@@ -17,7 +16,7 @@ function Prices() {
         "Content-Type": "application/json",
       },
 
-      body: JSON.stringify({ ...NewPost, poster: session?.user.id }),
+      body: JSON.stringify({ ...CurrentPost, poster: session?.user.id }),
     });
     if (response.ok) {
       const data = await response.json();
@@ -31,7 +30,7 @@ function Prices() {
       <div className="mt-4 flex items-center md:flex-row flex-col gap-3 md:justify-between">
         <div className="flex items-center w-full  md:w-60 md:w-max-1/2 p-2 rounded-md border border-black">
           <CurrencyInput
-            value={NewPost.price.perday}
+            value={CurrentPost.price.perday}
             className="w-full border-none focus:outline-none"
             allowDecimals={false}
             onValueChange={(value) =>
@@ -45,7 +44,7 @@ function Prices() {
         </div>
         <div className="flex items-center w-full  md:w-60 md:w-max-1/2 p-2 rounded-md border border-black">
           <CurrencyInput
-            value={NewPost.price.permonth}
+            value={CurrentPost.price.permonth}
             allowDecimals={false}
             className="w-full border-none focus:outline-none"
             onValueChange={(value) =>
@@ -62,7 +61,7 @@ function Prices() {
         className="my-6 mx-auto block p-2 bg-black text-white rounded-md"
         onClick={HandlePost}
       >
-        POST
+        {CurrentPost._id === "CurrentPost" ? "POST" : "UPDATE"}
       </button>
     </div>
   );

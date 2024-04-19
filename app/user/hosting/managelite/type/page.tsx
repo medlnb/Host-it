@@ -12,13 +12,13 @@ import { FaCaravan } from "react-icons/fa";
 import { FaHotel } from "react-icons/fa6";
 import { FaBed } from "react-icons/fa";
 import { useContext } from "react";
-import { NewPostContext } from "@Context/NewPostContext";
+import { CurrentPostContext } from "@Context/CurrentPostContext";
 
 function Page() {
   const {
-    NewPost: { type },
+    CurrentPost: { type },
     dispatch,
-  } = useContext(NewPostContext);
+  } = useContext(CurrentPostContext);
   const types = [
     { title: "Villa", icon: <MdVilla /> },
     { title: "Apartment", icon: <MdApartment /> },
@@ -44,8 +44,8 @@ function Page() {
             key={typeData.title}
             onClick={() =>
               dispatch({
-                type: "SET_TYPE",
-                payload: typeData.title,
+                type: "SET_STRING",
+                payload: { key: "type", value: typeData.title },
               })
             }
             className={`flex gm:gap-3 gap-1 flex-col md:flex-row items-center md:p-8 p-4 rounded-lg border-2 hover:bg-gray-100 cursor-pointer ${

@@ -89,6 +89,7 @@ function Page() {
       .then((res) => res.json())
       .then(setData);
   }, [id]);
+  
   let posterDate = null;
   if (data) posterDate = new Date(data.poster.createdAt);
 

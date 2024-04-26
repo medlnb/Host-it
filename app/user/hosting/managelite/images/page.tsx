@@ -1,16 +1,15 @@
 "use client";
-import { useParams } from "next/navigation";
-import { useState } from "react";
+import { CurrentPostContext } from "@Context/CurrentPostContext";
+import { useSession } from "next-auth/react";
+import { useContext, useEffect, useState } from "react";
 import { SyncLoader } from "react-spinners";
+
 function Page() {
-  const { PostId } = useParams();
   const [loadingState, setLoadingState] = useState(false);
-  const [images, setimages] = useState<
-    {
-      display_url: string;
-      delete_url: string;
-    }[]
-  >([]);
+
+  const { CurrentPost, dispatch } = useContext(CurrentPostContext);
+
+  const { data: session } = useSession();
 
   const handleFileChange = async (event: any) => {
     setLoadingState(true);
@@ -31,31 +30,30 @@ function Page() {
         setLoadingState(false);
         const data = await response.json();
 
-        setimages((prev) => [
-          ...prev,
-          {
+        dispatch({
+          type: "ADD_IMAGE",
+          payload: {
             display_url: data.data.display_url,
             delete_url: data.data.delete_url,
           },
-        ]);
+        });
       }
     } catch (error) {
       setLoadingState(false);
       alert("error");
     }
   };
-
   const HandleSubmit = async () => {
-    if (images.length < 5) {
+    if (CurrentPost.image.length < 5) {
       return alert("U need at least 5 pictures");
     }
-    const post = { _id: PostId, image: images };
     const response = await fetch("/api/post/new", {
-      method: "PATCH",
+      method: "POST",
       headers: {
-        "Content-Type": "Application/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ post }),
+
+      body: JSON.stringify({ ...CurrentPost, poster: session?.user.id }),
     });
     if (response.ok) alert("Done");
   };
@@ -77,23 +75,25 @@ function Page() {
         </div>
       </div>
       <div className="w-full grid lg:grid-cols-4 grid-cols-2 gap-2 p-2">
-        {images.map((img, index) => (
+        {CurrentPost.image.map((img, index) => (
           <img
             key={index}
             className="object-cover h-40 rounded-md"
             src={img.display_url}
           />
         ))}
-        {[...Array(images.length > 5 ? 0 : 5 - images.length)].map(
-          (element, index) => (
-            <div
-              key={index + 100}
-              className="h-40 border border-dashed border-gray-700 rounded-md flex justify-center items-center text-xs"
-            >
-              No image, please fill me
-            </div>
-          )
-        )}
+        {[
+          ...Array(
+            CurrentPost.image.length > 5 ? 0 : 5 - CurrentPost.image.length
+          ),
+        ].map((element, index) => (
+          <div
+            key={index + 100}
+            className="h-40 border border-dashed border-gray-700 rounded-md flex justify-center items-center text-xs"
+          >
+            No image, please fill me
+          </div>
+        ))}
       </div>
       <button
         onClick={HandleSubmit}

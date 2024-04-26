@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Reserving from "@components/Reserving";
 import { FaArrowAltCircleLeft, FaWifi } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";
@@ -15,6 +15,14 @@ import {
   MdOutlinePool,
 } from "react-icons/md";
 import { TbAirConditioning } from "react-icons/tb";
+import {
+  APIProvider,
+  Map,
+  AdvancedMarker,
+  Pin,
+} from "@vis.gl/react-google-maps";
+import { BsFillHouseDownFill } from "react-icons/bs";
+import { floatingConext } from "@Context/FloatingWinContext";
 
 const amenitiesData = [
   { title: "Wifi", icon: <FaWifi /> },
@@ -78,6 +86,7 @@ const avrRate = (
 
 function Page() {
   const Ref = useRef<HTMLDivElement>(null);
+  const { HandleChangeChildren } = useContext(floatingConext);
   const { id } = useParams();
 
   const [data, setData] = useState<{
@@ -89,7 +98,7 @@ function Page() {
       .then((res) => res.json())
       .then(setData);
   }, [id]);
-  
+
   let posterDate = null;
   if (data) posterDate = new Date(data.poster.createdAt);
 
@@ -121,12 +130,30 @@ function Page() {
               }}
               className="w-full md:flex grid gap-2 rounded-md md:overflow-hidden overflow-x-scroll hide-scroll-bar"
               ref={Ref}
+              onClick={() => {
+                HandleChangeChildren({
+                  title: "Images",
+                  content: (
+                    <div className="w-lvw h-lvh">
+                      {data?.post.image.map((img) => (
+                        <img
+                          key={img.display_url}
+                          className="image-fit hover:scale-125 duration-300"
+                          src={`${img.display_url}`}
+                        />
+                      ))}
+                    </div>
+                  ),
+                });
+              }}
             >
-              <img
-                className="md:w-1/2 w-full image-fit"
-                src={`${data.post.image[0].display_url}`}
-                style={{ scrollSnapAlign: "center" }}
-              />
+              <div className="md:w-1/2 w-full overflow-hidden">
+                <img
+                  className="w-full h-full image-fit hover:scale-125 duration-300"
+                  src={`${data.post.image[0].display_url}`}
+                  style={{ scrollSnapAlign: "center" }}
+                />
+              </div>
               <div
                 className="md:w-1/2 w-full h-full grid grid-cols-2 gap-2"
                 style={{ scrollSnapAlign: "center" }}
@@ -134,13 +161,14 @@ function Page() {
                 {data.post.image.map((img, index) => {
                   if (index !== 0 && index < 4)
                     return (
-                      <img className="image-fit" src={`${img.display_url}`} />
+                      <div key={img.display_url} className="overflow-hidden">
+                        <img
+                          className="image-fit hover:scale-125 duration-300"
+                          src={`${img.display_url}`}
+                        />
+                      </div>
                     );
                 })}
-                <img
-                  className="image-fit"
-                  src={`${data.post.image[0].display_url}`}
-                />
               </div>
               <FaArrowAltCircleRight
                 className="md:hidden block absolute top-1/2 transform -translate-y-1/2 right-1"
@@ -156,10 +184,10 @@ function Page() {
               />
             </div>
           </div>
-          <div className="mt-3 flex justify-between md:flex-row flex-col gap-3">
+          <div className="my-3 flex justify-between md:flex-row flex-col gap-3">
             <div className="left--info">
-              <h1 className="mt-3">{data.post.title}</h1>
-              <h2>{data.post.city.name}</h2>
+              <h1 className="mt-3 text-xl font-medium">{data.post.title}</h1>
+              <h2 className="text-lg">{data.post.city.name}</h2>
               <p className="mt-2 flex gap-2">
                 <p
                   style={{ whiteSpace: "nowrap" }}
@@ -192,7 +220,6 @@ function Page() {
                 </div>
               </div>
               <p className="my-3 p-3 border border-gray-200 rounded-md shadow-sm">
-                {" "}
                 {data.post.description}
               </p>
               <div className="Hline" />
@@ -234,10 +261,33 @@ function Page() {
               </div>
             </div>
           </div>
-          <div className="Hline my-5" />
-          {overallReviewRate === 0 && "not rated yet"}
+          <APIProvider apiKey="AIzaSyBvdAJhlVyx2nd1imxk6m5BCza6N_l3T0Y">
+            <div className="h-96 w-full my-5 rounded-md overflow-hidden relative">
+              <Map
+                defaultZoom={12}
+                defaultCenter={{
+                  lat: Number(data.post.location.lat),
+                  lng: Number(data.post.location.lng),
+                }}
+                mapId="17c2e4987b812891"
+                className="w-full h-full"
+              >
+                <AdvancedMarker
+                  position={{
+                    lat: Number(data.post.location.lat),
+                    lng: Number(data.post.location.lng),
+                  }}
+                >
+                  <Pin />
+                  <BsFillHouseDownFill size={20} fill="#ea4335" />
+                </AdvancedMarker>
+              </Map>
+            </div>
+          </APIProvider>
+          <div className="Hline" />
+          {/* {overallReviewRate === 0 && "not rated yet"} */}
           {overallReviewRate ? (
-            <div className="flex justify-center items-center gap-3 text-lg">
+            <div className="flex justify-center items-center gap-3 text-lg my-5">
               <p className="flex items-center gap-1">
                 {overallReviewRate.overallReviewRate}
                 <FaStar className="mb-0.5" />
@@ -247,7 +297,7 @@ function Page() {
           ) : (
             <></>
           )}
-          <section className="w-full my-5 rounded p-2 flex flex-row overflow-x-scroll gap-4 md:grid-cols-4 md:grid hide-scroll-bar">
+          <section className="w-full my-5 rounded p-2 flex flex-row overflow-x-scroll gap-4 hide-scroll-bar">
             {data.post.reviews.map((review, index) => (
               <Review
                 key={index}

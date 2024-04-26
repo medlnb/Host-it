@@ -59,12 +59,7 @@ const Default_value = {
   Guests: 0,
   Beds: 0,
   amenities: [],
-  image: [
-    {
-      display_url: "",
-      delete_url: "",
-    },
-  ],
+  image: [],
 };
 
 const saveToLocalStorage = (post: Post) => {
@@ -97,6 +92,13 @@ const CurrentPostReducer = (
     | {
         type: "ADD_AMENTY" | "REMOVE_AMENTY";
         payload: string;
+      }
+    | {
+        type: "ADD_IMAGE" | "REMOVE_IMAGE";
+        payload: {
+          display_url: string;
+          delete_url: string;
+        };
       }
     | {
         type: "SET_PERDAY_PRICE" | "SET_PERMONTH_PRICE";
@@ -288,7 +290,17 @@ const CurrentPostReducer = (
         city: action.payload.state ? { name: "", id: 0 } : action.payload.city,
       };
 
+    case "ADD_IMAGE":
+      saveToLocalStorage({ ...state, image: [...state.image, action.payload] });
+      return { ...state, image: [...state.image, action.payload] };
+
+    case "REMOVE_IMAGE":
+      return state;
+
+
+
     default:
+      console.log("type not defined");
       return state;
   }
 };

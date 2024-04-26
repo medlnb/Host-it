@@ -99,13 +99,16 @@ function Page() {
                 <FaStar
                   className="mb-0.5 cursor-pointer"
                   onClick={() => {
-                    HandleChangeChildren(
-                      <RatingPage
-                        setToggle={setToggle}
-                        postId={message.postId}
-                        userId={session?.user.id}
-                      />
-                    );
+                    HandleChangeChildren({
+                      title: "Rating",
+                      content: (
+                        <RatingPage
+                          setToggle={setToggle}
+                          postId={message.postId}
+                          userId={session?.user.id}
+                        />
+                      ),
+                    });
                   }}
                 />
                 <IoMdTrash

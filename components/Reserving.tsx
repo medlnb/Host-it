@@ -6,6 +6,7 @@ import { today } from "@internationalized/date";
 import { getLocalTimeZone } from "@internationalized/date";
 import { parseDate } from "@internationalized/date";
 import { useSession } from "next-auth/react";
+import { Toaster, toast } from "sonner";
 
 const calculateDaysDifference = (
   StartDate: string,
@@ -70,11 +71,14 @@ function Reserving({ postId, resevedDates, price }: props) {
         "Content-Type": "application/json",
       },
     });
-    if (response.ok) alert("Reserved");
-    else alert("Failed to reserve");
+
+    if (response.ok) toast.success("Reserved");
+    else toast.error("Error reserving");
   };
+
   return (
     <form className="my-3 text-xs" onSubmit={HandleSubmit}>
+      <Toaster richColors />
       <h2 className="mb-1">Reservation</h2>
       <Provider theme={defaultTheme} colorScheme="light">
         <DateRangePicker

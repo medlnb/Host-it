@@ -24,23 +24,20 @@ function Review({ userId, rating, content }: props) {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+
         setUserProfile(data[0]);
       }
     };
     getProfile();
   }, []);
   return (
-    <div className="border-2 rounded-2xl flex flex-col p-5 min-w-full">
+    <div className="border-2 text-xs rounded-2xl flex flex-col p-3 min-w-full md:min-w-[24%]">
       <h1 className="text-4xl md:text-6xl">❝</h1>
-      <p className="text-sm">{content}</p>
-      <div className="h-16 my-2 flex flex-row items-center gap-3 w-full">
+      <p>{content}</p>
+      <div className="h-12 mt-5 flex flex-row items-center gap-3 w-full">
         {!userProfile ? (
           <>
-            <div
-              className="h-full cursor-pointer rounded-full bg-gray-700 animate-pulse"
-              style={{ aspectRatio: "1/1" }}
-            />
+            <div className="h-8 w-8 cursor-pointer rounded-full bg-gray-700 animate-pulse" />
             <div>
               <div className="w-1/2 h-5 bg-gray-400 animate-pulse rounded-full" />
             </div>
@@ -48,7 +45,7 @@ function Review({ userId, rating, content }: props) {
         ) : (
           <>
             <img
-              className="h-full  cursor-pointer rounded-full"
+              className="h-8 w-8 cursor-pointer rounded-full"
               src={userProfile.image}
               alt="Review post"
             />

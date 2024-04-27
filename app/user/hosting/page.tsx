@@ -38,17 +38,6 @@ interface Post {
 
 function Page() {
   const { data: session } = useSession();
-  // const [HostData, setHostData] = useState<
-  //   | {
-  //       _id: string;
-  //       title: String;
-  //       state: { name: string; id: number };
-  //       city: { name: string; id: number };
-  //       description: string;
-  //       image: { display_url: string }[];
-  //     }[]
-  //   | null
-  // >(null);
   const [HostData, setHostData] = useState<Post[] | null>(null);
 
   useEffect(() => {

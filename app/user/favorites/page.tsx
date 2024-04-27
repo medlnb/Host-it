@@ -7,6 +7,24 @@ import { useRouter } from "next/navigation";
 import { IoMdTrash } from "react-icons/io";
 import { FavoritesContext } from "@Context/FavoritesContext";
 
+interface Favorites {
+  _id: string;
+  title: string;
+  description: string;
+  city: {
+    name: string;
+    id: number;
+  };
+  state: {
+    name: string;
+    id: number;
+  };
+  image: {
+    display_url: string;
+    delete_url: string;
+  }[];
+}
+
 function Page() {
   const { data: session } = useSession();
   const { favorites, dispatch } = useContext(FavoritesContext);
@@ -24,11 +42,8 @@ function Page() {
             </div>
           </div>
         ) : (
-          <div
-            className="grid md:grid-cols-3 grid-cols-1 md:gap-6 gap-3 max-w-full my-6 mx-auto"
-            style={{ width: "60rem" }}
-          >
-            {favorites.map((post: any) => (
+          <div className="w-[60rem] grid md:grid-cols-3 grid-cols-1 md:gap-6 gap-3 max-w-full my-6 mx-auto ">
+            {favorites.map((post) => (
               <Favorite
                 key={post._id}
                 post={post}
@@ -47,7 +62,15 @@ function Page() {
 
 export default Page;
 
-const Favorite = ({ post, userId, dispatch }: any) => {
+const Favorite = ({
+  post,
+  userId,
+  dispatch,
+}: {
+  post: Favorites;
+  userId: string | undefined;
+  dispatch: any;
+}) => {
   const [loadingremove, setLoadingremove] = useState(false);
   const router = useRouter();
 
@@ -78,18 +101,17 @@ const Favorite = ({ post, userId, dispatch }: any) => {
       }}
     >
       <img
-        src={post.image[0]}
+        src={post.image[0].display_url}
         className="md:w-full w-28 md:h-40 h-20 rounded-md image-fit"
       />
       <div className="Hline w-full hidden md:block" />
       <div className="flex justify-between items-center w-full">
         <div className="flex items-start flex-col">
           <h1>{post.title}</h1>
-          {post.state === post.city ? (
-            <h2 className="text-gray-500">{`${post.state}`}</h2>
-          ) : (
-            <h2 className="text-gray-500">{`${post.state} ~ ${post.city}`}</h2>
-          )}
+
+          <h2 className="text-gray-500">{`${post.state.name} ${
+            post.state.name === post.city.name ? "" : ` ~ ${post.city.name}`
+          }`}</h2>
         </div>
         {!loadingremove ? (
           <IoMdTrash

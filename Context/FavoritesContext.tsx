@@ -6,9 +6,18 @@ interface Favorites {
   _id: string;
   title: string;
   description: string;
-  city: string;
-  state: string;
-  image: string[];
+  city: {
+    name: string;
+    id: number;
+  };
+  state: {
+    name: string;
+    id: number;
+  };
+  image: {
+    display_url: string;
+    delete_url: string;
+  }[];
 }
 
 export const FavoritesContext = createContext<{

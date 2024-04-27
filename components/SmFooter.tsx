@@ -21,9 +21,9 @@ function SmFooter() {
     <>
       {pathname.split("/")[3] !== "managelite" && (
         <div
-          className={`${scrollDirection === "up" ? "hidden" : "flex"}
-      ${pathname.split("/")[2] === "managelite" && "hidden"} 
-      w-full h-12 items-center justify-around border-t border-rose-500 bg-white fixed bottom-0`}
+          className={`w-full h-12 items-center justify-around border-t border-rose-500 bg-white fixed bottom-0 ${
+            scrollDirection === "up" ? "hidden" : "flex"
+          }`}
         >
           <Link href={"/"} className="text-rose-500">
             <FaHome size={25} />

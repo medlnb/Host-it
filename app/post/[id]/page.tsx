@@ -134,11 +134,14 @@ function Page() {
                 HandleChangeChildren({
                   title: "Images",
                   content: (
-                    <div className="w-lvw h-lvh">
+                    <div
+                      className="w-lvw flex overflow-y-auto"
+                      style={{ height: "calc(100vh - 10rem)" }}
+                    >
                       {data?.post.image.map((img) => (
                         <img
                           key={img.display_url}
-                          className="image-fit hover:scale-125 duration-300"
+                          className="image-fit w-full"
                           src={`${img.display_url}`}
                         />
                       ))}

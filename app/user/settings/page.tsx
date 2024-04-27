@@ -1,3 +1,4 @@
+"use client";
 import { options } from "@app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 

@@ -30,10 +30,10 @@ export const options = {
   callbacks: {
     async session({ session }) {
       // session.user.id = sessionUser._id.toString();
-      session.user.image = sessionUser.image;
-      session.user.name = sessionUser.name;
+      // session.user.image = sessionUser.image;
+      // session.user.name = sessionUser.name;
       // Check if a plan has been added, and if so, verify if its expiration date is valid.
-      session.user.plan = undefined;
+      // session.user.plan = undefined;
       // session.user.plan =
       //   sessionUser.plan.type &&
       //   parseDate(sessionUser.plan.lastDay).compare(today(getLocalTimeZone())) >

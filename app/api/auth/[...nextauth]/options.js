@@ -8,9 +8,25 @@ import { getLocalTimeZone, parseDate } from "@internationalized/date";
 export const options = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID + "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET + "",
+      async profile(profile) {
+        const user = await User.findOne({
+          email: profile.email,
+        });
+        return {
+          ...profile,
+          id: user._id,
+          image: profile.picture,
+          plan:
+            user.plan.type &&
+            parseDate(user.plan.lastDay).compare(today(getLocalTimeZone())) > 0
+              ? user.plan
+              : undefined,
+        };
+      },
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
+
     CredentialsProvider({
       credentials: {},
       async authorize(credentials, req) {
@@ -28,18 +44,23 @@ export const options = {
     }),
   ],
   callbacks: {
-    async session({ session }) {
-      // session.user.id = sessionUser._id.toString();
-      // session.user.image = sessionUser.image;
-      // session.user.name = sessionUser.name;
-      // Check if a plan has been added, and if so, verify if its expiration date is valid.
-      // session.user.plan = undefined;
-      // session.user.plan =
-      //   sessionUser.plan.type &&
-      //   parseDate(sessionUser.plan.lastDay).compare(today(getLocalTimeZone())) >
-      //     0
-      //     ? sessionUser.plan
-      //     : undefined;
+    async jwt({ session, token, trigger, user }) {
+      if (trigger === "update") {
+        return { ...token, ...session };
+      }
+
+      if (user) {
+        token.plan = user.plan;
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // console.log(session);
+      if (session?.user) {
+        session.user.plan = token.plan;
+        session.user.id = token.id;
+      }
       return session;
     },
     async signIn({ user }) {

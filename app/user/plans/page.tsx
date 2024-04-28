@@ -7,6 +7,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 
 function Page() {
   const { data: session, update } = useSession();
+  // console.log(session?.user.plan);
   const [plan, setPlan] = useState<(undefined | "Pro" | "Premium") | null>(
     null
   );
@@ -29,15 +30,12 @@ function Page() {
       body: JSON.stringify({ plan }),
     });
     if (response.ok) {
-      alert("Subbed Done");
-      update();
+      const { newPlan } = await response.json();
+      await update({ plan: newPlan });
     }
   };
   return (
-    <div
-      className="max-width45rem grid md:grid-cols-3 grid-cols-1 gap-3"
-      style={{ width: "60rem" }}
-    >
+    <div className="max-width45rem grid md:grid-cols-3 grid-cols-1 gap-3 w-[60rem]">
       <div className="border-2 p-2 rounded-xl flex flex-col justify-between">
         <div>
           <div className="flex flex-col items-center mt-10 ">

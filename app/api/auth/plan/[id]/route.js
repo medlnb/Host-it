@@ -10,12 +10,13 @@ export const POST = async (req, { params }) => {
     const user = await User.findById(params.id);
     const now = today(getLocalTimeZone());
 
-    user.plan = {
+    const newPlan = {
       type: plan,
       lastDay: now.add({ days: 30 }).toString(),
     };
+    user.plan = newPlan;
     await user.save();
-    return new Response(JSON.stringify({ newUser: "Subbed" }), {
+    return new Response(JSON.stringify({ newPlan }), {
       status: 200,
     });
   } catch (err) {

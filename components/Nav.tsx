@@ -15,6 +15,7 @@ import { FaUserCircle } from "react-icons/fa";
 
 function Nav() {
   const { data: session } = useSession();
+
   const pathname = usePathname();
   const { HandleChangeChildren } = useContext(floatingConext);
   const [ToggleNavbar, setToggleNavbar] = useState(false);

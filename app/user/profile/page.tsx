@@ -3,41 +3,47 @@ import InfoEditer from "@components/InfoEditer";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
+const indexs: (
+  | "legalname"
+  | "email"
+  | "phonenumber"
+  | "governmentID"
+  | "address"
+)[] = ["legalname", "email", "phonenumber", "governmentID", "address"];
+
 function Page() {
   const { data: session } = useSession();
+
   const [UserInfo, setUserInfo] = useState<{
-    legalname: string | undefined;
-    email: string | undefined;
+    legalname: string;
+    email: string;
     phonenumber: string | undefined;
     governmentID: string | undefined;
     address: string | undefined;
   } | null>(null);
-  const indexs: (
-    | "legalname"
-    | "email"
-    | "phonenumber"
-    | "governmentID"
-    | "address"
-  )[] = ["legalname", "email", "phonenumber", "governmentID", "address"];
 
   useEffect(() => {
-    setUserInfo({
-      legalname: session?.user.name,
-      email: session?.user.email,
-      phonenumber: session?.user.phonenumber,
-      governmentID: session?.user.governmentID,
-      address: session?.user.address,
-    });
+    const fetchuserdata = async () => {
+      const response = await fetch(`/api/profile/${session!.user.id}`);
+      if (response.ok) {
+        const profile = await response.json();
+        setUserInfo({
+          ...profile,
+          legalname: session!.user.name,
+          email: session!.user.email,
+        });
+      }
+    };
+    if (session) fetchuserdata();
   }, [session]);
 
   const HandleSave = async () => {
-    const response = await fetch("/api/auth/signup", {
+    const response = await fetch(`/api/profile/${session!.user.id}`, {
       method: "PATCH",
       body: JSON.stringify({
-        userId: session?.user.id,
-        phonenumber: UserInfo?.phonenumber,
-        governmentID: UserInfo?.governmentID,
-        address: UserInfo?.address,
+        phonenumber: UserInfo!.phonenumber,
+        governmentID: UserInfo!.governmentID,
+        address: UserInfo!.address,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +76,10 @@ function Page() {
           : "loading..."}
         <button
           onClick={HandleSave}
-          className="bg-black text-white p-2 w-20 rounded-md mx-auto my-3"
+          disabled={!session || !UserInfo}
+          className={`text-white p-2 w-20 rounded-md mx-auto my-3 ${
+            !session || !UserInfo ? "bg-gray-600" : "bg-black"
+          }`}
         >
           save
         </button>

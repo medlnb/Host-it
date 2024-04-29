@@ -24,13 +24,19 @@ export const GET = async (req, { params }) => {
 export const POST = async (req, { params }) => {
   try {
     await connectToDatabase();
-
+    const requestHeaders = new Headers(req.headers);
+    const userId = requestHeaders.get("User-Id");
     const { RequestId } = await req.json();
 
     const post = await Post.findById(
       params.id,
       "resevedDates reseveRequests poster title"
     );
+
+    if (post.poster !== userId)
+      return new Response(JSON.stringify({ msg: "identify ur self u mf" }), {
+        status: 401,
+      });
 
     const newreserved = post.reseveRequests.find(
       (element) => element._id.toString() === RequestId

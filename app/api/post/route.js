@@ -78,7 +78,7 @@ export const PATCH = async (req) => {
     await connectToDatabase();
     const { date, dateEnd, Duration, reservedBy, postId } = await req.json();
     const post = await Post.findById(postId);
-
+    console.log("req", req);
     post.reseveRequests.push({ date, Duration, reservedBy, dateEnd });
     await post.save();
 

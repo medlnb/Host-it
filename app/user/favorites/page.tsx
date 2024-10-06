@@ -37,7 +37,7 @@ async function Page() {
   return (
     <div>
       <h1 className="text-center font-semibold">Favorites</h1>
-      <div className="max-w-[60rem] grid md:grid-cols-3 grid-cols-1 md:gap-6 gap-3  my-6 mx-auto ">
+      <div className="max-w-[60rem] grid md:grid-cols-3 grid-cols-1 md:gap-6 gap-3 my-6 mx-auto">
         {favorites.map((post) => (
           <div
             key={post._id}

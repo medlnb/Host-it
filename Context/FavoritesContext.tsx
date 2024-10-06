@@ -34,7 +34,7 @@ export const FavoritesContextProvider = ({
       const data = await res.json();
       setFavorites(["66fd1001ad40c1be48cac45f"]);
     };
-    fetchFavorites();
+    // fetchFavorites();
   }, [session]);
 
   return (

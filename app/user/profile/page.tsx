@@ -1,6 +1,6 @@
 "use client";
 import InfoEditer from "@components/InfoEditer";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 const indexs: (
@@ -74,15 +74,23 @@ function Page() {
               </div>
             ))
           : "loading..."}
-        <button
-          onClick={HandleSave}
-          disabled={!session || !UserInfo}
-          className={`text-white p-2 w-20 rounded-md mx-auto my-3 ${
-            !session || !UserInfo ? "bg-gray-600" : "bg-black"
-          }`}
-        >
-          save
-        </button>
+        <div className="flex items-center justify-center gap-4 my-3">
+          <p
+            onClick={() => signOut()}
+            className="cursor-pointer py-2 px-4 hover:underline"
+          >
+            Log out
+          </p>
+          <button
+            onClick={HandleSave}
+            disabled={!session || !UserInfo}
+            className={`text-white p-2 rounded-md w-20  ${
+              !session || !UserInfo ? "bg-gray-600" : "bg-black"
+            }`}
+          >
+            save
+          </button>
+        </div>
       </section>
     </div>
   );

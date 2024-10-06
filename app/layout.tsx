@@ -1,11 +1,11 @@
 import Provider from "@/components/Provider";
 import { ReactNode, Suspense } from "react";
 import "@styles/index.css";
-import Nav from "@components/Nav";
+import TopBar from "@components/TopBar";
 import FloatingWindow from "@components/FloatingWindow";
 import { FloatingWinContextProvider } from "@Context/FloatingWinContext";
 import { FavoritesContextProvider } from "@Context/FavoritesContext";
-import SmFooter from "@components/SmFooter";
+import Sonner from "@components/Sonner";
 
 export const metadata = {
   title: "El-Semsar",
@@ -16,20 +16,15 @@ function Rootlayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
+        <Sonner />
         <Provider>
           <FloatingWinContextProvider>
             <main className="app">
               <FloatingWindow />
-              <div className="hidden sm:block">
-                <Nav />
-              </div>
-
+              <TopBar />
               <Suspense>
                 <FavoritesContextProvider>{children}</FavoritesContextProvider>
               </Suspense>
-              <div className="block sm:hidden">
-                <SmFooter />
-              </div>
             </main>
           </FloatingWinContextProvider>
         </Provider>

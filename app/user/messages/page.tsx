@@ -16,14 +16,14 @@ interface message {
 
 function Page() {
   const { HandleChangeChildren, setToggle } = useContext(floatingConext);
-  const [messagesData, setMessagesData] = useState<message[] | null>(null);
+  const [messagesData, setMessagesData] = useState<message[]>();
   const { data: session, update } = useSession();
   useEffect(() => {
     if (session) {
-      fetch(`/api/messages/${session.user.id}`)
+      fetch(`/api/messages`)
         .then((res) => res.json())
         .then((data) => {
-          setMessagesData(data);
+          setMessagesData(data.messages);
         });
     }
   }, [session]);
@@ -60,6 +60,7 @@ function Page() {
       });
     }
   };
+
   const HandleDelete = async (messageId: string) => {
     const response = await fetch(`/api/messages/${session?.user.id}`, {
       method: "DELETE",

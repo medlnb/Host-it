@@ -3,74 +3,50 @@ import Select from "react-select";
 function LocationFilter({
   wilaya,
   baladia,
-  setQuerries,
+  onChange,
 }: {
   wilaya: string;
   baladia: string;
-  setQuerries: React.Dispatch<
-    React.SetStateAction<{
-      LowPrice: number;
-      HighPrice: number;
-      amenties: any;
-      wilaya: any;
-      baladia: any;
-      bedrooms: any;
-      bathrooms: any;
-      beds: any;
-    }>
-  >;
+  onChange: (wilaya: string, baladia: string) => void;
 }) {
   const wilayaoptions = AlgerianCities.map((city) => ({
     value: `${city[0].wilaya_id}`,
     label: `${city[0].wilaya_id}\\ ${city[0].name}`,
   }));
-  const Baladiyaoptions =
-    wilaya === "0"
-      ? []
-      : AlgerianCities[Number(wilaya) - 1].map((city, index) => ({
-          value: `${index}`,
-          label: `${index}\\ ${city.name}`,
-        }));
+
   return (
-    <div>
-      <h1 className="text-center text-2xl font-medium my-3">
+    <div className="mb-44 text-xs">
+      <h1 className="text-center text-2xl font-medium mb-4">
         Where do u wanna go?
       </h1>
-      <div className="border border-gray-400 my-8 py-8 px-4 relative rounded-md">
-        <p>wilaya</p>
+
+      <Select
+        options={[{ label: "Wilaya", value: "0" }, ...wilayaoptions]}
+        value={
+          [{ label: "Wilaya", value: "0" }, ...wilayaoptions][Number(wilaya)]
+        }
+        onChange={(e) => {
+          if (e) onChange(e.value, "0");
+        }}
+      />
+      {wilaya !== "0" && (
         <Select
-          options={[{ label: "Wilaya", value: "0" }, ...wilayaoptions]}
+          className="mt-2"
+          options={AlgerianCities[Number(wilaya) - 1].map((city, index) => ({
+            value: `${index}`,
+            label: `${index}\\ ${city.name}`,
+          }))}
           value={
-            [{ label: "Wilaya", value: "0" }, ...wilayaoptions][Number(wilaya)]
+            AlgerianCities[Number(wilaya) - 1].map((city, index) => ({
+              value: `${index}`,
+              label: `${index}\\ ${city.name}`,
+            }))[Number(baladia)]
           }
           onChange={(e) => {
-            if (e)
-              setQuerries((prev) => ({
-                ...prev,
-                wilaya: e.value,
-                baladia: "0",
-              }));
+            if (e) onChange(wilaya, e.value);
           }}
         />
-        {wilaya !== "0" ? (
-          <>
-            <p>baladiya</p>
-            <Select
-              options={Baladiyaoptions}
-              value={Baladiyaoptions[Number(baladia)]}
-              onChange={(e) => {
-                if (e)
-                  setQuerries((prev) => ({
-                    ...prev,
-                    baladia: e.value,
-                  }));
-              }}
-            />
-          </>
-        ) : (
-          ""
-        )}
-      </div>
+      )}
     </div>
   );
 }

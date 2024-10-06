@@ -1,6 +1,5 @@
 "use client";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { useContext } from "react";
 import { BsFillBriefcaseFill } from "react-icons/bs";
 import {
   FaBed,
@@ -40,7 +39,7 @@ const SearchFilter = () => {
 
   const defaultValue = searchParams.get("type")?.toString();
   return (
-    <div className="flex items-center justify-center md:my-6 mb-2 gap-4 px-2 ">
+    <div className="flex items-center justify-center md:my-2 mb-2 gap-4 px-2 ">
       <div className="flex overflow-x-auto items-center md:gap-3 gap-1 py-2 rounded-md filter-bar">
         {types.map((type) => (
           <div

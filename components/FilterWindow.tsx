@@ -93,49 +93,6 @@ const FilterWindow = ({
   };
   return (
     <div className="w-[50rem] max-h-[85lvh] max-w-[95vw] md:p-8 p-2 pt-0 md:pt-0 overflow-y-scroll hide-scroll-bar flex flex-col justify-between">
-      <FilterNav
-        Step={Step}
-        setStep={setStep}
-        status={{
-          Price: querries.HighPrice !== 10000 || querries.LowPrice !== 100,
-          Location: querries.wilaya !== "0",
-          Amenties: querries.amenties.length !== 0,
-          Guests:
-            querries.bathrooms !== "0" ||
-            querries.bedrooms !== "0" ||
-            querries.beds !== "0",
-        }}
-      />
-      <div>
-        {Step === "Price" && (
-          <PriceFilter
-            HighPrice={querries.HighPrice}
-            LowPrice={querries.LowPrice}
-            setQuerries={setQuerries}
-          />
-        )}
-        {Step === "Location" && (
-          <LocationFilter
-            wilaya={querries.wilaya}
-            baladia={querries.baladia}
-            setQuerries={setQuerries}
-          />
-        )}
-        {Step === "Amenties" && (
-          <AmentiesFilter
-            amenties={querries.amenties}
-            setQuerries={setQuerries}
-          />
-        )}
-        {Step === "Guests" && (
-          <InfoFilter
-            beds={querries.beds}
-            bedrooms={querries.bedrooms}
-            bathrooms={querries.bathrooms}
-            setQuerries={setQuerries}
-          />
-        )}
-      </div>
       <div className="flex items-center justify-around">
         <button
           className="bg-rose-500 text-white py-2 px-4 rounded-md cursor-pointer hover:border-black"
@@ -155,40 +112,3 @@ const FilterWindow = ({
 };
 
 export default FilterWindow;
-
-const FilterNav = ({
-  Step,
-  setStep,
-  status,
-}: {
-  Step: string;
-  setStep: any;
-  status: {
-    Price: boolean;
-    Location: boolean;
-    Amenties: boolean;
-    Guests: boolean;
-  };
-}) => {
-  const Navs = ["Price", "Location", "Amenties", "Guests"];
-  return (
-    <nav className="flex justify-around mb-2">
-      {Navs.map((element) => (
-        <div
-          onClick={() => setStep(element)}
-          key={element}
-          className={`p-2 flex-1 text-center font-medium hover:bg-gray-100 hover:cursor-pointer ${
-            Step === element && "border-b border-black"
-          }`}
-        >
-          <div className="relative">
-            {status[
-              element as "Price" | "Location" | "Amenties" | "Guests"
-            ] && <p className="absolute right-0">•</p>}
-            {element}
-          </div>
-        </div>
-      ))}
-    </nav>
-  );
-};

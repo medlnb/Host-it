@@ -4,14 +4,8 @@ export interface PostType {
   title: string;
   type: string;
   price: { perday: number; permonth: number };
-  city: {
-    name: string;
-    id: number;
-  };
-  state: {
-    name: string;
-    id: number;
-  };
+  city: number;
+  state: number;
   location: {
     lat: number;
     lng: number;
@@ -20,8 +14,5 @@ export interface PostType {
   resevedDateTo?: string[];
   description?: string;
   amenities: string[];
-  image: {
-    display_url: string;
-    delete_url: string;
-  }[];
+  images: string[];
 }

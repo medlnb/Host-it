@@ -22,16 +22,19 @@ export const FavoritesContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [favorites, setFavorites] = useState<string[] | null>(null);
-  const { data: session } = useSession();
+  const session = useSession();
   useEffect(() => {
+    setFavorites(["66fd1001ad40c1be48cac45f"]);
+
     const fetchFavorites = async () => {
-      const response = await fetch(`/api/post/favorites/${session!.user.id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setFavorites(data);
-      }
+      const res = await fetch(`/api/post/favorites`, {
+        cache: "no-cache",
+      });
+      if (res.ok) return;
+      const data = await res.json();
+      setFavorites(["66fd1001ad40c1be48cac45f"]);
     };
-    if (session) fetchFavorites();
+    fetchFavorites();
   }, [session]);
 
   return (

@@ -10,7 +10,7 @@ const UserSchema = new Schema(
     name: { type: String, required: true, unique: true },
     image: { type: String },
     password: { type: String },
-    favorites: { type: Schema.Types.ObjectId, ref: "Post" },
+    favorites: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     id: { type: String },
     phonenumber: { type: String },
     governmentID: { type: String },

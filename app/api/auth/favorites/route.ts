@@ -4,6 +4,33 @@ import Post from "@models/post";
 import { NextRequest } from "next/server";
 import { getServerSession } from "next-auth";
 
+export const GET = async (req: NextRequest) => {
+  try {
+    await connectToDatabase();
+    const session = await getServerSession();
+    if (!session) {
+      return new Response(JSON.stringify({ msg: "Unauthorized" }), {
+        status: 401,
+      });
+    }
+
+    const { favorites } = await User.findOne({
+      email: session.user.email,
+    })
+      .select("favorites")
+      .populate("favorites", "title city state images");
+
+    return new Response(JSON.stringify(favorites), {
+      status: 200,
+    });
+  } catch (err) {
+    console.log(err);
+    return new Response(JSON.stringify(err), {
+      status: 500,
+    });
+  }
+};
+
 export const PATCH = async (req: NextRequest) => {
   try {
     await connectToDatabase();

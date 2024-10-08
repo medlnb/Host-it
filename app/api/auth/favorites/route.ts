@@ -13,12 +13,24 @@ export const GET = async (req: NextRequest) => {
         status: 401,
       });
     }
+    const url = new URL(req.url);
+    const SearchParams = new URLSearchParams(url.searchParams);
+    const onlyids = SearchParams.get("onlyids");
+    //this is a special case where we only want the ids of the favorites for favs context
+    if (onlyids) {
+      const { favorites } = await User.findOne({
+        email: session.user.email,
+      }).select("favorites");
+      return new Response(JSON.stringify(favorites), {
+        status: 200,
+      });
+    }
 
     const { favorites } = await User.findOne({
       email: session.user.email,
     })
       .select("favorites")
-      .populate("favorites", "title city state images");
+      .populate("favorites", "title images");
 
     return new Response(JSON.stringify(favorites), {
       status: 200,

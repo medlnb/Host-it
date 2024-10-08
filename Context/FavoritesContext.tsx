@@ -25,12 +25,11 @@ export const FavoritesContextProvider = ({
   const session = useSession();
   useEffect(() => {
     const fetchFavorites = async () => {
-      const res = await fetch(`/api/auth/favorites`, {
+      const res = await fetch(`/api/auth/favorites?onlyids=true`, {
         cache: "no-cache",
       });
       if (!res.ok) return;
       const data = await res.json();
-
       setFavorites(data);
     };
     fetchFavorites();

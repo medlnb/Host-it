@@ -1,28 +1,16 @@
-import { floatingConext } from "@Context/FloatingWinContext";
 import { today, getLocalTimeZone, parseDate } from "@internationalized/date";
-import { useContext, useEffect, useState } from "react";
 
 interface Reservation {
-  date: string;
-  dateEnd: string;
-  Duration: number;
-  reservedBy: string;
-  _id: string;
-}
-
-interface CalendarProps {
-  reservedDates?: Reservation[];
-  requestedreserve?: Reservation;
-  selectedMonth: number;
-  profiles: {
+  firstDay: string;
+  lastDay: string;
+  reservedBy: {
     _id: string;
-    image: string;
     name: string;
     email: string;
-    phonenumber?: string;
-    governmentID?: string;
-    address?: string;
-  }[];
+    image: string;
+    createdAt: string;
+  };
+  _id: string;
 }
 
 const daysLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -32,13 +20,17 @@ function Calendar({
   reservedDates,
   requestedreserve,
   selectedMonth,
-  profiles,
-}: CalendarProps) {
+}: {
+  reservedDates: Reservation[];
+  requestedreserve?: { _id: string; firstDay: string; lastDay: string };
+  selectedMonth: number;
+}) {
   const lastDayInMonth = new Date(2024, selectedMonth + 1, 0).getDate();
   const days = Array.from({ length: lastDayInMonth }, (_, i) => i + 1);
   const daysTillStart = new Date(2024, selectedMonth, 1).getDay();
   const emptyDays = Array.from({ length: daysTillStart }, () => 0);
 
+  console.log(reservedDates);
   return (
     <div className="h-full border-red-800">
       <div className="grid grid-cols-7 text-center">
@@ -57,12 +49,11 @@ function Calendar({
               .padStart(2, "0")}`
           );
           const isToday = todayDate.compare(thisDay) > 0;
-          let isRequested = false;
-          if (requestedreserve)
-            isRequested =
-              parseDate(requestedreserve.dateEnd).compare(thisDay) *
-                parseDate(requestedreserve.date).compare(thisDay) <=
-              0;
+          let isRequested = requestedreserve
+            ? parseDate(requestedreserve.lastDay).compare(thisDay) *
+                parseDate(requestedreserve.firstDay).compare(thisDay) <=
+              0
+            : false;
 
           let reservedby:
             | {
@@ -70,24 +61,17 @@ function Calendar({
                 name: string;
                 image: string;
               }
-            | string
-            | false = false;
+            | undefined;
 
-          if (reservedDates)
-            reservedDates.map((reservedDate) => {
-              if (
-                parseDate(reservedDate.dateEnd).compare(thisDay) *
-                  parseDate(reservedDate.date).compare(thisDay) <=
-                0
-              ) {
-                if (!profiles) reservedby = "loading";
-                else
-                  reservedby =
-                    profiles.find(
-                      (item) => item._id === reservedDate.reservedBy
-                    ) ?? "khra";
-              }
-            });
+          reservedDates.map((reservedDate) => {
+            if (
+              parseDate(reservedDate.lastDay).compare(thisDay) *
+                parseDate(reservedDate.firstDay).compare(thisDay) <=
+              0
+            ) {
+              reservedby = reservedDate.reservedBy;
+            }
+          });
 
           return (
             <Day
@@ -108,55 +92,25 @@ export default Calendar;
 
 interface DayProps {
   day?: number;
-  reservedby?:
-    | {
-        _id: string;
-        image: string;
-        name: string;
-        email: string;
-        phonenumber?: string;
-        governmentID?: string;
-        address?: string;
-      }
-    | string
-    | false;
+  reservedby?: {
+    _id: string;
+    image: string;
+    name: string;
+  };
+
   requestReserve?: boolean;
   isToday?: boolean;
 }
 
 const Day = ({ day = 0, reservedby, requestReserve, isToday }: DayProps) => {
-  const { HandleChangeChildren } = useContext(floatingConext);
   return (
     <div className="h-14 border border-gray relative overflow-hidden sm:h-24">
       {day !== 0 && day}
-      {reservedby === "loading" && (
-        <div
-          className="absolute left-1/2 top-1/2 h-2/3 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-gray-700 animate-pulse"
-          style={{ aspectRatio: "1/1" }}
-        />
-      )}
-      {reservedby && typeof reservedby !== "string" && (
+      {reservedby && (
         <img
           className="absolute left-1/2 top-1/2 h-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full sm:h-2/3"
           src={reservedby.image}
           alt="Reserved By"
-          onClick={() =>
-            HandleChangeChildren({
-              title: "Reserver Info",
-              content: (
-                <div className="w-96 p-3 gap-3">
-                  <div className="flex gap-3">
-                    <img className="w-20 rounded-full" src={reservedby.image} />
-                    <div className="mt-3">
-                      <h1>{reservedby.name}</h1>
-                      <h1>{reservedby.email}</h1>
-                      <h1>{reservedby.phonenumber}</h1>
-                    </div>
-                  </div>
-                </div>
-              ),
-            })
-          }
         />
       )}
       {requestReserve && (

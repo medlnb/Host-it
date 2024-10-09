@@ -11,7 +11,6 @@ import { TbAirConditioning } from "react-icons/tb";
 import Reserving from "@components/Reserving";
 import PlaceLocation from "./PlaceLocation";
 import { FaMapLocationDot } from "react-icons/fa6";
-import LoadImage from "@components/LoadImage";
 import SwiperFeed from "./SwiperFeed";
 
 interface Post {
@@ -25,8 +24,8 @@ interface Post {
     lat: number;
     lng: number;
   };
-  resevedDates: { date: string; Duration: number; reservedBy: string }[];
-  reseveRequests: { date: string; Duration: number; reservedBy: string }[];
+  resevedDates: { firstDay: string; lastDay: string; reservedBy: string }[];
+  reseveRequests: { firstDay: string; lastDay: string; reservedBy: string }[];
   description?: string;
   amenities: string[];
   images: string[];
@@ -66,9 +65,8 @@ async function page({
   const post: Post = await res.json();
   return (
     <main>
-      <div>
-        <SwiperFeed imageUrls={post.images} />
-      </div>
+      <SwiperFeed imageUrls={post.images} />
+
       <div className="p-1">
         <div className="my-3 flex justify-between md:flex-row flex-col gap-3">
           <div className="left--info">

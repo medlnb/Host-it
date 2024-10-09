@@ -1,21 +1,8 @@
 import { connectToDatabase } from "@utils/database";
 import Post from "@models/post";
 import { NextRequest } from "next/server";
-
-const types = [
-  "Villa",
-  "Apartment",
-  "House",
-  "Campervan",
-  "Land",
-  "Office",
-  "Shop",
-  "Garage",
-  "Warehouse",
-  "Studio",
-  "Hotel",
-  "Motel",
-];
+import User from "@models/user";
+import { getServerSession } from "next-auth";
 
 export const GET = async (req: NextRequest) => {
   try {
@@ -110,16 +97,56 @@ export const GET = async (req: NextRequest) => {
   }
 };
 
-export const PATCH = async (req: NextRequest) => {
+export const POST = async (req: NextRequest) => {
   try {
     await connectToDatabase();
-    const { date, dateEnd, Duration, reservedBy, postId } = await req.json();
-    const post = await Post.findById(postId);
-    post.reseveRequests.push({ date, Duration, reservedBy, dateEnd });
-    await post.save();
+    const session = await getServerSession();
+    if (!session) {
+      return new Response(JSON.stringify({ msg: "Unauthorized" }), {
+        status: 401,
+      });
+    }
+    const { _id } = await User.findOne({ email: session.user.email }).select(
+      "_id"
+    );
+    const post = await req.json();
+    const newPost = await Post.create({ poster: _id, ...post });
 
-    return new Response(JSON.stringify({ msg: "Reserve request sent" }), {
-      status: 200,
+    return new Response(JSON.stringify({ PostId: newPost._id }), {
+      status: 201,
+    });
+  } catch (err) {
+    console.log(err);
+    return new Response(JSON.stringify(err), {
+      status: 500,
+    });
+  }
+};
+
+export const PATCH = async (req: NextRequest) => {
+  const inputPost = await req.json();
+  try {
+    await connectToDatabase();
+    const session = await getServerSession();
+    if (!session) {
+      return new Response(JSON.stringify({ msg: "Unauthorized" }), {
+        status: 401,
+      });
+    }
+    const { _id } = await User.findOne({ email: session.user.email }).select(
+      "_id"
+    );
+    const post = await Post.findById(inputPost._id).select("poster");
+    if (post.poster.toString() !== _id.toString())
+      return new Response(JSON.stringify({ msg: "Unauthorized" }), {
+        status: 401,
+      });
+
+    const newPost = await Post.findByIdAndUpdate(post._id, { ...post });
+    await newPost.save();
+
+    return new Response(JSON.stringify(newPost), {
+      status: 201,
     });
   } catch (err) {
     console.log(err);

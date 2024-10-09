@@ -5,33 +5,17 @@ import { defaultTheme, Provider } from "@adobe/react-spectrum";
 import { today } from "@internationalized/date";
 import { getLocalTimeZone } from "@internationalized/date";
 import { parseDate } from "@internationalized/date";
-import { useSession } from "next-auth/react";
 import { Toaster, toast } from "sonner";
 
-const calculateDaysDifference = (
-  StartDate: string,
-  EndDate: string
-): number => {
-  const StartDateObj: Date = new Date(StartDate);
-  const EndDateObj: Date = new Date(EndDate);
-
-  const differenceInTime: number =
-    EndDateObj.getTime() - StartDateObj.getTime();
-  const differenceInDays: number = Math.floor(
-    differenceInTime / (1000 * 3600 * 24)
-  );
-
-  return differenceInDays;
-};
-
-interface props {
+function Reserving({
+  postId,
+  resevedDates,
+  price,
+}: {
   postId: string;
-  resevedDates: { date: string; Duration: number; reservedBy: string }[];
+  resevedDates: { firstDay: string; lastDay: string }[];
   price: { perday: number; permonth: number };
-}
-
-function Reserving({ postId, resevedDates, price }: props) {
-  const { data: sesssion } = useSession();
+}) {
   const now = today(getLocalTimeZone());
   const [value, setValue] = useState({
     start: now,
@@ -39,33 +23,25 @@ function Reserving({ postId, resevedDates, price }: props) {
   });
 
   const reservedDates = resevedDates.map((date) => {
-    const Tdate = parseDate(date.date);
-    return [Tdate, Tdate.add({ days: date.Duration })];
+    return [parseDate(date.firstDay), parseDate(date.lastDay)];
   });
 
   const CalculatePrice = () => {
     const duration =
       calculateDaysDifference(value.start.toString(), value.end.toString()) + 1;
-
     const months = Math.floor(duration / 30);
     const days = duration % 30;
     const total = months * price.permonth + days * price.perday;
     return { months, days, total };
   };
+
   const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!sesssion) return alert("You need to be logged in to reserve");
-    const response = await fetch(`/api/post`, {
-      method: "PATCH",
+    const response = await fetch(`/api/post/reserevation?postId=${postId}`, {
+      method: "POST",
       body: JSON.stringify({
-        date: value.start.toString(),
-        dateEnd: value.end.toString(),
-        Duration: calculateDaysDifference(
-          value.start.toString(),
-          value.end.toString()
-        ),
-        reservedBy: sesssion?.user.id,
-        postId,
+        firstDay: value.start.toString(),
+        lastDay: value.end.toString(),
       }),
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +53,7 @@ function Reserving({ postId, resevedDates, price }: props) {
   };
 
   return (
-    <form className="my-3 text-xs" onSubmit={HandleSubmit}>
+    <form className="my-3 text-xs z-10" onSubmit={HandleSubmit}>
       <Toaster richColors />
       <h2 className="mb-1">Reservation</h2>
       <Provider theme={defaultTheme} colorScheme="light">
@@ -118,3 +94,19 @@ function Reserving({ postId, resevedDates, price }: props) {
 }
 
 export default Reserving;
+
+const calculateDaysDifference = (
+  StartDate: string,
+  EndDate: string
+): number => {
+  const StartDateObj: Date = new Date(StartDate);
+  const EndDateObj: Date = new Date(EndDate);
+
+  const differenceInTime: number =
+    EndDateObj.getTime() - StartDateObj.getTime();
+  const differenceInDays: number = Math.floor(
+    differenceInTime / (1000 * 3600 * 24)
+  );
+
+  return differenceInDays;
+};

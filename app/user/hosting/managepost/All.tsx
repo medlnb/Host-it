@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Type from "./components/Type";
 import Info from "./components/Info";
 import PlaceDetails from "./components/PlaceDetails";
@@ -11,7 +11,15 @@ import { notify } from "@components/Sonner";
 import LoadImageClient from "@components/LoadImageClient";
 import NewPostNav from "@components/NewPostNav";
 
-function All({ MapsAPIKey, MapId }: { MapsAPIKey?: string; MapId?: string }) {
+function All({
+  MapsAPIKey,
+  MapId,
+  postId,
+}: {
+  MapsAPIKey?: string;
+  MapId?: string;
+  postId?: string;
+}) {
   const [nav, setNav] = useState(0);
   const [input, setInput] = useState<Post>({
     title: "",
@@ -50,7 +58,7 @@ function All({ MapsAPIKey, MapId }: { MapsAPIKey?: string; MapId?: string }) {
 
   const HandleSubmit = async () => {
     if (
-      // input.images.length < 5 ||
+      input.images.length < 5 ||
       input.title === "" ||
       input.type === "" ||
       input.description === "" ||
@@ -63,8 +71,8 @@ function All({ MapsAPIKey, MapId }: { MapsAPIKey?: string; MapId?: string }) {
     )
       return notify({ type: "error", message: "Please fill all the fields" });
 
-    const res = await fetch("/api/post/new", {
-      method: "POST",
+    const res = await fetch(`/api/post`, {
+      method: postId ? "PATCH" : "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -75,10 +83,31 @@ function All({ MapsAPIKey, MapId }: { MapsAPIKey?: string; MapId?: string }) {
     });
 
     if (!res.ok)
-      return notify({ type: "error", message: "Failed to create post" });
+      return notify({
+        type: "error",
+        message: `Failed to ${postId ? "create" : "update"} post`,
+      });
 
     notify({ type: "success", message: "Post created successfully" });
   };
+
+  useEffect(() => {
+    const FetchPost = async () => {
+      const res = await fetch(`/api/post/host/${postId}`);
+      if (!res.ok)
+        return notify({ type: "error", message: "Failed to fetch post" });
+
+      const post = await res.json();
+
+      setInput({
+        ...post,
+        images: post.images.map((image: string) => ({ id: image })),
+      });
+    };
+
+    if (postId) FetchPost();
+  }, [postId]);
+
   return (
     <>
       <main className="pb-20 max-w-[45rem] mx-auto">
@@ -208,6 +237,7 @@ function All({ MapsAPIKey, MapId }: { MapsAPIKey?: string; MapId?: string }) {
         )}
       </main>
       <NewPostNav
+        type={postId ? "UPDATE" : "POST"}
         nav={nav}
         HandleRoute={(value) => {
           setNav(value);

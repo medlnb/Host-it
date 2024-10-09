@@ -26,17 +26,15 @@ const PostSchema = new Schema({
   type: { type: String, required: true },
   resevedDates: [
     {
-      date: { type: String, required: true },
-      dateEnd: { type: String, required: true },
-      Duration: { type: Number, required: true },
+      firstDay: { type: String, required: true },
+      lastDay: { type: String, required: true },
       reservedBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
     },
   ],
   reseveRequests: [
     {
-      date: { type: String, required: true },
-      dateEnd: { type: String, required: true },
-      Duration: { type: Number, required: true },
+      firstDay: { type: String, required: true },
+      lastDay: { type: String, required: true },
       reservedBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
     },
   ],

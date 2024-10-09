@@ -1,6 +1,5 @@
 "use client";
 import Calendar from "@components/Calendar";
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { parseDate } from "@internationalized/date";
 import { FaCaretRight } from "react-icons/fa";
@@ -8,10 +7,15 @@ import { FaCaretLeft } from "react-icons/fa";
 import RequestsManager from "@components/RequestsManager";
 
 interface Reservation {
-  date: string;
-  Duration: number;
-  reservedBy: string;
-  dateEnd: string;
+  firstDay: string;
+  lastDay: string;
+  reservedBy: {
+    _id: string;
+    name: string;
+    email: string;
+    image: string;
+    createdAt: string;
+  };
   _id: string;
 }
 const months = [
@@ -29,14 +33,13 @@ const months = [
   "December",
 ];
 
-function Page() {
-  const { PostId } = useParams();
-  const [updatecontrol, setUpdatecontrol] = useState(false);
+function Page({ params: { PostId } }: { params: { PostId: string } }) {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
-  const [profiles, setProfiles] = useState<any>(null);
   const [selectedReservation, setSelectedReserve] = useState<{
-    requestedreserve: Reservation | undefined;
-  }>({ requestedreserve: undefined });
+    _id: string;
+    firstDay: string;
+    lastDay: string;
+  }>();
 
   const [PostData, setPostData] = useState<{
     reseveRequests: Reservation[];
@@ -46,51 +49,28 @@ function Page() {
   } | null>(null);
 
   useEffect(() => {
-    fetch(`/api/post/${PostId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setPostData({
-          _id: data.post._id,
-          reseveRequests: data.post.reseveRequests,
-          resevedDates: data.post.resevedDates,
-          title: data.post.title,
-        });
+    const fetchPost = async () => {
+      const res = await fetch(`/api/post/reserevation?postId=${PostId}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      setPostData({
+        _id: data._id,
+        reseveRequests: data.reseveRequests,
+        resevedDates: data.resevedDates,
+        title: data.title,
       });
-  }, [updatecontrol]);
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const Ids = [
-        ...PostData!.reseveRequests.map((request) => request.reservedBy),
-        ...PostData!.resevedDates.map((reseved) => reseved.reservedBy),
-      ];
-
-      //remove the duplicates
-      const FiltredIds = Ids.filter((item, index) => {
-        return Ids.indexOf(item) === index;
-      });
-
-      const response = await fetch("/api/profile", {
-        method: "POST",
-        headers: {
-          "Content-Type": "Application/json",
-        },
-        body: JSON.stringify({ Ids: FiltredIds }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setProfiles(data);
-      }
     };
-    if (PostData) getUsers();
-  }, [selectedMonth, PostData]);
+    fetchPost();
+  }, []);
 
-  const thisMonthReserves = PostData?.resevedDates.filter(
-    (resevation) =>
-      parseDate(resevation.dateEnd).month === selectedMonth + 1 ||
-      parseDate(resevation.date).month === selectedMonth + 1
-  );
   if (!PostData) return "loading";
+
+  const thisMonthReserves = PostData.resevedDates.filter(
+    (resevation) =>
+      parseDate(resevation.lastDay).month === selectedMonth + 1 ||
+      parseDate(resevation.firstDay).month === selectedMonth + 1
+  );
+
   return (
     <div className="flex flex-col-reverse gap-10 px-0 text-xs sm:flex-row h-[40rem] mb-16">
       <div className="flex-1 h-full">
@@ -112,18 +92,23 @@ function Page() {
           />
         </div>
         <Calendar
-          profiles={profiles}
           reservedDates={thisMonthReserves}
-          requestedreserve={selectedReservation.requestedreserve}
+          requestedreserve={selectedReservation}
           selectedMonth={selectedMonth}
         />
       </div>
+
       <RequestsManager
-        PostData={PostData}
-        profiles={profiles}
-        setSelectedReserve={setSelectedReserve}
+        reseveRequests={{
+          dates: PostData.reseveRequests,
+          title: PostData.title,
+          _id: PostData._id,
+        }}
         selectedReservation={selectedReservation}
-        setSelectedMonth={setSelectedMonth}
+        onSelectReservation={({ item, month }) => {
+          setSelectedMonth(month);
+          setSelectedReserve(item);
+        }}
       />
     </div>
   );

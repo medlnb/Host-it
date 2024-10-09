@@ -15,13 +15,13 @@ interface Favorites {
 }
 
 async function Page() {
-  const res = await fetch(`${process.env.Url}/api/post/favorites`, {
+  const res = await fetch(`${process.env.Url}/api/auth/favorites`, {
     cache: "no-cache",
     headers: { Cookie: cookies().toString() },
   });
   if (!res.ok) return <div>Failed to load</div>;
   const favorites: Favorites[] = await res.json();
-
+  console.log(favorites);
   if (!favorites.length)
     return (
       <div className="flex justify-center items-center h-80 text-md text-black whitecpace-nowrap">

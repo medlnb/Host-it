@@ -46,7 +46,7 @@ function Page({ params: { PostId } }: { params: { PostId: string } }) {
     resevedDates: Reservation[];
     title: string;
     _id: string;
-  } | null>(null);
+  }>();
 
   useEffect(() => {
     const fetchPost = async () => {

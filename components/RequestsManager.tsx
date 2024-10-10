@@ -2,6 +2,7 @@
 import { FaCheck } from "react-icons/fa";
 import { HiXMark } from "react-icons/hi2";
 import { parseDate } from "@internationalized/date";
+import { notify } from "./Sonner";
 
 interface Reservation {
   firstDay: string;
@@ -35,28 +36,34 @@ function RequestsManager({
     month: number;
   }) => void;
 }) {
-  const HandleAccepte = async (RequestId: string) => {
+  const HandleRequest = async (
+    RequestId: string,
+    type: "accept" | "reject"
+  ) => {
     const response = await fetch(`/api/post/reserevation`, {
       method: "PATCH",
       headers: {
         "Content-Type": "Application/json",
       },
-      body: JSON.stringify({ RequestId, postId: reseveRequests._id }),
+      body: JSON.stringify({ RequestId, type, postId: reseveRequests._id }),
     });
     if (response.ok) {
-      // setUpdatecontrol((prev) => !prev);
+      location.reload();
+      return;
     }
+    notify({ type: "error", message: "Failed to accepte request" });
   };
+
   return (
-    <div className="flex flex-col bg-gray-100 rounded-tl-lg rounded-bl-lg p-3 h-full border-2">
-      <p className="mb-6 text-center">Requests</p>
-      <div className="grid grid-cols-2 py-2 sm:w-56 sm:flex sm:flex-col gap-2 overflow-y-scroll hide-scroll-bar">
+    <div className="flex flex-col bg-gray-100 rounded-tl-lg rounded-bl-lg p-1 md:h-full border-2">
+      <p className="mb-2 font-semibold text-center">Requests</p>
+      <div className="flex py-2 md:w-56 md:flex-col gap-2 overflow-y-scroll hide-scroll-bar">
         {reseveRequests.dates.map((element, index) => (
           <div
             key={index}
-            className={`center-shadow py-2 rounded cursor-pointer ${
+            className={`min-w-32 p-1 rounded cursor-pointer flex justify-between flex-col md:flex-row ${
               selectedReservation?._id === element._id
-                ? "border-2 border-red-500"
+                ? "border-b-2 md:border-l-2 md:border-b-0  border-red-500"
                 : ""
             }`}
             onClick={() =>
@@ -70,29 +77,33 @@ function RequestsManager({
               })
             }
           >
-            <div className="flex gap-2 mb-2 shadow-md rounded p-2">
+            <div className="flex flex-col items-center md:flex-row gap-2">
               <img
-                className="h-12 cursor-pointer rounded-full "
+                className="h-10 w-10 cursor-pointer rounded-full "
                 src={element.reservedBy.image}
               />
-              <p>{element.reservedBy.name}</p>
+              <div className="md:text-start text-center">
+                <p className="font-semibold">{element.reservedBy.name}</p>
+                <p>
+                  {element.firstDay} / {element.lastDay}
+                </p>
+              </div>
             </div>
-
-            <p className="text-center">
-              {element.firstDay} ~ {element.lastDay}
-            </p>
-            <div className="flex justify-around mt-3">
+            <div className="flex flex-row md:flex-col justify-around pt-2 md:p-0">
               <FaCheck
-                className="underLine"
+                size={15}
+                className="underLine hover:scale-125"
                 onClick={(e) => {
                   e.stopPropagation();
-                  HandleAccepte(element._id);
+                  HandleRequest(element._id, "accept");
                 }}
               />
               <HiXMark
-                className="underLine"
+                size={15}
+                className="underLine hover:scale-125"
                 onClick={(e) => {
                   e.stopPropagation();
+                  HandleRequest(element._id, "reject");
                 }}
               />
             </div>

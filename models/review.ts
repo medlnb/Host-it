@@ -1,12 +1,7 @@
 import { model, models, Schema } from "mongoose";
 
-const messageSchema = new Schema({
-  from: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  to: {
+const reviewSchema = new Schema({
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
@@ -20,8 +15,12 @@ const messageSchema = new Schema({
     type: String,
     required: true,
   },
+  stars: {
+    type: Number,
+    required: true,
+  },
 });
 
-const Message = models.Message || model("Message", messageSchema);
+const Review = models.Review || model("Review", reviewSchema);
 
-export default Message;
+export default Review;

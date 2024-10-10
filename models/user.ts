@@ -22,18 +22,6 @@ const UserSchema = new Schema(
       },
       lastDay: String,
     },
-    messages: {
-      type: [
-        {
-          type: {
-            from: { type: Schema.Types.ObjectId, ref: "User" },
-            post: String,
-            postId: String,
-            content: String,
-          },
-        },
-      ],
-    },
   },
   { timestamps: true }
 );

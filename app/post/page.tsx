@@ -12,6 +12,8 @@ import Reserving from "@components/Reserving";
 import PlaceLocation from "./PlaceLocation";
 import { FaMapLocationDot } from "react-icons/fa6";
 import SwiperFeed from "./SwiperFeed";
+import Reviews from "./Reviews";
+import { Suspense } from "react";
 
 interface Post {
   _id: string;
@@ -62,7 +64,8 @@ async function page({
     cache: "no-cache",
   });
   if (!res.ok) return <div>Post not found</div>;
-  const post: Post = await res.json();
+  const data = await res.json();
+  const post: Post = { ...data.post, state: data.state };
   return (
     <main>
       <SwiperFeed imageUrls={post.images} />
@@ -154,6 +157,9 @@ async function page({
           MapId={process.env.MapId}
         />
       </div>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Reviews postId={post._id} />
+      </Suspense>
     </main>
   );
 }

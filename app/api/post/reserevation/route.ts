@@ -4,6 +4,7 @@ import Cities from "@public/AlgerianCities.json";
 import { NextRequest } from "next/server";
 import { getServerSession } from "next-auth";
 import User from "@models/user";
+import Message from "@models/message";
 
 export const GET = async (req: NextRequest) => {
   try {
@@ -93,7 +94,7 @@ export const PATCH = async (req: NextRequest) => {
     const { _id } = await User.findOne({ email: session.user.email }).select(
       "_id"
     );
-    const { RequestId, postId } = await req.json();
+    const { RequestId, postId, type } = await req.json();
 
     const post = await Post.findById(postId).select(
       "resevedDates reseveRequests poster title"
@@ -112,17 +113,17 @@ export const PATCH = async (req: NextRequest) => {
       (element: { _id: string }) => element._id.toString() !== RequestId
     );
 
-    const user = await User.findById(treserverId).select("messages");
-
-    user.messages.push({
-      from: post.poster,
-      post: post.title,
-      content: `your request has been accepted in "${post.title}"`,
-      postId: post._id,
+    const message = await Message.create({
+      from: _id,
+      to: treserverId,
+      post: post._id,
+      content: `your request has been ${
+        type === "accept" ? "accepted" : "rejected"
+      } in "${post.title}"`,
     });
-    post.resevedDates.push(newreserved);
 
-    await user.save();
+    if (type === "accept") post.resevedDates.push(newreserved);
+
     await post.save();
     return new Response(JSON.stringify({ msg: "reseved seccufully" }), {
       status: 200,

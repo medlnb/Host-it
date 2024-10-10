@@ -30,7 +30,6 @@ function Calendar({
   const daysTillStart = new Date(2024, selectedMonth, 1).getDay();
   const emptyDays = Array.from({ length: daysTillStart }, () => 0);
 
-  console.log(reservedDates);
   return (
     <div className="h-full border-red-800">
       <div className="grid grid-cols-7 text-center">
@@ -48,7 +47,7 @@ function Calendar({
               .toString()
               .padStart(2, "0")}`
           );
-          const isToday = todayDate.compare(thisDay) > 0;
+          const IsntPassed = todayDate.compare(thisDay) > 0;
           let isRequested = requestedreserve
             ? parseDate(requestedreserve.lastDay).compare(thisDay) *
                 parseDate(requestedreserve.firstDay).compare(thisDay) <=
@@ -79,7 +78,7 @@ function Calendar({
               day={day}
               reservedby={reservedby}
               requestReserve={isRequested}
-              isToday={isToday}
+              IsntPassed={IsntPassed}
             />
           );
         })}
@@ -99,10 +98,10 @@ interface DayProps {
   };
 
   requestReserve?: boolean;
-  isToday?: boolean;
+  IsntPassed?: boolean;
 }
 
-const Day = ({ day = 0, reservedby, requestReserve, isToday }: DayProps) => {
+const Day = ({ day = 0, reservedby, requestReserve, IsntPassed }: DayProps) => {
   return (
     <div className="h-14 border border-gray relative overflow-hidden sm:h-24">
       {day !== 0 && day}
@@ -119,12 +118,12 @@ const Day = ({ day = 0, reservedby, requestReserve, isToday }: DayProps) => {
           style={{ background: "red", width: "110%" }}
         />
       )}
-      {isToday && (
+      {IsntPassed && (
         <div
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.7)",
-          }}
-          className="absolute w-full h-full top-0 left-0"
+          // style={{
+          //   backgroundColor: "rgba(255, 255, 255, 0.7)",
+          // }}
+          className="absolute w-full h-full top-0 left-0 bg-black opacity-20"
         ></div>
       )}
     </div>

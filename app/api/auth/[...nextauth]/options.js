@@ -56,7 +56,6 @@ export const options = {
       return token;
     },
     async session({ session, token }) {
-      // console.log(session);
       if (session?.user) {
         session.user.plan = token.plan;
         session.user.id = token.id;

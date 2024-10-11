@@ -1,5 +1,4 @@
 import { connectToDatabase } from "@utils/database";
-import User from "@models/user";
 import Post from "@models/post";
 import { NextRequest } from "next/server";
 

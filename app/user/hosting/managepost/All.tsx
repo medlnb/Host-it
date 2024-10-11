@@ -10,6 +10,7 @@ import ImagePost from "./components/ImagePost";
 import { notify } from "@components/Sonner";
 import LoadImageClient from "@components/LoadImageClient";
 import NewPostNav from "@components/NewPostNav";
+import Loader from "@components/Loader";
 
 function All({
   MapsAPIKey,
@@ -21,6 +22,7 @@ function All({
   postId?: string;
 }) {
   const [nav, setNav] = useState(0);
+  const [laodingPost, setLoadingPost] = useState(postId ? true : false);
   const [input, setInput] = useState<Post>({
     title: "",
     type: "",
@@ -93,12 +95,12 @@ function All({
 
   useEffect(() => {
     const FetchPost = async () => {
-      const res = await fetch(`/api/post/host/${postId}`);
+      const res = await fetch(`/api/host/${postId}`);
       if (!res.ok)
         return notify({ type: "error", message: "Failed to fetch post" });
 
       const post = await res.json();
-
+      setLoadingPost(false);
       setInput({
         ...post,
         images: post.images.map((image: string) => ({ id: image })),
@@ -107,6 +109,8 @@ function All({
 
     if (postId) FetchPost();
   }, [postId]);
+
+  if (laodingPost) return <Loader title="Fetching Post information" />;
 
   return (
     <>

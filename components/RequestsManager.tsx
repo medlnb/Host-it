@@ -40,7 +40,7 @@ function RequestsManager({
     RequestId: string,
     type: "accept" | "reject"
   ) => {
-    const response = await fetch(`/api/post/reserevation`, {
+    const response = await fetch(`/api/reserevation`, {
       method: "PATCH",
       headers: {
         "Content-Type": "Application/json",

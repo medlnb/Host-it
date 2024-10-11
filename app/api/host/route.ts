@@ -15,7 +15,7 @@ export const GET = async (req: NextRequest) => {
     }
     const { _id } = await User.findOne({ email: session.user.email });
     const Posts = await Post.find({ poster: _id }).select(
-      "images title type description state city location price Bedrooms Bathrooms Guests Beds amenities"
+      "images title state city"
     );
     return new Response(JSON.stringify(Posts), {
       status: 200,

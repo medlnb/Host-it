@@ -8,7 +8,6 @@ interface ReviewType {
     name: string;
     image: string;
   };
-  post: string;
   content: string;
   stars: number;
 }

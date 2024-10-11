@@ -3,7 +3,6 @@ import User from "@models/user";
 import { connectToDatabase } from "@utils/database";
 import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
-import { PiPhonePlusBold } from "react-icons/pi";
 
 export const GET = async (req: NextRequest) => {
   try {
@@ -15,7 +14,7 @@ export const GET = async (req: NextRequest) => {
       "user",
       "name image"
     );
-    console.log(reviews);
+
     return new Response(JSON.stringify(reviews), {
       status: 200,
     });

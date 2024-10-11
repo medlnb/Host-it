@@ -71,7 +71,7 @@ async function page({
       <SwiperFeed imageUrls={post.images} />
 
       <div className="p-1">
-        <div className="my-3 flex justify-between md:flex-row flex-col gap-3">
+        <div className="my-3 flex justify-between md:flex-row flex-col gap-10">
           <div className="left--info">
             <section className="flex items-center justify-between mt-3">
               <h1 className="text-2xl font-semibold">{post.title}</h1>
@@ -128,7 +128,7 @@ async function page({
             </div>
           </div>
 
-          <div className="max-w-full md:m-0 my-9 w-[30rem]">
+          <div className="max-w-full md:m-0 my-9 w-[40rem]">
             <div className="border border-gray-300 shadow-md rounded-md p-6">
               <div className="my-3">
                 <div className="flex items-end gap-2">

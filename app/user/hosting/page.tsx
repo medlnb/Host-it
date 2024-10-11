@@ -30,7 +30,7 @@ interface Post {
 }
 
 async function Page() {
-  const res = await fetch(`${process.env.Url}/api/post/host`, {
+  const res = await fetch(`${process.env.Url}/api/host`, {
     cache: "no-cache",
     headers: { Cookie: cookies().toString() },
   });

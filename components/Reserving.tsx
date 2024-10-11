@@ -37,7 +37,7 @@ function Reserving({
 
   const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await fetch(`/api/post/reserevation?postId=${postId}`, {
+    const response = await fetch(`/api/reserevation?postId=${postId}`, {
       method: "POST",
       body: JSON.stringify({
         firstDay: value.start.toString(),

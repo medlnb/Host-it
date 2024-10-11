@@ -50,7 +50,7 @@ function Page({ params: { PostId } }: { params: { PostId: string } }) {
 
   useEffect(() => {
     const fetchPost = async () => {
-      const res = await fetch(`/api/post/reserevation?postId=${PostId}`);
+      const res = await fetch(`/api/reserevation?postId=${PostId}`);
       if (!res.ok) return;
       const data = await res.json();
       setPostData({

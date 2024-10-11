@@ -125,7 +125,7 @@ function Login() {
                         setDialog("login");
                       }}
                     >
-                      Sign in
+                      Log in
                     </b>
                   </p>
                 ) : (
@@ -137,7 +137,7 @@ function Login() {
                         setDialog("signup");
                       }}
                     >
-                      Log in
+                      Sign up
                     </b>
                   </p>
                 )}

@@ -3,8 +3,8 @@ import { FavoritesContext } from "@Context/FavoritesContext";
 import { useContext, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
-import { notify } from "./Sonner";
 import ClipLoader from "react-spinners/ClipLoader";
+import { toast } from "sonner";
 
 function Favorite({ PostId }: { PostId: string }) {
   const [loading, setLoading] = useState(false);
@@ -31,9 +31,8 @@ function Favorite({ PostId }: { PostId: string }) {
         PostId,
       }),
     });
-    if (!response.ok) {
-      return notify({ type: "error", message: "Error Adding to Favorites" });
-    }
+    if (!response.ok) return toast.error("Error Adding to Favorites");
+
     const { type } = await response.json();
     if (type === "Add") {
       HandleAddFav();

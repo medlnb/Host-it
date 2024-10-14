@@ -1,4 +1,5 @@
 import { connectToDatabase } from "@utils/database";
+import cities from "@public/AlgerianCities.json";
 import User from "@models/user";
 import { NextRequest } from "next/server";
 import { getServerSession } from "next-auth";
@@ -17,7 +18,14 @@ export const GET = async (req: NextRequest) => {
     const Posts = await Post.find({ poster: _id }).select(
       "images title state city"
     );
-    return new Response(JSON.stringify(Posts), {
+
+    const withCitiesName = Posts.map((post) => ({
+      ...post._doc,
+      state: cities[post.state - 1][0].name,
+      city: cities[post.state - 1][post.city].name,
+    }));
+
+    return new Response(JSON.stringify(withCitiesName), {
       status: 200,
     });
   } catch (err) {

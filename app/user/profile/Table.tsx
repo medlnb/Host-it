@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { toast } from "sonner";
+import { signOut } from "next-auth/react";
 
 interface User {
   name: string;
@@ -82,7 +83,20 @@ function Table({ profile }: { profile: User }) {
           </div>
         );
       })}
-      <button onClick={HandleSave}>hello</button>
+      <div className="flex items-center justify-center gap-4 my-3">
+        <p
+          onClick={() => signOut()}
+          className="cursor-pointer py-2 px-4 underline"
+        >
+          Log out
+        </p>
+        <button
+          onClick={HandleSave}
+          className="text-white p-2 rounded-md w-20 bg-black"
+        >
+          save
+        </button>
+      </div>
     </div>
   );
 }

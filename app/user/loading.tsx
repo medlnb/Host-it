@@ -1,5 +1,7 @@
+import Loader from "@components/Loader";
+
 function Loading() {
-  return <div>wait lil bro</div>;
+  return <Loader />;
 }
 
 export default Loading;

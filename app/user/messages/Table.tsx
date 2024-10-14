@@ -1,6 +1,5 @@
 "use client";
 import { FaStar } from "react-icons/fa";
-import { notify } from "@components/Sonner";
 import { IoMdTrash } from "react-icons/io";
 import { useState } from "react";
 import Dialog from "@mui/material/Dialog";
@@ -8,6 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { CiStar } from "react-icons/ci";
 import { Button, DialogActions } from "@mui/material";
+import { toast } from "sonner";
 
 interface message {
   _id: string;
@@ -39,7 +39,7 @@ function Table({ messages }: { messages: message[] }) {
       body: JSON.stringify({ messageId }),
     });
     if (res.ok) {
-      notify({ type: "success", message: "Message Deleted" });
+      toast.success("Message Deleted");
     }
   };
 
@@ -57,7 +57,7 @@ function Table({ messages }: { messages: message[] }) {
     });
     if (res.ok) {
       setDialog(undefined);
-      notify({ type: "success", message: "Review Added" });
+      toast.success("Review Added");
       return;
     }
   };

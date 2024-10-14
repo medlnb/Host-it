@@ -7,10 +7,10 @@ import Amenities from "./components/Amenities";
 import Price from "./components/Price";
 import City from "./components/City";
 import ImagePost from "./components/ImagePost";
-import { notify } from "@components/Sonner";
 import LoadImageClient from "@components/LoadImageClient";
 import NewPostNav from "@components/NewPostNav";
 import Loader from "@components/Loader";
+import { toast } from "sonner";
 
 function All({
   MapsAPIKey,
@@ -49,8 +49,7 @@ function All({
     const res = await fetch(`/api/image/${id}`, {
       method: "DELETE",
     });
-    if (!res.ok)
-      return notify({ type: "error", message: "Failed to delete image" });
+    if (!res.ok) return toast.error("Failed to delete image");
 
     setInput((prev) => ({
       ...prev,
@@ -71,7 +70,7 @@ function All({
       input.location.lat === 0 ||
       input.location.lng === 0
     )
-      return notify({ type: "error", message: "Please fill all the fields" });
+      return toast.error("Please fill all the fields");
 
     const res = await fetch(`/api/post`, {
       method: postId ? "PATCH" : "POST",
@@ -85,19 +84,15 @@ function All({
     });
 
     if (!res.ok)
-      return notify({
-        type: "error",
-        message: `Failed to ${postId ? "create" : "update"} post`,
-      });
+      return toast.error(`Failed to ${postId ? "create" : "update"} post`);
 
-    notify({ type: "success", message: "Post created successfully" });
+    return toast.success("Post created successfully");
   };
 
   useEffect(() => {
     const FetchPost = async () => {
       const res = await fetch(`/api/host/${postId}`);
-      if (!res.ok)
-        return notify({ type: "error", message: "Failed to fetch post" });
+      if (!res.ok) return toast.error("Failed to fetch post");
 
       const post = await res.json();
       setLoadingPost(false);

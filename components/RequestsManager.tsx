@@ -2,7 +2,7 @@
 import { FaCheck } from "react-icons/fa";
 import { HiXMark } from "react-icons/hi2";
 import { parseDate } from "@internationalized/date";
-import { notify } from "./Sonner";
+import { toast } from "sonner";
 
 interface Reservation {
   firstDay: string;
@@ -51,7 +51,8 @@ function RequestsManager({
       location.reload();
       return;
     }
-    notify({ type: "error", message: "Failed to accepte request" });
+
+    toast.error("Failed to accepte request");
   };
 
   return (

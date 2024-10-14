@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { notify } from "@components/Sonner";
+import { toast } from "sonner";
 
 function ImagePost({
   title,
@@ -37,7 +37,7 @@ function ImagePost({
     const file = event.target.files?.[0];
     if (!file) {
       setLoading(false);
-      return notify({ type: "error", message: "No file selected" });
+      return toast.error("No file selected");
     }
 
     const UploadedImage = (await convertToBase64(file)) as string;
@@ -53,7 +53,7 @@ function ImagePost({
       const data = await response.json();
       return HandleIsDone(UploadedImage, data._id);
     }
-    return notify({ type: "error", message: "Failed to upload image" });
+    return toast.error("Failed to upload image");
   };
 
   return (
